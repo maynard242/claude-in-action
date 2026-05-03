@@ -4,10 +4,10 @@ import { useState } from "react";
 import type { Prompt } from "@/lib/content";
 
 const surfaceLabels: Record<Prompt["surface"], string> = {
-  claude: "Type into Claude.ai",
-  desktop: "Type into Claude Desktop (file access)",
-  cowork: "Type into Cowork (connected mode)",
-  phone: "Works the same from your phone",
+  claude: "Claude.ai",
+  desktop: "Claude Desktop · file access",
+  cowork: "Cowork · connected mode",
+  phone: "Works the same on phone",
   deepresearch: "Toggle deep research first",
 };
 
@@ -16,8 +16,8 @@ export function PromptBlock({ prompt }: { prompt: Prompt }) {
   return (
     <div className="my-5">
       {prompt.label && (
-        <div className="text-xs uppercase tracking-wider text-ink-faint mb-1.5 font-semibold">
-          <span className="text-accent mr-2">{prompt.label}</span>
+        <div className="text-[11px] uppercase tracking-[0.16em] text-ink-faint mb-2 font-mono flex items-center gap-2">
+          <span className="text-accent">{prompt.label}</span>
         </div>
       )}
       <div className="prompt-box">
@@ -28,18 +28,20 @@ export function PromptBlock({ prompt }: { prompt: Prompt }) {
             setCopied(true);
             setTimeout(() => setCopied(false), 1400);
           }}
-          className={`absolute top-3 right-3 text-[11px] tracking-wide rounded-md px-3 py-1 border transition-colors cursor-pointer ${
+          className={`absolute top-2.5 right-2.5 text-[10.5px] tracking-[0.12em] uppercase font-mono rounded-md px-2.5 py-1 border transition-colors cursor-pointer ${
             copied
-              ? "bg-accent text-white border-accent"
-              : "bg-white/10 text-code-ink border-white/20 hover:bg-white/20"
+              ? "bg-accent text-accent-on border-accent"
+              : "bg-white/5 text-code-ink border-white/15 hover:bg-white/10 hover:border-white/30"
           }`}
         >
           {copied ? "Copied" : "Copy"}
         </button>
-        <div className="text-[11px] uppercase tracking-wider text-accent font-bold mb-2.5">
+        <div className="text-[10.5px] uppercase tracking-[0.18em] font-mono text-accent mb-2.5 pr-16">
           {surfaceLabels[prompt.surface]}
         </div>
-        <p className="m-0 whitespace-pre-wrap">{prompt.text}</p>
+        <p className="m-0 whitespace-pre-wrap text-[14.5px] leading-[1.6]">
+          {prompt.text}
+        </p>
       </div>
     </div>
   );

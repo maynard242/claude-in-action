@@ -69,22 +69,34 @@ const terms = [
 export default function GlossaryPage() {
   return (
     <article className="container-narrow pt-12 pb-24">
-      <div className="mb-10 pb-8 border-b border-rule">
-        <div className="eyebrow mb-3">Plain-English definitions</div>
-        <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight mb-4">
-          Glossary.
+      <header className="mb-12 pb-10 border-b border-rule">
+        <div className="label-mono mb-4">
+          <span className="accent">§</span> Plain-English definitions
+        </div>
+        <h1 className="display text-5xl md:text-7xl mb-4 leading-[1.02]">
+          Glossary<span className="text-accent">.</span>
         </h1>
-        <p className="text-xl text-ink-soft">
+        <p className="text-xl text-ink-soft leading-snug">
           Twelve terms. Two-line definitions and one-paragraph explanations. No buzzwords.
         </p>
-      </div>
+      </header>
 
-      <div className="space-y-8">
-        {terms.map((t) => (
-          <div key={t.term} className="border-b border-rule pb-8 last:border-b-0">
-            <h2 className="font-serif text-2xl font-semibold mb-1">{t.term}</h2>
-            <p className="text-accent text-sm font-semibold mb-3">{t.short}</p>
-            <p className="text-ink-soft leading-relaxed m-0">{t.long}</p>
+      <div className="space-y-10">
+        {terms.map((t, i) => (
+          <div
+            key={t.term}
+            className="border-b border-rule pb-10 last:border-b-0 grid md:grid-cols-[80px_1fr] gap-x-6 gap-y-2"
+          >
+            <div className="label-mono text-accent pt-2">
+              {String(i + 1).padStart(2, "0")}
+            </div>
+            <div>
+              <h2 className="display text-2xl md:text-3xl mb-1">{t.term}</h2>
+              <p className="text-accent text-sm font-mono mb-3 tracking-wide">
+                {t.short}
+              </p>
+              <p className="text-ink-soft leading-relaxed m-0">{t.long}</p>
+            </div>
           </div>
         ))}
       </div>

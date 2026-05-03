@@ -35,41 +35,50 @@ export default async function ActPage({
   const prev = idx > 0 ? acts[idx - 1] : null;
   const next = idx < acts.length - 1 ? acts[idx + 1] : null;
 
+  const num = String(a.num).padStart(2, "0");
+
   return (
     <article className="container-narrow pt-12 pb-24">
       {/* Breadcrumb */}
-      <div className="mb-8 text-sm text-ink-faint flex flex-wrap items-center gap-2">
-        <Link href="/" className="hover:text-accent">Home</Link>
-        <span>›</span>
-        <span>Act {a.num}</span>
+      <div className="mb-10 text-sm text-ink-faint flex flex-wrap items-center gap-2 font-mono">
+        <Link href="/" className="hover:text-accent transition-colors">
+          Home
+        </Link>
+        <span className="opacity-40">/</span>
+        <span>Acts</span>
+        <span className="opacity-40">/</span>
+        <span className="text-ink">Act {num}</span>
       </div>
 
       {/* Hero */}
-      <div className="mb-10 pb-10 border-b border-rule">
-        <div className="eyebrow mb-3">
-          Act {a.num} of 6 · {a.timeRange}
+      <header className="mb-12 pb-12 border-b border-rule">
+        <div className="label-mono mb-4">
+          <span className="accent">Act {num}</span> · {a.timeRange}
         </div>
-        <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight mb-4">
+        <h1 className="display text-4xl md:text-7xl mb-6 leading-[1.02]">
           {a.title}
         </h1>
-        <p className="text-xl text-ink-soft leading-snug">{a.oneLiner}</p>
-      </div>
+        <p className="text-xl md:text-2xl text-ink-soft leading-snug max-w-3xl">
+          {a.oneLiner}
+        </p>
+      </header>
 
       {/* Capability */}
       <Callout variant="concept">
-        <p className="font-serif text-2xl font-semibold mb-2">{a.capability}</p>
-        <p className="m-0">{a.point}</p>
+        <p className="display text-2xl md:text-3xl mb-3 leading-tight">
+          {a.capability}
+        </p>
+        <p className="text-ink-soft m-0 leading-relaxed">{a.point}</p>
       </Callout>
 
       {/* What you see */}
-      <section className="mt-10">
-        <h2 className="font-serif text-2xl md:text-3xl tracking-tight mb-4">
-          What happens on screen
-        </h2>
-        <ol className="space-y-3 list-none pl-0">
+      <section className="mt-12">
+        <div className="label-mono mb-3">What happens on screen</div>
+        <h2 className="display text-3xl mb-6">The shape of the demo.</h2>
+        <ol className="space-y-4 list-none pl-0">
           {a.whatYouSee.map((step, i) => (
-            <li key={i} className="flex gap-4 items-start">
-              <span className="shrink-0 w-7 h-7 rounded-full bg-accent text-white text-sm font-bold flex items-center justify-center mt-0.5">
+            <li key={i} className="flex gap-5 items-start">
+              <span className="shrink-0 w-7 h-7 rounded-full border border-accent text-accent text-sm font-mono flex items-center justify-center mt-0.5 tabular-nums">
                 {i + 1}
               </span>
               <span className="text-ink-soft text-lg leading-relaxed">{step}</span>
@@ -79,12 +88,11 @@ export default async function ActPage({
       </section>
 
       {/* Prompts */}
-      <section className="mt-12">
-        <h2 className="font-serif text-2xl md:text-3xl tracking-tight mb-4">
-          The prompts
-        </h2>
-        <p className="text-ink-soft mb-2">
-          Copy. Adapt. Replace bracketed bits with your own context.
+      <section className="mt-14">
+        <div className="label-mono mb-3">The prompts</div>
+        <h2 className="display text-3xl mb-3">Copy. Adapt. Run.</h2>
+        <p className="text-ink-soft mb-6">
+          Replace bracketed bits with your own context.
         </p>
         {a.prompts.map((p, i) => (
           <PromptBlock key={i} prompt={p} />
@@ -92,7 +100,7 @@ export default async function ActPage({
       </section>
 
       {/* Watch / matter / try */}
-      <section className="mt-10 space-y-4">
+      <section className="mt-12 space-y-4">
         <Callout variant="notice">
           <p className="m-0">{a.watchFor}</p>
         </Callout>
@@ -112,52 +120,47 @@ export default async function ActPage({
       {/* Aha */}
       <section className="mt-10">
         <Callout variant="aha">
-          <p className="font-serif text-xl m-0">{a.ahaMoment}</p>
+          <p className="display text-xl md:text-2xl m-0 leading-snug">
+            {a.ahaMoment}
+          </p>
         </Callout>
       </section>
 
       {/* Prev/Next */}
-      <nav className="mt-16 pt-8 border-t border-rule flex flex-wrap justify-between gap-4">
+      <nav className="mt-16 pt-8 border-t border-rule grid sm:grid-cols-2 gap-3">
         {prev ? (
           <Link
             href={`/acts/${prev.slug}`}
-            className="block bg-paper border border-rule rounded-lg p-4 hover:border-accent transition-colors flex-1 min-w-[240px]"
+            className="card card-link block p-5"
           >
-            <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">
-              ← Previous · Act {prev.num}
+            <div className="label-mono mb-1">
+              ← Previous · Act {String(prev.num).padStart(2, "0")}
             </div>
-            <div className="font-serif text-lg font-semibold">{prev.title}</div>
+            <div className="display text-xl">{prev.title}</div>
           </Link>
         ) : (
-          <Link
-            href="/"
-            className="block bg-paper border border-rule rounded-lg p-4 hover:border-accent transition-colors flex-1 min-w-[240px]"
-          >
-            <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">
-              ← Home
-            </div>
-            <div className="font-serif text-lg font-semibold">The arc</div>
+          <Link href="/" className="card card-link block p-5">
+            <div className="label-mono mb-1">← Home</div>
+            <div className="display text-xl">The arc</div>
           </Link>
         )}
         {next ? (
           <Link
             href={`/acts/${next.slug}`}
-            className="block bg-paper border border-rule rounded-lg p-4 hover:border-accent transition-colors flex-1 min-w-[240px] text-right"
+            className="card card-link block p-5 sm:text-right"
           >
-            <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">
-              Next · Act {next.num} →
+            <div className="label-mono mb-1">
+              Next · Act {String(next.num).padStart(2, "0")} →
             </div>
-            <div className="font-serif text-lg font-semibold">{next.title}</div>
+            <div className="display text-xl">{next.title}</div>
           </Link>
         ) : (
           <Link
             href="/next"
-            className="block bg-paper border border-rule rounded-lg p-4 hover:border-accent transition-colors flex-1 min-w-[240px] text-right"
+            className="card card-link block p-5 sm:text-right"
           >
-            <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">
-              What&apos;s next →
-            </div>
-            <div className="font-serif text-lg font-semibold">Your 30/60/90-day plan</div>
+            <div className="label-mono mb-1">What&apos;s next →</div>
+            <div className="display text-xl">Your 30/60/90-day plan</div>
           </Link>
         )}
       </nav>

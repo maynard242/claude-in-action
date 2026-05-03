@@ -6,6 +6,45 @@ export const metadata = {
     "Your 30/60/90-day plan. Five starter agents to build first. Communities and resources worth your time.",
 };
 
+const weeks = [
+  {
+    label: "Week 01",
+    title: "Just use claude.ai.",
+    body: "Pick one annoying task you did this week. A confusing email, a meeting you haven't prepped, a vendor you don't know. Open claude.ai. Try it. Spend 10 minutes.",
+    goal: "Get past the &ldquo;is this useful?&rdquo; question. It is. Move on.",
+    actsRef: "Acts 1 and 2",
+  },
+  {
+    label: "Week 02",
+    title: "Get Claude on your computer.",
+    body: "Download the Claude Desktop app. Point it at a folder of your real notes, meeting transcripts, or a messy report. Run the Act 3 prompt — find the patterns, the contradictions, the question you're missing.",
+    goal: "See what happens when Claude can read your stuff instead of you having to paste it in.",
+    actsRef: "Act 3",
+  },
+  {
+    label: "Week 03",
+    title: "Connect one tool.",
+    body: "Try Cowork mode. Connect one tool — Drive is a good first one. Run a cross-cutting question. Then connect a second tool and ask Claude to cross-reference.",
+    goal: "Feel what it's like for Claude to sit on top of your work instead of next to it.",
+    actsRef: "Act 4",
+  },
+  {
+    label: "Week 04",
+    title: "Set up async.",
+    body: "One scheduled task. A Friday week-in-review. A Monday morning brief. Anything that runs without you. Plus kick off one deep-research task in the morning and check on it after lunch.",
+    goal: "Stop watching Claude work. Start kicking things off and walking away.",
+    actsRef: "Act 5",
+  },
+  {
+    label: "Week 05+",
+    title: "Build your first agent.",
+    body: "Pick one workflow you do every single week. Describe it to Claude in plain English using the templates below. Don't overthink it. Tweak it after you've used it twice.",
+    goal: "Stop being a Claude user. Start being a Claude designer. That's where the compounding starts.",
+    actsRef: "Act 6 — the big one",
+    big: true,
+  },
+];
+
 const starterAgents = [
   {
     name: "Meeting prep",
@@ -44,219 +83,180 @@ const starterAgents = [
   },
 ];
 
+const resources = [
+  {
+    name: "Anthropic blog",
+    url: "https://www.anthropic.com/news",
+    short: "anthropic.com/news",
+    body: "Where Claude updates ship. Read the model release notes, not the hype takes.",
+  },
+  {
+    name: "Ethan Mollick — One Useful Thing",
+    url: "https://www.oneusefulthing.org",
+    short: "oneusefulthing.org",
+    body: "Wharton professor. Calibrated, hands-on, doesn't hype. The single best external voice on what AI can actually do for working professionals.",
+  },
+  {
+    name: "Simon Willison",
+    url: "https://simonwillison.net",
+    short: "simonwillison.net",
+    body: "For the technically-curious. Detailed, careful, often the first to surface what new models can and can't do.",
+  },
+  {
+    name: "Latent Space",
+    url: "https://www.latent.space",
+    short: "latent.space",
+    body: "Podcast and newsletter. Best-in-class interviews with people actually building with AI in production. Not the LinkedIn crowd.",
+  },
+];
+
 export default function NextPage() {
   return (
     <article className="container-narrow pt-12 pb-24">
-      <div className="mb-10 pb-8 border-b border-rule">
-        <div className="eyebrow mb-3">Your 30 / 60 / 90-day plan</div>
-        <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight mb-4">
-          What&apos;s next.
+      <header className="mb-12 pb-10 border-b border-rule">
+        <div className="label-mono mb-4">
+          <span className="accent">§</span> Your 30 / 60 / 90-day plan
+        </div>
+        <h1 className="display text-5xl md:text-7xl mb-4 leading-[1.02]">
+          What&apos;s <em>next</em>.
         </h1>
-        <p className="text-xl text-ink-soft">
+        <p className="text-xl text-ink-soft leading-snug">
           The demo ends. The work begins. Here&apos;s how to actually move from
           &ldquo;that was cool&rdquo; to &ldquo;Claude is part of how I work.&rdquo;
         </p>
-      </div>
+      </header>
 
-      {/* The plan */}
-      <section className="mb-16">
-        <h2 className="font-serif text-3xl tracking-tight mb-6">The plan</h2>
+      {/* Weekly plan */}
+      <section className="mb-20">
+        <div className="label-mono mb-3">
+          <span className="accent">§01</span> · The plan
+        </div>
+        <h2 className="display text-3xl md:text-5xl mb-8">Five weeks. One step at a time.</h2>
 
-        <div className="space-y-6">
-          <div className="bg-paper border border-rule rounded-lg p-6">
-            <div className="text-xs uppercase tracking-wider text-accent font-bold mb-1">
-              Week 1
+        <div className="space-y-3">
+          {weeks.map((w) => (
+            <div
+              key={w.label}
+              className={`card p-6 grid md:grid-cols-[120px_1fr] gap-x-6 gap-y-2 ${
+                w.big ? "border-accent" : ""
+              }`}
+            >
+              <div className="label-mono text-accent pt-1">{w.label}</div>
+              <div>
+                <h3 className="display text-2xl md:text-3xl mb-2">{w.title}</h3>
+                <p className="text-ink-soft leading-relaxed mb-3">{w.body}</p>
+                <p className="text-sm m-0">
+                  <span className="label-mono mr-2">Goal</span>
+                  <span
+                    className="text-ink-soft"
+                    dangerouslySetInnerHTML={{ __html: w.goal }}
+                  />
+                  <span className="opacity-40 mx-2">·</span>
+                  <span className="text-accent font-mono text-xs uppercase tracking-wider">
+                    {w.actsRef}
+                  </span>
+                </p>
+              </div>
             </div>
-            <h3 className="font-serif text-2xl font-semibold mb-2">Just use claude.ai.</h3>
-            <p className="text-ink-soft mb-2">
-              Pick one annoying task you did this week. A confusing email, a meeting you
-              haven&apos;t prepped, a vendor you don&apos;t know. Open claude.ai. Try it.
-              Spend 10 minutes. <em>(That&apos;s Acts 1 and 2 in the demo.)</em>
-            </p>
-            <p className="text-ink-soft m-0">
-              <strong>Goal:</strong> get past the &ldquo;is this useful?&rdquo; question. It
-              is. Move on.
-            </p>
-          </div>
-
-          <div className="bg-paper border border-rule rounded-lg p-6">
-            <div className="text-xs uppercase tracking-wider text-accent font-bold mb-1">
-              Week 2
-            </div>
-            <h3 className="font-serif text-2xl font-semibold mb-2">Get Claude on your computer.</h3>
-            <p className="text-ink-soft mb-2">
-              Download the Claude Desktop app. Point it at a folder of your real notes,
-              meeting transcripts, or a messy report. Run the Act 3 prompt — find the
-              patterns, the contradictions, the question you&apos;re missing.
-            </p>
-            <p className="text-ink-soft m-0">
-              <strong>Goal:</strong> see what happens when Claude can read your stuff
-              instead of you having to paste it in.
-            </p>
-          </div>
-
-          <div className="bg-paper border border-rule rounded-lg p-6">
-            <div className="text-xs uppercase tracking-wider text-accent font-bold mb-1">
-              Week 3
-            </div>
-            <h3 className="font-serif text-2xl font-semibold mb-2">Connect one tool.</h3>
-            <p className="text-ink-soft mb-2">
-              Try Cowork mode. Connect <em>one</em> tool — Drive is a good first one. Run a
-              cross-cutting question. Then connect a second tool and ask Claude to
-              cross-reference.
-            </p>
-            <p className="text-ink-soft m-0">
-              <strong>Goal:</strong> feel what it&apos;s like for Claude to sit on top of
-              your work instead of next to it.
-            </p>
-          </div>
-
-          <div className="bg-paper border border-rule rounded-lg p-6">
-            <div className="text-xs uppercase tracking-wider text-accent font-bold mb-1">
-              Week 4
-            </div>
-            <h3 className="font-serif text-2xl font-semibold mb-2">Set up async.</h3>
-            <p className="text-ink-soft mb-2">
-              One scheduled task. A Friday week-in-review. A Monday morning brief. Anything
-              that runs without you. <em>Plus</em> kick off one deep-research task in the
-              morning and check on it after lunch.
-            </p>
-            <p className="text-ink-soft m-0">
-              <strong>Goal:</strong> stop watching Claude work. Start kicking things off and
-              walking away.
-            </p>
-          </div>
-
-          <div className="bg-paper border border-rule rounded-lg p-6 border-accent border-2">
-            <div className="text-xs uppercase tracking-wider text-accent font-bold mb-1">
-              Week 5+ — the big one
-            </div>
-            <h3 className="font-serif text-2xl font-semibold mb-2">Build your first agent.</h3>
-            <p className="text-ink-soft mb-2">
-              Pick one workflow you do every single week. Describe it to Claude in plain English
-              using the templates below. Don&apos;t overthink it. Tweak it after you&apos;ve
-              used it twice.
-            </p>
-            <p className="text-ink-soft m-0">
-              <strong>Goal:</strong> stop being a Claude user. Start being a Claude designer.
-              That&apos;s where the compounding starts.
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Starter agents */}
-      <section className="mb-16">
-        <h2 className="font-serif text-3xl tracking-tight mb-3">
-          Five starter agents to build first
+      <section className="mb-20">
+        <div className="label-mono mb-3">
+          <span className="accent">§02</span> · Starter agents
+        </div>
+        <h2 className="display text-3xl md:text-5xl mb-3">
+          Five agents to <em>build first</em>.
         </h2>
-        <p className="text-ink-soft text-lg mb-8">
-          Pick one. Just one. Don&apos;t try to build all five in your first week — you&apos;ll
-          stall. Start with the one that matches a workflow you actually do every week.
+        <p className="text-ink-soft text-lg mb-10 max-w-3xl">
+          Pick one. Just one. Don&apos;t try to build all five in your first week —
+          you&apos;ll stall. Start with the one that matches a workflow you actually do
+          every week.
         </p>
 
-        <div className="space-y-10">
+        <div className="space-y-12">
           {starterAgents.map((s, i) => (
-            <div key={i} className="border-b border-rule pb-10 last:border-b-0">
-              <div className="text-xs uppercase tracking-wider text-accent font-bold mb-2">
-                Agent {i + 1}
+            <div
+              key={i}
+              className="grid md:grid-cols-[80px_1fr] gap-x-6 gap-y-3 border-b border-rule pb-12 last:border-b-0"
+            >
+              <div className="label-mono text-accent pt-2">
+                Ag · {String(i + 1).padStart(2, "0")}
               </div>
-              <h3 className="font-serif text-2xl font-semibold mb-2">{s.name}</h3>
-              <p className="text-ink-soft mb-1">
-                <strong className="text-ink">When to build it:</strong> {s.when}
-              </p>
-              <p className="text-ink-soft mb-4">
-                <strong className="text-ink">What it does:</strong> {s.what}
-              </p>
-              <PromptBlock
-                prompt={{
-                  surface: "cowork",
-                  label: "Build prompt",
-                  text: s.prompt,
-                }}
-              />
+              <div>
+                <h3 className="display text-2xl md:text-3xl mb-3">{s.name}</h3>
+                <div className="grid sm:grid-cols-2 gap-4 mb-5">
+                  <div>
+                    <div className="label-mono mb-1">When to build it</div>
+                    <p className="text-ink-soft m-0">{s.when}</p>
+                  </div>
+                  <div>
+                    <div className="label-mono mb-1">What it does</div>
+                    <p className="text-ink-soft m-0">{s.what}</p>
+                  </div>
+                </div>
+                <PromptBlock
+                  prompt={{
+                    surface: "cowork",
+                    label: "Build prompt",
+                    text: s.prompt,
+                  }}
+                />
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Resources */}
-      <section className="mb-16">
-        <h2 className="font-serif text-3xl tracking-tight mb-3">
-          Resources worth your time
+      <section className="mb-20">
+        <div className="label-mono mb-3">
+          <span className="accent">§03</span> · Worth your time
+        </div>
+        <h2 className="display text-3xl md:text-5xl mb-3">
+          The signal-to-noise on AI content is bad.
         </h2>
-        <p className="text-ink-soft text-lg mb-6">
-          The signal-to-noise on AI content is bad. These are the few things that earn the
-          attention.
+        <p className="text-ink-soft text-lg mb-10 max-w-3xl">
+          These few earn the attention.
         </p>
 
-        <div className="space-y-4">
-          <a
-            href="https://www.anthropic.com/news"
-            target="_blank"
-            rel="noreferrer"
-            className="block bg-paper border border-rule rounded-lg p-5 hover:border-accent transition-colors"
-          >
-            <h3 className="font-serif text-xl font-semibold mb-1">Anthropic blog</h3>
-            <p className="text-ink-soft mb-1">
-              Where Claude updates ship. Read the model release notes, not the hype takes.
-            </p>
-            <p className="text-accent text-sm font-mono">anthropic.com/news</p>
-          </a>
-
-          <a
-            href="https://www.oneusefulthing.org"
-            target="_blank"
-            rel="noreferrer"
-            className="block bg-paper border border-rule rounded-lg p-5 hover:border-accent transition-colors"
-          >
-            <h3 className="font-serif text-xl font-semibold mb-1">Ethan Mollick — One Useful Thing</h3>
-            <p className="text-ink-soft mb-1">
-              Wharton professor. Calibrated, hands-on, doesn&apos;t hype. The single best
-              external voice on what AI can actually do for working professionals.
-            </p>
-            <p className="text-accent text-sm font-mono">oneusefulthing.org</p>
-          </a>
-
-          <a
-            href="https://simonwillison.net"
-            target="_blank"
-            rel="noreferrer"
-            className="block bg-paper border border-rule rounded-lg p-5 hover:border-accent transition-colors"
-          >
-            <h3 className="font-serif text-xl font-semibold mb-1">Simon Willison</h3>
-            <p className="text-ink-soft mb-1">
-              For the technically-curious. Detailed, careful, often the first to surface
-              what new models can and can&apos;t do.
-            </p>
-            <p className="text-accent text-sm font-mono">simonwillison.net</p>
-          </a>
-
-          <a
-            href="https://www.latent.space"
-            target="_blank"
-            rel="noreferrer"
-            className="block bg-paper border border-rule rounded-lg p-5 hover:border-accent transition-colors"
-          >
-            <h3 className="font-serif text-xl font-semibold mb-1">Latent Space</h3>
-            <p className="text-ink-soft mb-1">
-              Podcast and newsletter. Best-in-class interviews with people actually building
-              with AI in production. Not the LinkedIn crowd.
-            </p>
-            <p className="text-accent text-sm font-mono">latent.space</p>
-          </a>
+        <div className="space-y-3">
+          {resources.map((r) => (
+            <a
+              key={r.name}
+              href={r.url}
+              target="_blank"
+              rel="noreferrer"
+              className="card card-link block p-6 grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-2 items-baseline"
+            >
+              <div>
+                <h3 className="display text-2xl mb-2">{r.name}</h3>
+                <p className="text-ink-soft m-0 leading-relaxed">{r.body}</p>
+              </div>
+              <span className="font-mono text-sm text-accent shrink-0 self-start">
+                {r.short} ↗
+              </span>
+            </a>
+          ))}
         </div>
       </section>
 
-      {/* Closing nudge */}
-      <section className="bg-accent text-white p-8 md:p-12 rounded-lg">
-        <h2 className="font-serif text-3xl tracking-tight mb-3">
+      {/* Closing */}
+      <section className="card p-8 md:p-12 border-accent">
+        <div className="label-mono mb-3">
+          <span className="accent">§04</span> · The only rule
+        </div>
+        <h2 className="display text-3xl md:text-5xl mb-4 leading-tight">
           The biggest risk isn&apos;t moving too fast.
+          <br />
+          <em>It&apos;s not moving at all.</em>
         </h2>
-        <p className="text-lg leading-relaxed m-0 opacity-90">
-          It&apos;s not moving at all. Pick one thing from this page — one prompt, one agent,
-          one Friday standing order — and try it before the week is out. The compounding only
-          starts after you&apos;ve done <em>something</em>.
+        <p className="text-lg text-ink-soft m-0 leading-relaxed">
+          Pick one thing from this page — one prompt, one agent, one Friday standing order
+          — and try it before the week is out. The compounding only starts after
+          you&apos;ve done <em className="text-accent not-italic font-medium">something</em>.
         </p>
       </section>
     </article>

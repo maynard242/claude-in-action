@@ -48,35 +48,37 @@ const qa = [
 export default function CheatsheetPage() {
   return (
     <article className="container-narrow pt-12 pb-24">
-      <div className="mb-10 pb-8 border-b-2 border-ink">
-        <div className="eyebrow mb-3">Speaker reference · Audience Q&amp;A · Concept glossary</div>
-        <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight mb-4">
-          Cheatsheet.
+      <header className="mb-12 pb-10 border-b border-rule">
+        <div className="label-mono mb-4">
+          <span className="accent">§</span> Speaker reference · Audience Q&amp;A · Concept glossary
+        </div>
+        <h1 className="display text-5xl md:text-7xl mb-4 leading-[1.02]">
+          Cheatsheet<span className="text-accent">.</span>
         </h1>
-        <p className="text-xl text-ink-soft">
+        <p className="text-xl text-ink-soft leading-snug">
           Page 1: the questions audiences ask, with prepared answers. Page 2: a plain-English
           glossary of the six AI concepts the demo walks through.
         </p>
-      </div>
+      </header>
 
-      <section className="mb-16">
-        <h2 className="font-serif text-3xl tracking-tight mb-2">
-          §1 Audience Q&amp;A — Prepared Answers
+      <section className="mb-20">
+        <div className="label-mono mb-3">
+          <span className="accent">§01</span> · Audience Q&amp;A
+        </div>
+        <h2 className="display text-3xl md:text-4xl mb-8">
+          Prepared <em>answers</em> for the questions that always come up.
         </h2>
-        <p className="text-ink-faint text-sm mb-6">
-          These come up almost every time.
-        </p>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {qa.map((item, i) => (
-            <div
-              key={i}
-              className="bg-paper border-l-4 border-rule rounded-r-lg p-4"
-            >
-              <p className="font-bold text-ink mb-1">
-                <span className="text-accent">Q.</span> {item.q}
+            <div key={i} className="card p-5">
+              <p className="font-semibold text-ink mb-2 flex gap-2">
+                <span className="text-accent font-mono text-sm shrink-0 mt-0.5">
+                  Q{String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{item.q}</span>
               </p>
-              <p className="text-ink-soft m-0">
-                <span className="text-ink-faint font-bold">A.</span> {item.a}
+              <p className="text-ink-soft m-0 leading-relaxed pl-9">
+                {item.a}
               </p>
             </div>
           ))}
@@ -84,27 +86,26 @@ export default function CheatsheetPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-3xl tracking-tight mb-2">
-          §2 Plain-English Concept Glossary
+        <div className="label-mono mb-3">
+          <span className="accent">§02</span> · Concept glossary
+        </div>
+        <h2 className="display text-3xl md:text-4xl mb-8">
+          The six capabilities, in <em>plain English</em>.
         </h2>
-        <p className="text-ink-faint text-sm mb-6">
-          Each act in the demo demonstrates one of these. Concepts get more sophisticated as they go.
-        </p>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {acts.map((a) => (
-            <div
-              key={a.num}
-              className="bg-concept-bg border-l-4 border-concept-rule rounded-r-lg p-5"
-            >
-              <span className="inline-block bg-concept-rule text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-2">
-                Concept {a.num} · Act {a.num}
-              </span>
-              <h3 className="font-serif text-xl font-semibold mb-1">{a.capability}</h3>
-              <p className="text-ink-soft mb-2">{a.point}</p>
-              <p className="text-sm text-ink-soft pt-2 mt-2 border-t border-dashed border-black/10">
-                <span className="text-ink-faint text-[10px] uppercase tracking-wider font-bold mr-1">
-                  Example.
+            <div key={a.num} className="callout callout--concept">
+              <div className="callout-label flex items-center gap-2">
+                <span className="font-mono">
+                  {String(a.num).padStart(2, "0")} / 06
                 </span>
+                <span className="opacity-40">·</span>
+                <span>Act {a.num}</span>
+              </div>
+              <h3 className="display text-2xl mb-2 mt-1">{a.capability}</h3>
+              <p className="text-ink-soft leading-relaxed mb-3">{a.point}</p>
+              <p className="text-sm text-ink-soft pt-3 border-t border-rule m-0">
+                <span className="label-mono mr-2">Example</span>
                 {a.oneLiner}
               </p>
             </div>
