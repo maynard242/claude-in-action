@@ -119,10 +119,12 @@ export function Footer() {
       </div>
       <div className="container-wide pb-10 text-xs text-ink-faint flex flex-wrap items-center gap-3">
         <span className="font-mono uppercase tracking-wider">
-          Designed by Les Teo
+          © Leslie Teo
         </span>
         <span className="opacity-40">·</span>
-        <span>Companion site to the live workshop</span>
+        <span>Built and designed by Claude</span>
+        <span className="opacity-40">·</span>
+        <span>Companion site to the tutorial</span>
       </div>
     </footer>
   );

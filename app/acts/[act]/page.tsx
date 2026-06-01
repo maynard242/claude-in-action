@@ -74,7 +74,7 @@ export default async function ActPage({
       {/* What you see */}
       <section className="mt-12">
         <div className="label-mono mb-3">What happens on screen</div>
-        <h2 className="display text-3xl mb-6">The shape of the demo.</h2>
+        <h2 className="display text-3xl mb-6">The shape of the walkthrough.</h2>
         <ol className="space-y-4 list-none pl-0">
           {a.whatYouSee.map((step, i) => (
             <li key={i} className="flex gap-5 items-start">

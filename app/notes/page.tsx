@@ -3,13 +3,13 @@ import Link from "next/link";
 export const metadata = {
   title: "Detailed Notes — Claude in Action",
   description:
-    "The longer-form companion to the tutorial. Why each capability matters. Common pitfalls. How to think about Claude past the demo.",
+    "The longer-form companion to the tutorial. Why each capability matters. Common pitfalls. How to think about Claude past the tutorial.",
 };
 
 const sections = [
   {
     num: "01",
-    title: "The shift the demo is trying to land",
+    title: "The shift the tutorial is trying to land",
     body: (
       <>
         <p>
@@ -19,7 +19,7 @@ const sections = [
           2026.
         </p>
         <p>
-          The demo&apos;s arc maps a different mental model. Claude reads context (Act 1).
+          The tutorial&apos;s arc maps a different mental model. Claude reads context (Act 1).
           Claude calls tools (Act 2). Claude holds many things in mind (Act 3). Claude
           reaches into your real stack (Act 4). Claude runs in the background, in parallel,
           on its own schedule (Act 5). Claude is something you <em>build with</em>, not
@@ -37,7 +37,7 @@ const sections = [
   },
   {
     num: "02",
-    title: "Why the deep-research thread is the biggest move in the demo",
+    title: "Why the deep-research thread is the biggest move in the tutorial",
     body: (
       <>
         <p>
@@ -47,7 +47,7 @@ const sections = [
           matters.
         </p>
         <p>
-          That move does more for the audience than any single demo. Every other act shows
+          That move does more for you than any single act. Every other act shows
           Claude doing work <em>while you watch</em>. The deep-research thread
           proves Claude doing work <em>while you don&apos;t</em>. And it proves
           it at scale — pages, sources, structure — not just a single response.
@@ -62,12 +62,12 @@ const sections = [
   },
   {
     num: "03",
-    title: "On the slide-critique demo (and why it lands harder than you'd think)",
+    title: "On the slide critique (and why it lands harder than you'd think)",
     body: (
       <>
         <p>
           Dragging an image into the chat seems unremarkable in 2026. It&apos;s not. The
-          demo works because the audience has all sat through bad slides. They&apos;ve all
+          tutorial works because the audience has all sat through bad slides. They&apos;ve all
           wished, at some point, that someone honest had told them what was wrong with
           their deck before the meeting started. Claude becomes that honest reader,
           instantly, without ego.
@@ -126,7 +126,7 @@ const sections = [
           get to that next quarter&rdquo; and &ldquo;I&apos;ll have it before lunch.&rdquo;
         </p>
         <p>
-          The mental shift the demo is trying to provoke: stop describing one task. Start
+          The mental shift the tutorial is trying to provoke: stop describing one task. Start
           describing <em>jobs</em>. A job is something a team would do — divided into
           pieces, worked in parallel, synthesized at the end. Claude can do all three, if
           you ask for it.

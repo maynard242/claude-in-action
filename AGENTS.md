@@ -71,7 +71,7 @@ type Act = {
   oneLiner: string;         // Single-sentence pitch — shown on homepage cards and act page hero
   timeRange: string;        // "3:00 – 11:00" — display only
   point: string;            // The "what's the underlying capability" paragraph
-  whatYouSee: string[];     // Ordered list of demo steps
+  whatYouSee: string[];     // Ordered list of on-screen steps
   prompts: Prompt[];        // Each prompt the presenter runs in this act
   watchFor: string;         // "Notice this" callout
   whyItMatters: string;     // "Here's why" callout
@@ -138,7 +138,7 @@ Same pattern as acts: create `content/<page>.md` with structured fields in front
 
 ## Writing style
 
-The site speaks in Les Teo's voice (see `~/.claude/CLAUDE.md` and `WRITING_STYLE.md` if available). When editing copy:
+The site speaks in Leslie Teo's voice (see `~/.claude/CLAUDE.md` and `WRITING_STYLE.md` if available). When editing copy:
 
 - **Lean, evidence-anchored.** Every sentence earns its place.
 - **Plain words over impressive ones.** "Use" not "utilize." "Help" not "facilitate."

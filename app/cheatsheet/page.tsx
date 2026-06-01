@@ -29,7 +29,7 @@ const qa = [
   },
   {
     q: "How is this different from ChatGPT?",
-    a: "Both are good. For the use cases in this demo, both can do solid work. Where Claude tends to be distinctly stronger: long document analysis, nuanced writing, following complex instructions, and — especially in Cowork mode — multi-step tasks without constant hand-holding. Best advice: try both. Use whichever you find more useful. The tool matters less than the habit.",
+    a: "Both are good. For the use cases in this tutorial, both can do solid work. Where Claude tends to be distinctly stronger: long document analysis, nuanced writing, following complex instructions, and — especially in Cowork mode — multi-step tasks without constant hand-holding. Best advice: try both. Use whichever you find more useful. The tool matters less than the habit.",
   },
   {
     q: "I'm not technical. Can I really use this?",

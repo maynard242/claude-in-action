@@ -1,22 +1,22 @@
-# LIVE DEMO RUN SHEET
+# TUTORIAL SCRIPT
 
 ## Claude in Action
 
-### 6 Use Cases in 75 Minutes — A Tour of How AI Actually Works
+### Six Use Cases — A Tour of How AI Actually Works
 
 A practical, hands-on session for working professionals who want to know what AI actually does — not what it promises. Each use case demonstrates a more sophisticated underlying capability than the one before it.
 
-**Presenter:** Les Teo  |  **75 min**  |  Print this and follow it
+**Presenter:** Leslie Teo  |  Print this and follow it
 
-> **Where this fits.** This run sheet scripts **Part one** of *Claude in Action* — the six general use cases, presented live (~75 min). **Part two**, the investment desk (six portfolio-manager workflows), lives on the companion site at `/desk` as an advanced, self-guided track. It is not scripted here.
+> **Where this fits.** This run sheet scripts **Part one** of *Claude in Action* — the six general use cases. **Part two**, the investment desk (six portfolio-manager workflows), lives on the companion site at `/desk` as an advanced, self-guided track. It is not scripted here.
 
 ---
 
 ## The Arc
 
-This demo tells one story in six acts. Each act demonstrates a more sophisticated AI capability than the one before. The audience walks in thinking Claude is a chatbot. They leave knowing it's a colleague they can shape themselves.
+This tutorial tells one story in six acts. Each act demonstrates a more sophisticated AI capability than the one before. The audience walks in thinking Claude is a chatbot. They leave knowing it's a colleague they can shape themselves.
 
-You don't have to name the concepts out loud — they're for you, the presenter, so you know exactly what you're showing. But naming them lightly ("this is a thing called *tool use*…") gives the demo a teaching shape that audiences love.
+You don't have to name the concepts out loud — they're for you, the presenter, so you know exactly what you're showing. But naming them lightly ("this is a thing called *tool use*…") gives the tutorial a teaching shape that audiences love.
 
 | Act | Audience reaction | Underlying AI concept |
 |---|---|---|
@@ -27,7 +27,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 | **5 — The Colleague That Doesn't Sleep** | "Wait — there are *five of them* working at once?" | **Asynchronous, persistent, parallel execution** — the model runs over time on its own, and fans out into sub-agents that work simultaneously |
 | **6 — The Agent You Designed** | "Wait, I just built my own AI." | **Composable agents** — you wire Claude into a custom colleague that runs your specific workflow |
 
-**Total time:** 75 minutes including Q&A. Acts run 8–12 minutes each. The deep research thread runs in the background the whole way through and pays off in the close.
+The deep research thread runs in the background throughout and pays off in the close.
 
 ---
 
@@ -36,7 +36,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 **Apps and tabs:**
 
 - Claude.ai open in a browser tab, logged in, fresh conversation
-- Claude.ai **second tab** for the long-running deep research task (you'll kick this off at minute 1 and return to it at minute 64)
+- Claude.ai **second tab** for the long-running deep research task (you'll kick this off at the start and return to it near the end)
 - Claude Desktop app open, connected to a working folder
 - Cowork mode open with MCP connections live (Google Drive, Slack, calendar, Notion — whatever you have connected)
 - Cowork open on your phone (you'll pull it out during Act 5)
@@ -52,15 +52,14 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 - **For Act 4:** Two connected tools at minimum (Calendar + Slack ideal; Drive is the third). Make sure recent activity exists in each.
 - **For Act 5:** Your phone, charged, on the same Claude account, with Cowork ready. **Plus** a list of five real competitors, peers, or comparable orgs the audience would care about — for the parallel-subagents move.
 
-**Pre-load tip:** Run through each demo once before the session so Claude has warmed up and your prompts are timed. You don't want the first question of the day to be the one the audience sees.
+**Pre-load tip:** Run through each use case once before the session so Claude has warmed up and your prompts are timed. You don't want the first question of the day to be the one the audience sees.
 
-**The one piece of stagecraft to remember:** kick off the deep research task at minute 1 of the opening. If you forget, the closing reveal doesn't land. Set a watch alarm if you have to.
+**The one piece of stagecraft to remember:** kick off the deep research task at the very start. If you forget, the closing reveal doesn't land.
 
 ---
 
-## Opening (3 minutes)
+## Opening
 
-`0:00 – 3:00`
 
 ### What you say:
 
@@ -70,14 +69,14 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 ### The one stagecraft move — kick off the long-running task:
 
-"Before I show you anything else, I'm going to start a piece of work that's going to run in the background for the entire hour. I'm not going to look at it. I'm not going to manage it. We'll come back to it at the very end. Watch."
+"Before I show you anything else, I'm going to start a piece of work that's going to run in the background this whole time. I'm not going to look at it. I'm not going to manage it. We'll come back to it at the very end. Watch."
 
 > **ON SCREEN**
 > Switch to your second Claude.ai tab. Click the **deep research** toggle. Paste the pre-staged prompt. Hit enter.
 >
 > Type: *"Research how Fortune 500 CEOs are actually deploying agentic AI in 2026 — not what they're announcing, what they're doing. Pull from news, earnings calls, and primary reporting in the last 90 days. I want a 20–25 page briefing: an executive summary up top, three to five strategic implications, named companies doing it well and badly with cited evidence, and the two non-obvious risks most boards are still missing. Take your time. Cite everything."*
 
-"That'll run for the next hour. I'm closing the tab. I won't peek. We'll come back to it at the end and see what it produced — without me touching it once."
+"That'll keep running in the background. I'm closing the tab. I won't peek. We'll come back to it at the end and see what it produced — without me touching it once."
 
 *(Switch back to your first Claude.ai tab. The audience now has a Chekhov's gun. They will remember.)*
 
@@ -92,7 +91,6 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Reasoning over context.*** The base capability — the model brings inference and judgment to text it's never seen before. Everything else stacks on top of this.
 
-`3:00 – 11:00`
 
 ### What you say:
 
@@ -113,7 +111,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 "Look at this. It pulled apart who wants what. It flagged the one decision that's actually mine. And the draft reply — I might tweak two words, but it's 90% there. That email that was eating my Tuesday? Done in 20 seconds."
 
-### Second demo — Claude can see things, not just read them:
+### Second example — Claude can see things, not just read them:
 
 "One more. Different shape. Watch what happens when I stop typing and start showing."
 
@@ -139,7 +137,6 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Tool use.*** The model isn't just generating text — it's calling tools (web search, file system) to fetch fresh information and produce structured artifacts. The model extends itself.
 
-`11:00 – 21:00`
 
 ### What you say:
 
@@ -191,7 +188,6 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Long-context reasoning.*** The model holds many documents in mind simultaneously and finds patterns across them. This is the cognitive scale-up — beyond what any human can mentally hold while reading sequentially.
 
-`21:00 – 32:00`
 
 ### Setup — what you say:
 
@@ -199,7 +195,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 "Let me show you what changes."
 
-### The demo:
+### The walkthrough:
 
 > **ON SCREEN**
 > In Claude Desktop, point Claude at a folder of real notes. (Pre-stage this: a folder with 5–10 markdown or text files — meeting notes, 1:1 notes, retro docs. Sanitize beforehand.)
@@ -240,7 +236,6 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Connected data via MCP.*** The model reads across your real systems — calendar, Slack, Drive — through a permission-based protocol. Tool use scales up from the open web to your private stack, and synthesis happens across silos.
 
-`32:00 – 42:00`
 
 ### What you say:
 
@@ -249,7 +244,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 > **ON SCREEN**
 > Show the Cowork interface. Briefly point out the connected tools — e.g., Google Drive, Slack, calendar, Notion.
 
-### The demo nobody else can do:
+### The one nobody else can do:
 
 "I want to show you something that's not possible without this. Every knowledge worker I know has the same nagging question. *Where did my week actually go?* Your calendar tells you what you *planned* to do. Your inbox tells you what landed on your plate. Your Drive tells you what you actually produced. They're three different stories, in three different apps, and nobody ever puts them together."
 
@@ -268,7 +263,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 "Look at this. Hours by category — meetings, deep work, comms. The themes that came up most in DMs. The actual artifacts I shipped. And then the synthesis. The 'where the gap is.' Most people I know have never seen this view of their own work. The honest answer is usually uncomfortable. But it's the right answer."
 
-### Second connected demo (faster):
+### Second connected example (faster):
 
 "One more, quicker. Cross-tool, very different shape."
 
@@ -298,13 +293,12 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Asynchronous, persistent, parallel execution.*** The model runs over time without you watching. It can fan out into multiple sub-agents that work simultaneously and report back. It's no longer a request-response chatbot — it's a workforce that operates on its own schedule and scale.
 
-`42:00 – 52:00`
 
 ### What you say:
 
 "Up to this point, I had to be at my computer. Watching Claude. Pressing enter. But I don't live at my computer. And there's only one of me. Watch what happens when I stop being the bottleneck."
 
-### Move 1 — Assign from your phone (compressed, ~2 min):
+### Move 1 — Assign from your phone:
 
 "I'm going to pick up my phone. Same Claude. Same connected tools."
 
@@ -313,7 +307,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 "Phone goes face down. We'll check on it in a minute."
 
-### Move 2 — Five Claudes at once (~3 min, the headliner):
+### Move 2 — Five Claudes at once (the headliner):
 
 "Now this is the one that made me realize the rules had changed. Last move I assigned *one* task to *one* Claude. Watch what happens when I assign five tasks at the same time, and tell Claude to run them in parallel."
 
@@ -329,7 +323,7 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 "Five companies, in parallel, in the time it would've taken me to do one. And the synthesis at the end is the part nobody on my actual team would have time to write."
 
-### Move 3 — The live artifact (~2 min):
+### Move 3 — The live artifact:
 
 "Now I want a *thing* I can keep coming back to. Not a chat. Not a doc. A page that pulls live every time I open it."
 
@@ -341,16 +335,16 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 > **ON SCREEN**
 > Show the dashboard rendering. Reload once to demonstrate freshness.
 
-### Move 4 — The phone task comes home (~1 min):
+### Move 4 — The phone task comes home:
 
 "Remember the phone task from a couple minutes ago?"
 
 > **ON SCREEN**
 > Pick up the phone. Show the completed research. Open the document on your laptop instead so the whole room can see.
 
-"Five articles, five takeaways, doc saved. I didn't manage it. I didn't watch it. It just happened — while I was busy doing the parallel agents demo."
+"Five articles, five takeaways, doc saved. I didn't manage it. I didn't watch it. It just happened — while I was busy doing the parallel agents work."
 
-### Move 5 — The standing order (~1 min):
+### Move 5 — The standing order:
 
 "Last one. I want Claude to do something *on a schedule*, without me asking."
 
@@ -374,11 +368,10 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 **AI concept on display: *Composable agents.*** You package a workflow — instructions, tools, data sources — into a reusable agent. No code. The model writes the prompt for itself, wires up the tool calls, and saves it as something you can invoke any time. The architecture of AI becomes something *you* design.
 
-`52:00 – 63:00`
 
 ### What you say:
 
-"This last one is different from everything before. Up to now, every demo started with me typing a fresh prompt. That works — but it doesn't compound. The thing that changes the game is when you take a workflow you do every week and turn it into something you press a button on. So let me build one. Right now. Live."
+"This last one is different from everything before. Up to now, every use case started with me typing a fresh prompt. That works — but it doesn't compound. The thing that changes the game is when you take a workflow you do every week and turn it into something you press a button on. So let me build one. Right now."
 
 "Pick a workflow you do all the time. Mine is meeting prep — every time I have a new meeting on the calendar, I do roughly the same five things. Yours might be writing a weekly status update. Vetting a new vendor. Doing competitor research. Whatever it is — let's turn that into an agent."
 
@@ -416,17 +409,16 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 "And the prompt for each one is just a paragraph in plain English. You can read it. You can edit it. You own it."
 
 > **AHA MOMENT**
-> The arc closes here. Use Case 1 was Claude reasoning over a piece of text. Use Case 6 is *you* using Claude to build a Claude that runs your workflow. You went from consumer to architect in 60 minutes. That's the thing nobody told you AI was actually for.
+> The arc closes here. Use Case 1 was Claude reasoning over a piece of text. Use Case 6 is *you* using Claude to build a Claude that runs your workflow. You went from consumer to architect. That's the thing nobody told you AI was actually for.
 
 ---
 
-## Closing (6 minutes)
+## Closing
 
-`63:00 – 69:00`
 
 ### What you say:
 
-"Let me pull it together. In the last 60 minutes, Claude did six things — and each one was more sophisticated than the one before:"
+"Let me pull it together. Across these six use cases, Claude did six things — and each one was more sophisticated than the one before:"
 
 1. **It read a confusing email thread** and told me what each person actually wanted, then drafted my reply. *(Reasoning over context.)*
 2. **It researched a real person on the live web** and saved me a one-pager I could carry into a meeting. *(Tool use.)*
@@ -457,24 +449,23 @@ You don't have to name the concepts out loud — they're for you, the presenter,
 
 ### One last thing — the research that ran while we talked:
 
-"Before I take questions, I owe you something. Remember the very first thing I did, an hour ago? I started a research task in a tab and closed it. I haven't touched it since. Let me open it now."
+"Before I take questions, I owe you something. Remember the very first thing I did? I started a research task in a tab and closed it. I haven't touched it since. Let me open it now."
 
 > **ON SCREEN**
 > Switch to the second Claude.ai tab. Open the deep research result. Scroll slowly through the executive summary. Show the table of contents. Show the source citations at the bottom — there should be dozens.
 
-"Twenty-something pages. Sixty-plus sources. Executive summary up top, strategic implications, named companies, cited evidence. I didn't write a word of this. I didn't even watch it work. While I was demoing for you, this was happening in another tab on the same laptop."
+"Twenty-something pages. Sixty-plus sources. Executive summary up top, strategic implications, named companies, cited evidence. I didn't write a word of this. I didn't even watch it work. While I was showing you all this, it was happening in another tab on the same laptop."
 
-"This is what 'Claude works while you don't' actually looks like at scale. Every demo I showed you — the email, the briefing, the patterns, the time audit, the dashboard, the agent — *this report was running the entire time*. That's not a chatbot. That's a research analyst on staff. Forever. Twenty dollars a month."
+"This is what 'Claude works while you don't' actually looks like at scale. Every use case I showed you — the email, the briefing, the patterns, the time audit, the dashboard, the agent — *this report was running the entire time*. That's not a chatbot. That's a research analyst on staff. Forever. Twenty dollars a month."
 
-"That's the headline I want you to walk out with. AI isn't a tool you visit when you have a question. It's something you *kick off* in the morning and check on later. The bottleneck stopped being the model an hour ago. The bottleneck is now whether you remember to ask."
+"That's the headline I want you to walk out with. AI isn't a tool you visit when you have a question. It's something you *kick off* in the morning and check on later. The bottleneck stopped being the model. The bottleneck is now whether you remember to ask."
 
 ---
 
 ## Open Q&A
 
-`69:00 – 75:00`
 
-"I've got eight minutes for questions. Whatever's on your mind."
+"Let's take your questions. Whatever's on your mind."
 
 ---
 

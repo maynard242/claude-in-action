@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Glossary — Claude in Action",
-  description: "Plain-English definitions of the AI terms used in the demo.",
+  description: "Plain-English definitions of the AI terms used in the tutorial.",
 };
 
 const terms = [

@@ -121,7 +121,7 @@ export default function NextPage() {
           What&apos;s <em>next</em>.
         </h1>
         <p className="text-xl text-ink-soft leading-snug">
-          The demo ends. The work begins. Here&apos;s how to actually move from
+          The tutorial ends. The work begins. Here&apos;s how to actually move from
           &ldquo;that was cool&rdquo; to &ldquo;Claude is part of how I work.&rdquo;
         </p>
       </header>

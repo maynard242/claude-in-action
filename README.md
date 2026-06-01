@@ -61,7 +61,7 @@ Edit the matching file in `content/workflows/` (`01.md … 06.md`). Same frontma
 
 ### To update the presenter run sheet
 
-Edit `content/runsheet.md` directly. This is the master script with timings, on-screen cues, what-to-say blocks, and stagecraft notes. It is **not rendered on the site** — it lives in the repo as a single source of truth for whoever delivers the demo. Open it on GitHub to read it formatted, or in any markdown editor.
+Edit `content/runsheet.md` directly. This is the master script with timings, on-screen cues, what-to-say blocks, and stagecraft notes. It is **not rendered on the site** — it lives in the repo as a single source of truth for whoever delivers the walkthrough. Open it on GitHub to read it formatted, or in any markdown editor.
 
 ### To edit the cheatsheet, notes, next, or glossary pages
 
@@ -99,4 +99,4 @@ The `content/` directory is bundled into the build at compile time — no runtim
 
 ## License
 
-Content © Leslie Teo. Code released under permissive terms — copy, fork, run your own demo.
+Content © Leslie Teo. Code released under permissive terms — copy, fork, run your own.

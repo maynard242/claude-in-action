@@ -64,7 +64,7 @@ export default function DeskPage() {
               <span className="accent">§01</span> · The reframe
             </div>
             <h2 className="display text-3xl md:text-5xl">
-              Not a different demo. <em>The same arc.</em>
+              Not a different tutorial. <em>The same arc.</em>
             </h2>
           </div>
           <div className="self-center max-w-2xl text-lg text-ink-soft leading-relaxed">
@@ -152,7 +152,7 @@ export default function DeskPage() {
               </h2>
             </div>
             <p className="text-lg text-ink-soft leading-relaxed self-end max-w-2xl">
-              A buy-side audience spots a naive demo in four seconds. These constraints aren&apos;t
+              A buy-side audience spots a naive treatment in four seconds. These constraints aren&apos;t
               disclaimers bolted on the end — they&apos;re baked into how the agents are wired.
               Drop one and the workflow stops being credible.
             </p>
