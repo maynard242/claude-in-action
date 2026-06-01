@@ -55,7 +55,7 @@ function loadActs(): Act[] {
 export const acts: Act[] = loadActs();
 
 export const deepResearchPrompt: Prompt = {
-  label: "Kick off at minute 1, reveal at minute 64",
+  label: "Kick off at the start, reveal at the end",
   surface: "deepresearch",
   text: "Research how Fortune 500 CEOs are actually deploying agentic AI in 2026 — not what they're announcing, what they're doing. Pull from news, earnings calls, and primary reporting in the last 90 days. I want a 20–25 page briefing: an executive summary up top, three to five strategic implications, named companies doing it well and badly with cited evidence, and the two non-obvious risks most boards are still missing. Take your time. Cite everything.",
 };

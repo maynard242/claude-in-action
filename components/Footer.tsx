@@ -15,9 +15,9 @@ export function Footer() {
             </span>
           </div>
           <p className="leading-relaxed">
-            A 75-minute live demo for working professionals. Six use cases, each a more
-            sophisticated AI capability than the last — plus The Desk, the same arc for an
-            investment portfolio manager.
+            A two-part tutorial for working professionals. Part one: six general use cases.
+            Part two (The Desk): six for an investment portfolio manager. From novice to
+            advanced.
           </p>
         </div>
         <div>
