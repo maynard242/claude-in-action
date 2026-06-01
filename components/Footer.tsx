@@ -15,8 +15,9 @@ export function Footer() {
             </span>
           </div>
           <p className="leading-relaxed">
-            A 75-minute live demo for working professionals. Six use cases. Each one
-            a more sophisticated AI capability than the last.
+            A 75-minute live demo for working professionals. Six use cases, each a more
+            sophisticated AI capability than the last — plus The Desk, the same arc for an
+            investment portfolio manager.
           </p>
         </div>
         <div>
@@ -29,6 +30,25 @@ export function Footer() {
                   className="text-ink-soft hover:text-accent transition-colors"
                 >
                   Act {String(n).padStart(2, "0")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="label-mono mb-3">
+            <Link href="/desk" className="hover:text-accent transition-colors">
+              The Desk
+            </Link>
+          </p>
+          <ul className="space-y-1.5">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <li key={`desk-${n}`}>
+                <Link
+                  href={`/desk/${n}`}
+                  className="text-ink-soft hover:text-accent transition-colors"
+                >
+                  Desk {String(n).padStart(2, "0")}
                 </Link>
               </li>
             ))}

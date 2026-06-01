@@ -134,7 +134,7 @@ export default function Home() {
           </div>
           <div className="self-center max-w-2xl">
             <p className="text-lg text-ink-soft leading-relaxed mb-5">
-              Five workflows for someone running a real book. A morning brief that writes
+              Six workflows for someone running a real book. A morning brief that writes
               itself before the open. A thesis that argues back. An agent that reads the
               earnings call, rolls the model, and drafts the note — every number traceable
               to its source.

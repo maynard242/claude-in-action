@@ -20,8 +20,8 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 |---|---|---|
 | `app/page.tsx` | Homepage | Hero, six-act overview cards, deep-research thread callout, four-card site nav |
 | `app/acts/[act]/page.tsx` | Dynamic act page | Renders one act page per file in `content/acts/`. Reads `acts` from `lib/content.ts`. Calls `generateStaticParams` to prerender 1–6 |
-| `app/desk/page.tsx` | The Desk index | Investment-PM persona deep-dive: hero, the reframe, five workflow cards, the realism layer. Reads `workflows` from `lib/content.ts` |
-| `app/desk/[workflow]/page.tsx` | Dynamic workflow page | Renders one workflow per file in `content/workflows/`. `generateStaticParams` prerenders 1–5. Adds a "how it's wired" block (real plugin/skill/connector names) + a "constraint" callout |
+| `app/desk/page.tsx` | The Desk index | Investment-PM persona deep-dive: hero, the reframe, six workflow cards, the realism layer (six constraints). Reads `workflows` from `lib/content.ts` |
+| `app/desk/[workflow]/page.tsx` | Dynamic workflow page | Renders one workflow per file in `content/workflows/`. `generateStaticParams` prerenders 1–6. Adds a "how it's wired" block (real plugin/skill/connector names) + a "constraint" callout |
 | `app/cheatsheet/page.tsx` | Audience Q&A + concept glossary | Q&A list (9 questions) + auto-generated concept glossary from `acts` |
 | `app/notes/page.tsx` | Long-form companion | Section essays, common pitfalls, "when not Claude" |
 | `app/next/page.tsx` | 30/60/90-day plan | Weekly plan, five starter agents, resource list, closing CTA |
@@ -35,7 +35,7 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 | `components/ThemeToggle.tsx` | Light/dark toggle | Reads/writes `localStorage` `theme` |
 | `lib/content.ts` | Content loader | Reads `content/acts/*.md` and `content/workflows/*.md`, parses YAML frontmatter via `gray-matter`, exports `acts: Act[]`, `workflows: Workflow[]`, and `deepResearchPrompt: Prompt`. Also exports the `Act`, `Workflow`, `WiringRow`, and `Prompt` types |
 | `content/acts/01.md … 06.md` | **Canonical act source** | All audience-facing copy for each act lives in YAML frontmatter |
-| `content/workflows/01.md … 05.md` | **Canonical workflow source** | The Desk's five investment-PM workflows. Same frontmatter pattern as acts; parsed into `Workflow[]` |
+| `content/workflows/01.md … 06.md` | **Canonical workflow source** | The Desk's six investment-PM workflows. Same frontmatter pattern as acts; parsed into `Workflow[]` |
 | `content/runsheet.md` | **Canonical presenter source** | Full script. Not rendered on site — lives in repo for the presenter |
 | `next.config.ts` | Next config | Sets Turbopack root |
 | `eslint.config.mjs` | Lint config | Next + ESLint flat config |

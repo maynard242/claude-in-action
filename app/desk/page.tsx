@@ -28,6 +28,10 @@ const constraints = [
     head: "The bright line",
     body: "Agents recommend. Humans approve. Execution lives in a separate, permissioned system. That line is where fiduciary and regulatory liability sits.",
   },
+  {
+    head: "A backtest isn't a promise",
+    body: "Overfitting is the quant's original sin — enough parameters fit any history and predict nothing. Hold out data, charge real costs and capacity, validate out-of-sample. Claude writes whatever you ask, including a curve-fit fantasy.",
+  },
 ];
 
 export default function DeskPage() {
@@ -44,7 +48,7 @@ export default function DeskPage() {
             <span className="text-accent">.</span>
           </h1>
           <p className="text-xl md:text-2xl text-ink-soft max-w-3xl leading-snug font-light">
-            The same six acts — with money on the line. Five workflows for someone running a
+            The same six acts — with money on the line. Six workflows for someone running a
             real book, built on Claude&apos;s finance plugins. Where the numbers have to be
             right, the citation discipline and the human-in-the-loop stop being nice-to-haves
             and become the product.
@@ -87,7 +91,7 @@ export default function DeskPage() {
           <span className="accent">§02</span> · A PM&apos;s day
         </div>
         <h2 className="display text-3xl md:text-5xl mb-10 max-w-3xl">
-          Five workflows, dawn to <em>committee</em>.
+          Six workflows, dawn to <em>committee</em>.
         </h2>
 
         <div className="grid gap-3 md:grid-cols-2">
@@ -144,7 +148,7 @@ export default function DeskPage() {
                 <span className="accent">§03</span> · The realism layer
               </div>
               <h2 className="display text-3xl md:text-5xl">
-                Five rules that <em>make it real</em>.
+                Six rules that <em>make it real</em>.
               </h2>
             </div>
             <p className="text-lg text-ink-soft leading-relaxed self-end max-w-2xl">
@@ -157,7 +161,7 @@ export default function DeskPage() {
             {constraints.map((c, i) => (
               <div key={i} className="callout callout--notice">
                 <div className="callout-label flex items-center gap-2">
-                  <span className="font-mono">{String(i + 1).padStart(2, "0")} / 05</span>
+                  <span className="font-mono">{String(i + 1).padStart(2, "0")} / 06</span>
                 </div>
                 <h3 className="display text-xl mb-1 mt-1">{c.head}</h3>
                 <p className="text-ink-soft leading-relaxed m-0 text-[15px]">{c.body}</p>
