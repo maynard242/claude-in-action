@@ -8,6 +8,8 @@ A practical, hands-on session for working professionals who want to know what AI
 
 **Presenter:** Les Teo  |  **75 min**  |  Print this and follow it
 
+> **Where this fits.** This run sheet scripts **Part one** of *Claude in Action* — the six general use cases, presented live (~75 min). **Part two**, the investment desk (six portfolio-manager workflows), lives on the companion site at `/desk` as an advanced, self-guided track. It is not scripted here.
+
 ---
 
 ## The Arc

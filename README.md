@@ -1,26 +1,29 @@
 # Claude in Action
 
-Companion site for the live demo *"Claude in Action: Six Use Cases in 75 Minutes"* — an audience-facing tour of what Claude can actually do, built to walk a working professional from "smarter Google" to "I just built my own agent" in one hour.
+Companion site for *Claude in Action* — a two-part tutorial that takes a working professional from novice to advanced. **Part one:** six general use cases, for anyone. **Part two (The Desk):** six use cases for an investment portfolio manager. Same capability arc, money on the line.
 
-The deployed site is at **claudeinaction.vercel.app** (or wherever your Vercel project is pointed). This repository contains everything: the audience-facing Next.js site **and** the presenter run sheet that drives the live demo.
+The deployed site is at **claude-in-action.vercel.app**. This repository contains everything: the Next.js site **and** the presenter run sheet for the part-one walkthrough.
 
 ## What's in this repo
 
 ```
 ai_tutorial_site/
 ├── app/                    # Next.js App Router pages
-│   ├── page.tsx            # Homepage — the six-act overview
-│   ├── acts/[act]/         # One page per act (dynamic route, generated for 1–6)
-│   ├── cheatsheet/         # Audience Q&A + concept glossary
-│   ├── notes/              # Long-form companion to the demo
+│   ├── page.tsx            # Homepage — both parts (six acts + six desk workflows)
+│   ├── acts/[act]/         # Part one: one page per act (dynamic route, 1–6)
+│   ├── desk/               # Part two: The Desk index
+│   ├── desk/[workflow]/    # Part two: one page per investment workflow (1–6)
+│   ├── cheatsheet/         # Common Q&A + concept glossary
+│   ├── notes/              # Long-form companion
 │   ├── next/               # 30/60/90-day plan + starter agents
 │   └── glossary/           # Plain-English AI term definitions
 ├── components/             # Shared React components (Nav, Footer, PromptBlock, …)
 ├── lib/
-│   └── content.ts          # Loads acts from content/acts/*.md, exports typed data
-├── content/                # ★ Canonical source for the six acts and the run sheet ★
-│   ├── acts/01.md … 06.md  # One markdown file per act (YAML frontmatter)
-│   └── runsheet.md         # Presenter-only script: timings, what to say, stagecraft
+│   └── content.ts          # Loads acts + workflows from content/*.md, exports typed data
+├── content/                # ★ Canonical source: six acts, six workflows, run sheet ★
+│   ├── acts/01.md … 06.md       # Part one — one markdown file per act
+│   ├── workflows/01.md … 06.md  # Part two — one markdown file per investment workflow
+│   └── runsheet.md              # Presenter-only script for the part-one walkthrough
 ├── public/                 # Static assets
 ├── AGENTS.md               # Detailed architecture guide for AI agents (read this first)
 └── CLAUDE.md               # Imports AGENTS.md
@@ -51,6 +54,10 @@ prompts:
 Save the file. The site re-reads on the next build (or on the next dev server reload). No code changes needed.
 
 **Field reference** — see `AGENTS.md` for the full schema, or look at any existing act file as a template.
+
+### To edit a Part-two investment workflow
+
+Edit the matching file in `content/workflows/` (`01.md … 06.md`). Same frontmatter pattern as acts, with a `Workflow` schema (wiring rows, the hard constraint it teaches, etc.). See `AGENTS.md` → "Add a Desk workflow."
 
 ### To update the presenter run sheet
 

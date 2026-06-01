@@ -50,20 +50,20 @@ export default function CheatsheetPage() {
     <article className="container-narrow pt-12 pb-24">
       <header className="mb-12 pb-10 border-b border-rule">
         <div className="label-mono mb-4">
-          <span className="accent">§</span> Speaker reference · Audience Q&amp;A · Concept glossary
+          <span className="accent">§</span> Common questions · Concept glossary
         </div>
         <h1 className="display text-5xl md:text-7xl mb-4 leading-[1.02]">
           Cheatsheet<span className="text-accent">.</span>
         </h1>
         <p className="text-xl text-ink-soft leading-snug">
-          Page 1: the questions audiences ask, with prepared answers. Page 2: a plain-English
-          glossary of the six AI concepts the demo walks through.
+          Page 1: the questions that always come up, with prepared answers. Page 2: a plain-English
+          glossary of the six capabilities the tutorial walks through.
         </p>
       </header>
 
       <section className="mb-20">
         <div className="label-mono mb-3">
-          <span className="accent">§01</span> · Audience Q&amp;A
+          <span className="accent">§01</span> · Common questions
         </div>
         <h2 className="display text-3xl md:text-4xl mb-8">
           Prepared <em>answers</em> for the questions that always come up.

@@ -28,6 +28,12 @@ export function Nav() {
           Acts
         </Link>
         <Link
+          href="/desk"
+          className="text-ink-soft hover:text-accent transition-colors"
+        >
+          The Desk
+        </Link>
+        <Link
           href="/cheatsheet"
           className="text-ink-soft hover:text-accent transition-colors"
         >
@@ -44,12 +50,6 @@ export function Nav() {
           className="text-ink-soft hover:text-accent transition-colors"
         >
           Glossary
-        </Link>
-        <Link
-          href="/desk"
-          className="text-ink-soft hover:text-accent transition-colors"
-        >
-          The Desk
         </Link>
         <Link
           href="/next"

@@ -10,7 +10,7 @@ Detailed reference for AI agents working in this repo. Read this before editing.
 
 ## What this repo is
 
-A Next.js 16 site that renders the audience-facing companion to a 75-minute live demo (*Claude in Action: Six Use Cases in 75 Minutes*). The demo's six-act arc is the spine of everything. Each act demonstrates one more sophisticated AI capability than the previous: reasoning over context → tool use → long-context → MCP → async/parallel → composable agents.
+A Next.js 16 site that renders *Claude in Action* — a two-part tutorial that takes a working professional from novice to advanced. **Part one** (the six acts) is the six general use cases; each demonstrates one more sophisticated AI capability than the previous: reasoning over context → tool use → long-context → MCP → async/parallel → composable agents. **Part two** (The Desk, `/desk`) reuses that same arc for an investment portfolio manager — six workflows, money on the line. The six-act arc is the spine; The Desk mirrors it. Note: it is no longer pitched as a timed "live demo" — the front-facing framing is "one tutorial, two parts."
 
 The repo also contains the **presenter run sheet** (`content/runsheet.md`) — the full script with timings, on-screen cues, and stagecraft. This file is canonical source material; it is not rendered on the site.
 
@@ -18,7 +18,7 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 
 | Path | What it is | Owns what |
 |---|---|---|
-| `app/page.tsx` | Homepage | Hero, six-act overview cards, deep-research thread callout, four-card site nav |
+| `app/page.tsx` | Homepage | Hero, Part one (six act cards), Part two (six desk cards), deep-research thread callout, reference cards |
 | `app/acts/[act]/page.tsx` | Dynamic act page | Renders one act page per file in `content/acts/`. Reads `acts` from `lib/content.ts`. Calls `generateStaticParams` to prerender 1–6 |
 | `app/desk/page.tsx` | The Desk index | Investment-PM persona deep-dive: hero, the reframe, six workflow cards, the realism layer (six constraints). Reads `workflows` from `lib/content.ts` |
 | `app/desk/[workflow]/page.tsx` | Dynamic workflow page | Renders one workflow per file in `content/workflows/`. `generateStaticParams` prerenders 1–6. Adds a "how it's wired" block (real plugin/skill/connector names) + a "constraint" callout |

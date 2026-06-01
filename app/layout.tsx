@@ -22,13 +22,13 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Claude in Action — Six Use Cases in 75 Minutes",
+  title: "Claude in Action — From Novice to Advanced",
   description:
-    "A live demo for working professionals. Six AI capabilities, each more sophisticated than the last — ending with you building your own agent.",
+    "A two-part tutorial for working professionals. Twelve use cases — six general, six for an investment desk — each a more sophisticated AI capability than the last, from your first prompt to building your own agent.",
   openGraph: {
-    title: "Claude in Action — Six Use Cases in 75 Minutes",
+    title: "Claude in Action — From Novice to Advanced",
     description:
-      "A live demo for working professionals. Six AI capabilities, each more sophisticated than the last.",
+      "A two-part tutorial: six general use cases, then six for an investment desk. From novice to advanced.",
     type: "website",
   },
 };

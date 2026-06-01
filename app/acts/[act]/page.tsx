@@ -156,11 +156,11 @@ export default async function ActPage({
           </Link>
         ) : (
           <Link
-            href="/next"
+            href="/desk"
             className="card card-link block p-5 sm:text-right"
           >
-            <div className="label-mono mb-1">What&apos;s next →</div>
-            <div className="display text-xl">Your 30/60/90-day plan</div>
+            <div className="label-mono mb-1">Part two →</div>
+            <div className="display text-xl">The investment desk</div>
           </Link>
         )}
       </nav>

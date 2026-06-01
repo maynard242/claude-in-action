@@ -4,7 +4,7 @@ import { workflows } from "@/lib/content";
 export const metadata = {
   title: "The Desk — Claude in Action",
   description:
-    "The six-act capability arc, applied to a portfolio manager's day. Five workflows built on Claude's finance plugins — with the citation discipline and human-in-the-loop a buy-side audience demands.",
+    "Part two of the tutorial: the same six capabilities, applied to a portfolio manager's day. Six workflows built on Claude's finance plugins — with the citation discipline and human-in-the-loop a buy-side desk demands.",
 };
 
 const constraints = [
@@ -41,7 +41,7 @@ export default function DeskPage() {
       <section className="relative grain overflow-hidden">
         <div className="container-wide pt-24 md:pt-32 pb-16 relative">
           <div className="eyebrow mb-6">
-            A persona deep-dive · For investment professionals
+            Part two · For investment professionals · Advanced
           </div>
           <h1 className="display text-[52px] md:text-[104px] mb-8 leading-[1.0]">
             The <em>Desk</em>
@@ -174,9 +174,9 @@ export default function DeskPage() {
       {/* ─── Footer link ─── */}
       <section className="border-t border-rule">
         <div className="container-wide py-12 grid sm:grid-cols-2 gap-3">
-          <Link href="/" className="card card-link block p-5">
-            <div className="label-mono mb-1">← Home</div>
-            <div className="display text-xl">The six-act arc</div>
+          <Link href="/acts/1" className="card card-link block p-5">
+            <div className="label-mono mb-1">← Part one</div>
+            <div className="display text-xl">The six general uses</div>
           </Link>
           <Link href="/desk/1" className="card card-link block p-5 sm:text-right">
             <div className="label-mono mb-1">Start the desk →</div>

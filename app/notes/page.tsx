@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Detailed Notes — Claude in Action",
   description:
-    "The longer-form companion to the live demo. Why each capability matters. Common pitfalls. How to think about Claude past the demo.",
+    "The longer-form companion to the tutorial. Why each capability matters. Common pitfalls. How to think about Claude past the demo.",
 };
 
 const sections = [
@@ -39,15 +41,15 @@ const sections = [
     body: (
       <>
         <p>
-          At minute 1, the presenter kicks off a deep-research task in a separate tab and
-          closes it. It runs for the entire hour. At minute 64, they open it.
+          At the start, a deep-research task is kicked off in a separate tab and closed. It
+          runs in the background throughout. At the end, it&apos;s opened.
           Twenty-something pages. Sixty-plus sources. A full briefing on something that
           matters.
         </p>
         <p>
           That move does more for the audience than any single demo. Every other act shows
-          Claude doing work <em>while the presenter watches</em>. The deep-research thread
-          proves Claude doing work <em>while the presenter doesn&apos;t</em>. And it proves
+          Claude doing work <em>while you watch</em>. The deep-research thread
+          proves Claude doing work <em>while you don&apos;t</em>. And it proves
           it at scale — pages, sources, structure — not just a single response.
         </p>
         <p>
@@ -194,7 +196,7 @@ export default function NotesPage() {
           Detailed <em>notes</em>.
         </h1>
         <p className="text-xl text-ink-soft leading-snug">
-          What the live demo doesn&apos;t have time to cover. Why each capability matters
+          What the walkthrough doesn&apos;t have room to cover. Why each capability matters
           past the wow. Common pitfalls. How to think about Claude as a working colleague,
           not a chatbot.
         </p>
@@ -260,6 +262,29 @@ export default function NotesPage() {
               workflows, briefings, the work nobody has time for — Claude is at least
               worth five minutes of your time to try.
             </p>
+          </div>
+        </section>
+
+        {/* Part two pointer */}
+        <section className="grid md:grid-cols-[80px_1fr] gap-x-6 gap-y-3">
+          <div className="label-mono text-accent pt-2">§09</div>
+          <div>
+            <h2 className="display text-3xl md:text-4xl mb-5 leading-tight">
+              When you&apos;re ready, go advanced
+            </h2>
+            <p className="text-lg text-ink-soft leading-relaxed mb-5">
+              Everything above is part one — the six general uses, for anyone. Part two takes
+              the same six capabilities and points them at a real investment book: a morning
+              brief that writes itself, an agent that reads the earnings call and drafts the
+              note, a quant model you build in code. Same arc, money on the line.
+            </p>
+            <Link
+              href="/desk"
+              className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
+            >
+              Open part two — The Desk
+              <span aria-hidden>→</span>
+            </Link>
           </div>
         </section>
       </div>
