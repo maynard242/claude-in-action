@@ -20,6 +20,8 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 |---|---|---|
 | `app/page.tsx` | Homepage | Hero, six-act overview cards, deep-research thread callout, four-card site nav |
 | `app/acts/[act]/page.tsx` | Dynamic act page | Renders one act page per file in `content/acts/`. Reads `acts` from `lib/content.ts`. Calls `generateStaticParams` to prerender 1–6 |
+| `app/desk/page.tsx` | The Desk index | Investment-PM persona deep-dive: hero, the reframe, five workflow cards, the realism layer. Reads `workflows` from `lib/content.ts` |
+| `app/desk/[workflow]/page.tsx` | Dynamic workflow page | Renders one workflow per file in `content/workflows/`. `generateStaticParams` prerenders 1–5. Adds a "how it's wired" block (real plugin/skill/connector names) + a "constraint" callout |
 | `app/cheatsheet/page.tsx` | Audience Q&A + concept glossary | Q&A list (9 questions) + auto-generated concept glossary from `acts` |
 | `app/notes/page.tsx` | Long-form companion | Section essays, common pitfalls, "when not Claude" |
 | `app/next/page.tsx` | 30/60/90-day plan | Weekly plan, five starter agents, resource list, closing CTA |
@@ -31,8 +33,9 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 | `components/PromptBlock.tsx` | Copyable prompt | Renders one `Prompt` with surface label and copy button |
 | `components/Callout.tsx` | Highlighted box | Variants: `concept`, `notice`, `matter`, `try`, `aha` |
 | `components/ThemeToggle.tsx` | Light/dark toggle | Reads/writes `localStorage` `theme` |
-| `lib/content.ts` | Content loader | Reads `content/acts/*.md`, parses YAML frontmatter via `gray-matter`, exports `acts: Act[]` and `deepResearchPrompt: Prompt`. Also exports the `Act` and `Prompt` types |
+| `lib/content.ts` | Content loader | Reads `content/acts/*.md` and `content/workflows/*.md`, parses YAML frontmatter via `gray-matter`, exports `acts: Act[]`, `workflows: Workflow[]`, and `deepResearchPrompt: Prompt`. Also exports the `Act`, `Workflow`, `WiringRow`, and `Prompt` types |
 | `content/acts/01.md … 06.md` | **Canonical act source** | All audience-facing copy for each act lives in YAML frontmatter |
+| `content/workflows/01.md … 05.md` | **Canonical workflow source** | The Desk's five investment-PM workflows. Same frontmatter pattern as acts; parsed into `Workflow[]` |
 | `content/runsheet.md` | **Canonical presenter source** | Full script. Not rendered on site — lives in repo for the presenter |
 | `next.config.ts` | Next config | Sets Turbopack root |
 | `eslint.config.mjs` | Lint config | Next + ESLint flat config |
@@ -99,6 +102,16 @@ The `surface` enum drives the surface label badge on `<PromptBlock>`. New surfac
 
 1. Create `content/acts/07.md` matching the existing schema. Set `num: 7`, `slug: "7"`.
 2. That's it. The loader sorts by `num`, the homepage renders all acts, and `/acts/7` works automatically because `generateStaticParams` iterates over `acts`.
+
+### Add a Desk workflow
+
+The Desk (`/desk`) is the investment-PM persona section. Same pattern as acts, different schema (`Workflow`, defined in `lib/content.ts`).
+
+1. Create `content/workflows/0N.md` with all `Workflow` fields in frontmatter: `num`, `slug`, `title`, `capability`, `capabilityShort`, `actLink` (which act it extends, e.g. `"Act 5 · Parallel execution"`), `oneLiner`, `timeOfDay`, `job`, `whatYouSee[]`, `prompts[]`, `wiring[]` (list of `{ label, value }` — the "how it's wired" block, uses **real** plugin/skill/connector names from `anthropics/financial-services`), `constraint` (the hard rule it teaches), `ahaMoment`.
+2. The loader sorts by `num`; the index and `/desk/N` render automatically via `generateStaticParams`.
+3. Keep the realism discipline: every workflow names its hard constraint (citations, licensing, MNPI, look-ahead, or the recommend-not-execute bright line). A finance workflow without one reads as naive.
+
+**New prompt surfaces** were added to the `Prompt` union for The Desk: `claudecode`, `scheduled`, `excel`. As always, a new surface needs both the union in `lib/content.ts` AND the `surfaceLabels` map in `components/PromptBlock.tsx`.
 
 ### Change a prompt
 

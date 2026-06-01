@@ -119,11 +119,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── The Desk (persona deep-dive) ─── */}
+      <section className="border-t border-rule">
+        <div className="container-wide py-20 grid md:grid-cols-[260px_1fr] gap-10">
+          <div>
+            <div className="label-mono mb-3">
+              <span className="accent">§03</span> · Persona deep-dive
+            </div>
+            <h2 className="display text-3xl md:text-5xl">
+              The same six acts.
+              <br />
+              <em>Money on the line.</em>
+            </h2>
+          </div>
+          <div className="self-center max-w-2xl">
+            <p className="text-lg text-ink-soft leading-relaxed mb-5">
+              Five workflows for someone running a real book. A morning brief that writes
+              itself before the open. A thesis that argues back. An agent that reads the
+              earnings call, rolls the model, and drafts the note — every number traceable
+              to its source.
+            </p>
+            <p className="text-lg text-ink-soft leading-relaxed mb-6">
+              Built on Claude&apos;s finance plugins, with the citation discipline and the
+              human-in-the-loop off-ramp a buy-side audience demands.
+            </p>
+            <Link
+              href="/desk"
+              className="inline-flex items-center gap-2 bg-accent text-accent-on px-5 py-2.5 rounded-md font-semibold hover:bg-accent-dim transition-colors"
+            >
+              Open The Desk
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ─── What's on this site ─── */}
       <section className="border-t border-rule">
         <div className="container-wide py-20">
           <div className="label-mono mb-3">
-            <span className="accent">§03</span> · On this site
+            <span className="accent">§04</span> · On this site
           </div>
           <h2 className="display text-3xl md:text-5xl mb-12 max-w-3xl">
             Four ways to <em>actually</em> use this.
@@ -140,7 +175,7 @@ export default function Home() {
             <Link href="/cheatsheet" className="card card-link block p-6">
               <h3 className="display text-2xl mb-2">Cheatsheet</h3>
               <p className="text-ink-soft mb-3 leading-relaxed">
-                The eight common audience questions, with prepared answers. Plain-English
+                The nine common audience questions, with prepared answers. Plain-English
                 glossary of the six capabilities.
               </p>
               <span className="text-accent font-semibold">Open the cheatsheet →</span>

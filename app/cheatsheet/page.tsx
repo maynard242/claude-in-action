@@ -3,7 +3,7 @@ import { acts } from "@/lib/content";
 export const metadata = {
   title: "Cheatsheet — Claude in Action",
   description:
-    "The eight common audience questions, with prepared answers. Plain-English glossary of the six capabilities.",
+    "The nine common audience questions, with prepared answers. Plain-English glossary of the six capabilities.",
 };
 
 const qa = [

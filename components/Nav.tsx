@@ -46,6 +46,12 @@ export function Nav() {
           Glossary
         </Link>
         <Link
+          href="/desk"
+          className="text-ink-soft hover:text-accent transition-colors"
+        >
+          The Desk
+        </Link>
+        <Link
           href="/next"
           className="text-ink-soft hover:text-accent transition-colors"
         >

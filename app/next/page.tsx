@@ -106,7 +106,7 @@ const resources = [
     name: "Latent Space",
     url: "https://www.latent.space",
     short: "latent.space",
-    body: "Podcast and newsletter. Best-in-class interviews with people actually building with AI in production. Not the LinkedIn crowd.",
+    body: "Podcast and newsletter. The best interviews with people actually building with AI in production. Not the LinkedIn crowd.",
   },
 ];
 

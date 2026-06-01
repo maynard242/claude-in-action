@@ -9,6 +9,9 @@ const surfaceLabels: Record<Prompt["surface"], string> = {
   cowork: "Cowork · connected mode",
   phone: "Works the same on phone",
   deepresearch: "Toggle deep research first",
+  claudecode: "Claude Code · finance plugin",
+  scheduled: "Scheduled agent · runs itself",
+  excel: "Claude in Excel · M365",
 };
 
 export function PromptBlock({ prompt }: { prompt: Prompt }) {
