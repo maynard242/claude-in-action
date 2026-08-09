@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { acts, workflows } from "@/lib/content";
 
 export function Footer() {
   return (
@@ -23,13 +24,13 @@ export function Footer() {
         <div>
           <p className="label-mono mb-3">The arc</p>
           <ul className="space-y-1.5">
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <li key={n}>
+            {acts.map((act) => (
+              <li key={act.slug}>
                 <Link
-                  href={`/acts/${n}`}
+                  href={`/acts/${act.slug}`}
                   className="text-ink-soft hover:text-accent transition-colors"
                 >
-                  Act {String(n).padStart(2, "0")}
+                  Act {String(act.num).padStart(2, "0")}
                 </Link>
               </li>
             ))}
@@ -42,13 +43,13 @@ export function Footer() {
             </Link>
           </p>
           <ul className="space-y-1.5">
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <li key={`desk-${n}`}>
+            {workflows.map((workflow) => (
+              <li key={workflow.slug}>
                 <Link
-                  href={`/desk/${n}`}
+                  href={`/desk/${workflow.slug}`}
                   className="text-ink-soft hover:text-accent transition-colors"
                 >
-                  Desk {String(n).padStart(2, "0")}
+                  Desk {String(workflow.num).padStart(2, "0")}
                 </Link>
               </li>
             ))}

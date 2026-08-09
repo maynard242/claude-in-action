@@ -34,6 +34,8 @@ const constraints = [
   },
 ];
 
+const constraintDenominator = String(constraints.length).padStart(2, "0");
+
 export default function DeskPage() {
   return (
     <div>
@@ -85,7 +87,7 @@ export default function DeskPage() {
         </div>
       </section>
 
-      {/* ─── The five workflows ─── */}
+      {/* ─── The workflows ─── */}
       <section className="container-wide py-16 border-t border-rule">
         <div className="label-mono mb-3">
           <span className="accent">§02</span> · A PM&apos;s day
@@ -161,7 +163,9 @@ export default function DeskPage() {
             {constraints.map((c, i) => (
               <div key={i} className="callout callout--notice">
                 <div className="callout-label flex items-center gap-2">
-                  <span className="font-mono">{String(i + 1).padStart(2, "0")} / 06</span>
+                  <span className="font-mono">
+                    {String(i + 1).padStart(2, "0")} / {constraintDenominator}
+                  </span>
                 </div>
                 <h3 className="display text-xl mb-1 mt-1">{c.head}</h3>
                 <p className="text-ink-soft leading-relaxed m-0 text-[15px]">{c.body}</p>

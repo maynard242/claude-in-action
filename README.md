@@ -94,7 +94,7 @@ The `content/` directory is bundled into the build at compile time — no runtim
 - **Next.js 16** (App Router, Turbopack) — note: this is *not* the Next.js you remember; APIs and conventions have changed. See `AGENTS.md` if you're an AI agent editing code here.
 - **React 19**
 - **Tailwind CSS 4** (PostCSS pipeline)
-- **gray-matter** — parses YAML frontmatter in `content/acts/*.md`
+- **js-yaml** — parses YAML frontmatter in `content/acts/*.md`
 - **TypeScript** — strict mode
 
 ## License

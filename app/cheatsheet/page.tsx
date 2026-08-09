@@ -1,9 +1,12 @@
 import { acts } from "@/lib/content";
 
+const capabilityCount = acts.length;
+const capabilityDenominator = String(capabilityCount).padStart(2, "0");
+
 export const metadata = {
   title: "Cheatsheet — Claude in Action",
   description:
-    "The nine common audience questions, with prepared answers. Plain-English glossary of the six capabilities.",
+    `The nine common audience questions, with prepared answers. Plain-English glossary of the ${capabilityCount} capabilities.`,
 };
 
 const qa = [
@@ -57,7 +60,7 @@ export default function CheatsheetPage() {
         </h1>
         <p className="text-xl text-ink-soft leading-snug">
           Page 1: the questions that always come up, with prepared answers. Page 2: a plain-English
-          glossary of the six capabilities the tutorial walks through.
+          glossary of the {capabilityCount} capabilities the tutorial walks through.
         </p>
       </header>
 
@@ -90,14 +93,14 @@ export default function CheatsheetPage() {
           <span className="accent">§02</span> · Concept glossary
         </div>
         <h2 className="display text-3xl md:text-4xl mb-8">
-          The six capabilities, in <em>plain English</em>.
+          The {capabilityCount} capabilities, in <em>plain English</em>.
         </h2>
         <div className="space-y-3">
           {acts.map((a) => (
             <div key={a.num} className="callout callout--concept">
               <div className="callout-label flex items-center gap-2">
                 <span className="font-mono">
-                  {String(a.num).padStart(2, "0")} / 06
+                  {String(a.num).padStart(2, "0")} / {capabilityDenominator}
                 </span>
                 <span className="opacity-40">·</span>
                 <span>Act {a.num}</span>

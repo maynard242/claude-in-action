@@ -33,7 +33,7 @@ The repo also contains the **presenter run sheet** (`content/runsheet.md`) — t
 | `components/PromptBlock.tsx` | Copyable prompt | Renders one `Prompt` with surface label and copy button |
 | `components/Callout.tsx` | Highlighted box | Variants: `concept`, `notice`, `matter`, `try`, `aha` |
 | `components/ThemeToggle.tsx` | Light/dark toggle | Reads/writes `localStorage` `theme` |
-| `lib/content.ts` | Content loader | Reads `content/acts/*.md` and `content/workflows/*.md`, parses YAML frontmatter via `gray-matter`, exports `acts: Act[]`, `workflows: Workflow[]`, and `deepResearchPrompt: Prompt`. Also exports the `Act`, `Workflow`, `WiringRow`, and `Prompt` types |
+| `lib/content.ts` | Content loader | Reads `content/acts/*.md` and `content/workflows/*.md`, parses YAML frontmatter via `js-yaml`, validates it at runtime, exports `acts: Act[]`, `workflows: Workflow[]`, and `deepResearchPrompt: Prompt`. Also exports the `Act`, `Workflow`, `WiringRow`, and `Prompt` types |
 | `content/acts/01.md … 06.md` | **Canonical act source** | All audience-facing copy for each act lives in YAML frontmatter |
 | `content/workflows/01.md … 06.md` | **Canonical workflow source** | The Desk's six investment-PM workflows. Same frontmatter pattern as acts; parsed into `Workflow[]` |
 | `content/runsheet.md` | **Canonical presenter source** | Full script. Not rendered on site — lives in repo for the presenter |
@@ -94,7 +94,7 @@ The `surface` enum drives the surface label badge on `<PromptBlock>`. New surfac
 - Use `>-` (folded, strip trailing newline) for prose fields. Newlines fold into spaces, so you can wrap at 80 columns for readability.
 - Use plain quoted strings for one-line fields with apostrophes: `title: "The Email You've Been Avoiding"`.
 - Use a normal YAML list (`- "item"`) for `whatYouSee` and `prompts`.
-- The body of each `.md` file (everything after the second `---`) is **not parsed** — use it for a friendly GitHub header. The loader only reads `data` from `gray-matter`, not `content`.
+- The body of each `.md` file (everything after the second `---`) is **not parsed** — use it for a friendly GitHub header. The loader only reads and validates the YAML frontmatter.
 
 ## Common tasks
 

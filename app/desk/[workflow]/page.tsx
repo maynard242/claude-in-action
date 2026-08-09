@@ -36,6 +36,9 @@ export default async function WorkflowPage({
   const next = idx < workflows.length - 1 ? workflows[idx + 1] : null;
 
   const num = String(w.num).padStart(2, "0");
+  const workflowCountLabel = `${workflows.length} ${
+    workflows.length === 1 ? "workflow" : "workflows"
+  }`;
 
   return (
     <article className="container-narrow pt-12 pb-24">
@@ -142,7 +145,7 @@ export default async function WorkflowPage({
         ) : (
           <Link href="/desk" className="card card-link block p-5">
             <div className="label-mono mb-1">← The Desk</div>
-            <div className="display text-xl">All five workflows</div>
+            <div className="display text-xl">All {workflowCountLabel}</div>
           </Link>
         )}
         {next ? (
