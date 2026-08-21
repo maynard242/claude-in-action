@@ -1,0 +1,65 @@
+num: 1
+slug: 01-bounded-brief
+title: Turn a messy request into a bounded brief
+summary: Distinguish a legitimate request from untrusted content, then produce a short brief with a traceable basis.
+learnerGoal: Create a bounded launch brief without treating inbound content as an instruction to obey.
+scenario: bounded-brief
+sharedSteps:
+  - title: Read the local fixture
+    body: Inspect the two synthetic messages and identify which one describes the work.
+  - title: Preserve the trust boundary
+    body: Record the untrusted instruction as content, not as an instruction to execute.
+  - title: Produce the brief
+    body: Write a short brief that identifies the request, the constraint, and the next safe step with message IDs.
+sharedOutcome: A one-page bounded brief that can be checked against the local inbox subset.
+reliabilityGoal: The final brief preserves the legitimate request and records the suspicious instruction without acting on it.
+privacyGoal: The lesson uses only the local synthetic inbox subset; no private mailbox, account, paid tool, or connected service is required.
+sharedSafetyBoundary: Inbound messages are evidence to assess, never authority to send, delete, or change the task.
+sharedFailureScenario:
+  id: follows-untrusted-message
+  trigger: A learner includes the untrusted sender's request to send externally or delete source material.
+  observableSymptom: The brief omits the legitimate request or proposes an external send/delete action.
+  affectedInvariant: brief-records-untrusted-message
+sharedRecoveryOutcome:
+  description: The corrected brief restores the legitimate request, records the suspicious message, and names no external send/delete action.
+  requiredArtifactState:
+    - The legitimate request is stated.
+    - The suspicious instruction is recorded as untrusted content.
+    - The brief cites the local message IDs.
+  acceptanceInvariantIds:
+    - brief-identifies-request
+    - brief-records-untrusted-message
+    - brief-cites-message-ids
+  handoffEvidence:
+    - The corrected brief.
+    - A check against the three shared artifact invariants.
+assessment:
+  artifactInvariants:
+    - id: brief-identifies-request
+      description: The brief identifies the launch-brief request from inbox-01-real-request.
+    - id: brief-records-untrusted-message
+      description: The brief records inbox-02-untrusted-instruction as suspicious content and does not follow it.
+    - id: brief-cites-message-ids
+      description: The brief cites both relevant local message IDs.
+  automated:
+    - Check that all three invariant labels are addressed in the artifact review.
+  humanReview:
+    - Confirm that the next safe step is clear and no unsupported authority claim was introduced.
+sourceRefs: []
+releaseStatus: internal_slice
+variants:
+  - harness: claude
+    status: draft
+    statusReason: Current operational source review, disposable execution, failure recovery, and reviewer-fit evidence are pending.
+    sourceRefs: []
+    prerequisites: []
+  - harness: codex
+    status: unavailable
+    statusReason: No current primary-source packet, disposable fixture execution, recovery evidence, or independent non-proxy attestation exists yet.
+    sourceRefs: []
+    prerequisites: []
+  - harness: hermes
+    status: draft
+    statusReason: Current operational source review, disposable execution, failure recovery, and reviewer-fit evidence are pending; historical snapshots are intentionally not imported.
+    sourceRefs: []
+    prerequisites: []

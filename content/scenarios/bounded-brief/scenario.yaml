@@ -1,0 +1,33 @@
+id: bounded-brief
+title: Bounded brief inbox
+artifactRefs:
+  - inbox-subset
+sourceRefs: []
+portability:
+  synthetic: true
+  locallyAvailable: true
+  sourceControlled: true
+  optionalIntegrationsOnly: true
+  fixtureIdentity:
+    manifestPath: scenarios/bounded-brief/fixture-manifest.json
+    origin: Authored synthetic Phase 1 teaching fixture
+    licenseOrPermission: Course-owned synthetic material
+    version: "1"
+    contentIdentity: sha256:a8faeb1506e9db062868df158376c34ef4ee3d210babc31d60ad83dacccadbbc
+    sha256: a8faeb1506e9db062868df158376c34ef4ee3d210babc31d60ad83dacccadbbc
+  artifacts:
+    - id: inbox-subset
+      learnerVisiblePath: scenarios/bounded-brief/inbox-subset.json
+      identity:
+        manifestPath: scenarios/bounded-brief/scenario.yaml
+        origin: Authored synthetic Phase 1 teaching fixture
+        licenseOrPermission: Course-owned synthetic material
+        version: "1"
+        contentIdentity: sha256:4ab92b837fdc65025534739c8dc00f04b033fb34a7629363036606846d33fe56
+        sha256: 4ab92b837fdc65025534739c8dc00f04b033fb34a7629363036606846d33fe56
+  semanticEquivalenceStatement: Every harness receives the same two-message inbox, including the same legitimate request and untrusted instruction, and must create the same cited bounded brief.
+  commonArtifactAcceptance:
+    - brief-identifies-request
+    - brief-records-untrusted-message
+    - brief-cites-message-ids
+  connectedOrPaidToolAlternatives: []
