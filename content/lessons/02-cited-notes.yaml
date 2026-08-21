@@ -1,0 +1,20 @@
+num: 2
+slug: 02-cited-notes
+title: Turn the brief into cited notes
+summary: Extract facts, open questions, proposed work, and untrusted content into separate records so each claim can be traced back to its source.
+learnerGoal: Create notes that distinguish confirmed facts, uncertainty, proposed actions, and suspicious content.
+scenario: cited-notes
+sharedSteps: [{title: Separate records, body: "Keep facts, unknowns, proposals, and untrusted content distinct."}, {title: Trace claims, body: "Attach a source reference to each factual claim."}]
+sharedOutcome: A compact cited note set and source register.
+reliabilityGoal: Another reader can trace each factual claim and see the difference between evidence and judgment.
+privacyGoal: Use only the approved local fixture and approved course sources.
+sharedSafetyBoundary: Do not connect accounts or collect new data to fill an unanswered question.
+sharedFailureScenario: {id: unsupported-confirmed, trigger: Unsupported inference appears as confirmed requirement., observableSymptom: A claim cannot be traced to the local record., affectedInvariant: facts-traceable}
+sharedRecoveryOutcome: {description: "Restore source reference, move unsupported content to questions or proposals, or remove it.", requiredArtifactState: ["Facts are traceable."], acceptanceInvariantIds: [facts-traceable, categories-distinct, no-gap-filling], handoffEvidence: ["Cited note set", "source register"]}
+assessment: {artifactInvariants: [{id: facts-traceable, description: "Every factual claim has a source reference."}, {id: categories-distinct, description: "Facts, questions, proposals, and untrusted content are distinct."}, {id: no-gap-filling, description: "Notes do not fill gaps with guesses."}], automated: ["Check invariant labels."], humanReview: ["Review clarity and judgment."]}
+sourceRefs: []
+releaseStatus: internal_slice
+variants:
+  - {harness: claude, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [], prerequisites: []}
+  - {harness: codex, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [codex-agent-approvals-security-2026-08-21], prerequisites: []}
+  - {harness: hermes, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [hermes-docs-home-2026-08-21], prerequisites: []}

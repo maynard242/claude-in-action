@@ -221,6 +221,7 @@ function bundleWithAvailable(harness, includeNonProxy = true) {
       releaseStatus: "internal_slice",
       variants: [availableVariant(harness, includeNonProxy), ...otherVariants],
     }],
+    comparisons: [],
   };
 }
 
@@ -234,7 +235,7 @@ function expectInvalid(bundle, fragment) {
 test("loads and validates the additive Phase 1 foundation", () => {
   const bundle = loadCourse(path.join(repositoryRoot, "content"));
   assert.equal(bundle.course.releaseStatus, "foundation");
-  assert.equal(bundle.lessons.length, 1);
+  assert.equal(bundle.lessons.length, 6);
   assert.doesNotThrow(() => validateCourse(bundle));
 });
 

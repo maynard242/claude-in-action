@@ -8,7 +8,6 @@ import type {
 } from "./types";
 
 const PRIMARY_HARNESSES = ["claude", "codex", "hermes"] as const;
-export const INTERNAL_LESSON_SLUG = "01-bounded-brief";
 
 type HarnessRoute = { harness: Harness };
 type LessonRoute = { harness: Harness; lesson: string };
@@ -45,7 +44,6 @@ export function listLessonRouteParams(bundle: CourseBundle): LessonRoute[] {
   return listHarnessRouteParams(bundle).flatMap(({ harness }) =>
     [...bundle.lessons]
       .sort((left, right) => left.num - right.num)
-      .filter((lesson) => lesson.slug === INTERNAL_LESSON_SLUG)
       .filter((lesson) => lesson.variants.some((variant) => variant.harness === harness))
       .map((lesson) => ({ harness, lesson: lesson.slug })),
   );
@@ -68,7 +66,6 @@ export function resolveLessonView(
   slug: string,
 ): ResolvedLessonView | null {
   if (!isHarness(harness) || !bundle.course.primaryHarnesses.includes(harness)) return null;
-  if (slug !== INTERNAL_LESSON_SLUG) return null;
   const lesson = bundle.lessons.find((candidate) => candidate.slug === slug);
   if (!lesson) return null;
   const scenario = bundle.scenarios.find((candidate) => candidate.id === lesson.scenario);

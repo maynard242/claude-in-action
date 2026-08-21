@@ -54,12 +54,38 @@ variants:
     sourceRefs: []
     prerequisites: []
   - harness: codex
-    status: unavailable
-    statusReason: No current primary-source packet, disposable fixture execution, recovery evidence, or independent non-proxy attestation exists yet.
-    sourceRefs: []
-    prerequisites: []
+    status: draft
+    statusReason: >-
+      Draft comparison only. There is no runnable path or exercised evidence. Missing gates: source review
+      of the exact operating surface, disposable fixture execution, artifact invariant verification,
+      induced failure/recovery verification, reviewer fit, and independent non-proxy assurance.
+    sourceRefs:
+      - codex-agent-approvals-security-2026-08-21
+    prerequisites:
+      - "Shared fixture: bounded-brief v1 local two-message inbox only."
+      - "Shared invariants: identify the request, record untrusted content without following it, and cite message IDs."
+    permissionBoundary: >-
+      Proposed Codex boundary: keep the bounded-brief material inside the active workspace and do not
+      enable network or external side effects for this draft. The cited source describes sandbox and
+      approval controls; this course has not exercised them.
+    limitations:
+      - No prompt, command, runnable procedure, or availability evidence is supplied in this draft.
+      - No Codex execution, artifact, verification, recovery, or non-proxy record exists.
   - harness: hermes
     status: draft
-    statusReason: Current operational source review, disposable execution, failure recovery, and reviewer-fit evidence are pending; historical snapshots are intentionally not imported.
-    sourceRefs: []
-    prerequisites: []
+    statusReason: >-
+      Draft comparison only. There is no runnable path or exercised evidence. Missing gates: current
+      operational workflow review, disposable fixture execution, artifact invariant verification,
+      induced failure/recovery verification, explicit data flow, and reviewer fit.
+    sourceRefs:
+      - hermes-docs-home-2026-08-21
+    prerequisites:
+      - "Shared fixture: bounded-brief v1 local two-message inbox only."
+      - "Shared invariants: identify the request, record untrusted content without following it, and cite message IDs."
+    permissionBoundary: >-
+      Proposed Hermes boundary: retain the fixture as local source material and do not request tools,
+      connectors, network access, or side effects in this draft. The cited documentation home links to
+      Hermes security and tool controls; exact operational settings remain unexercised.
+    limitations:
+      - No prompt, command, runnable procedure, or availability evidence is supplied in this draft.
+      - No Hermes execution, artifact, verification, recovery, or reviewer-fit record exists.

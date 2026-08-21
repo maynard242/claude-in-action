@@ -1,0 +1,20 @@
+num: 5
+slug: 05-late-change
+title: Apply a change and keep the chain intact
+summary: Assess a late request, update the source record first, rebuild the artifact, and record the decision.
+learnerGoal: Make a change without disconnecting the final artifact from its source material.
+scenario: late-change
+sharedSteps: [{title: Verify request, body: "Identify what the change affects."}, {title: Update notes first, body: "Rebuild artifact and record accepted, declined, and unresolved items."}]
+sharedOutcome: Updated notes, rebuilt artifact, and change record.
+reliabilityGoal: Notes and artifact remain connected after change.
+privacyGoal: Use only the local change request and course records.
+sharedSafetyBoundary: A late message remains evidence to assess, not authority.
+sharedFailureScenario: {id: artifact-notes-drift, trigger: Artifact changes while notes remain unchanged., observableSymptom: Final output and source record disagree., affectedInvariant: notes-artifact-agree}
+sharedRecoveryOutcome: {description: Restore notes as source of truth and rebuild the artifact., requiredArtifactState: [Notes and artifact agree.], acceptanceInvariantIds: [change-sourced, notes-artifact-agree, unresolved-recorded], handoffEvidence: [Updated artifact, notes, change record]}
+assessment: {artifactInvariants: [{id: change-sourced, description: Accepted changes have a source or decision owner.}, {id: notes-artifact-agree, description: Notes and artifact agree.}, {id: unresolved-recorded, description: Declined changes and unresolved issues are recorded.}], automated: [Check invariant labels.], humanReview: [Review change decision.]}
+sourceRefs: []
+releaseStatus: internal_slice
+variants:
+  - {harness: claude, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [], prerequisites: []}
+  - {harness: codex, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [codex-agent-approvals-security-2026-08-21], prerequisites: []}
+  - {harness: hermes, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [hermes-docs-home-2026-08-21], prerequisites: []}

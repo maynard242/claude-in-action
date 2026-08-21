@@ -218,10 +218,22 @@ export type Course = {
   contentReviewedAt?: string;
 };
 
+export type Comparison = {
+  id: string;
+  status: "draft";
+  role: "comparison-only";
+  notPrimaryHarness: true;
+  notLessonVariant: true;
+  sources: SourceRef[];
+  summary: string;
+  facts: string[];
+};
+
 export type CourseBundle = {
   root: string;
   course: Course;
   sources: SourceRegistry[];
   scenarios: Scenario[];
   lessons: Lesson[];
+  comparisons: Comparison[];
 };

@@ -1,0 +1,17 @@
+id: optional-pi-local-customization
+status: draft
+role: comparison-only
+notPrimaryHarness: true
+notLessonVariant: true
+sources:
+  - id: pi-docs-latest-2026-08-21
+    title: Pi Documentation
+    kind: current-operational-doc
+    canonicalUrl: https://pi.dev/docs/latest
+    retrievedAt: "2026-08-21"
+    operationalExpiresAt: "2026-09-20"
+    note: Editorial operational review expiry selected by the course team; not provider-supplied.
+summary: Pi is an optional comparison for readers who want to explore customization in a terminal-based coding workflow. Its documentation describes a small core with extensions, skills, prompt templates, themes, and packages.
+facts:
+  - Pi documentation lists provider configuration alongside customization and programmatic-use documentation.
+  - Pi is an optional advanced customization comparison track, not a primary harness or Lesson 1 variant.

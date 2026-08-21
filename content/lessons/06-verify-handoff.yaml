@@ -1,0 +1,20 @@
+num: 6
+slug: 06-verify-handoff
+title: Check the work, test recovery, and hand it over
+summary: Run defined checks, demonstrate recovery from shared failure, and separate verified facts from questions a person must decide.
+learnerGoal: Finish with evidence that the artifact meets stated checks and can be corrected after known failure.
+scenario: verify-handoff
+sharedSteps: [{title: Verify, body: Record checks and evidence.}, {title: Recover, body: Restore the failed invariant and prepare a clear handoff.}]
+sharedOutcome: Verification record, recovery record, and final handoff package.
+reliabilityGoal: Passing checks and recovery are distinct, reviewable records.
+privacyGoal: Recovery is described only for disposable course fixtures, never live accounts.
+sharedSafetyBoundary: Verification does not authorize new actions.
+sharedFailureScenario: {id: failed-invariant, trigger: Artifact appears complete but fails a required invariant., observableSymptom: Required label or source reference is absent., affectedInvariant: verification-recorded}
+sharedRecoveryOutcome: {description: Restore required label and source reference and record separate verification and recovery results., requiredArtifactState: [Invariant restored.], acceptanceInvariantIds: [verification-recorded, recovery-distinct, human-review-named], handoffEvidence: [Verification record, recovery record, handoff package]}
+assessment: {artifactInvariants: [{id: verification-recorded, description: Verification is recorded.}, {id: recovery-distinct, description: Recovery is a distinct record.}, {id: human-review-named, description: Handoff names remaining human review.}], automated: [Check invariant labels.], humanReview: [Judge clarity, consequences, and appropriateness.]}
+sourceRefs: []
+releaseStatus: internal_slice
+variants:
+  - {harness: claude, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [], prerequisites: []}
+  - {harness: codex, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [codex-agent-approvals-security-2026-08-21], prerequisites: []}
+  - {harness: hermes, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [hermes-docs-home-2026-08-21], prerequisites: []}

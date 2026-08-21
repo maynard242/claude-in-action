@@ -1,0 +1,20 @@
+num: 3
+slug: 03-useful-artifact
+title: Make a useful artifact from approved notes
+summary: Turn cited notes into a useful artifact without adding claims that do not appear in the approved record.
+learnerGoal: Produce something a reader can use while preserving the chain from source to notes to final output.
+scenario: useful-artifact
+sharedSteps: [{title: Draft from notes, body: Use approved notes only.}, {title: Check claims, body: Remove unsupported additions and label recommendations.}]
+sharedOutcome: A concise artifact linked to its note set.
+reliabilityGoal: The artifact simplifies and organizes without introducing unsupported factual claims.
+privacyGoal: Use only approved notes and local course materials.
+sharedSafetyBoundary: Do not use general knowledge or connected data to add facts.
+sharedFailureScenario: {id: unsupported-artifact-claim, trigger: Artifact contains a new factual claim., observableSymptom: A disputed sentence cannot be traced to notes., affectedInvariant: claims-supported}
+sharedRecoveryOutcome: {description: "Relabel recommendation, add source-backed limitation, or remove unsupported wording.", requiredArtifactState: ["Claims match notes."], acceptanceInvariantIds: [claims-supported, recommendations-labeled, notes-linked], handoffEvidence: ["Artifact", "note reference"]}
+assessment: {artifactInvariants: [{id: claims-supported, description: Every factual claim appears in approved notes.}, {id: recommendations-labeled, description: Recommendations are labeled.}, {id: notes-linked, description: A human can follow the artifact back to cited notes.}], automated: [Check invariant labels.], humanReview: [Review reader fit.]}
+sourceRefs: []
+releaseStatus: internal_slice
+variants:
+  - {harness: claude, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [], prerequisites: []}
+  - {harness: codex, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [codex-agent-approvals-security-2026-08-21], prerequisites: []}
+  - {harness: hermes, status: draft, statusReason: Draft comparison only; no runnable procedure or exercised evidence., sourceRefs: [hermes-docs-home-2026-08-21], prerequisites: []}

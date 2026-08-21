@@ -1,0 +1,1 @@
+{"id":"verify-handoff-v1","failure":"Artifact omits the untrusted-content label and cites no source ID.","recovery":"Restore the required label and source reference, then record a separate verification and recovery result."}

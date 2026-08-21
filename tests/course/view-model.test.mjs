@@ -20,11 +20,13 @@ test("lists exactly the three primary harness dashboards", () => {
   ]);
 });
 
-test("lists exactly three direct Lesson 1 paths", () => {
-  assert.deepEqual(listLessonRouteParams(bundle), [
+test("lists all core harness lesson paths", () => {
+  const params = listLessonRouteParams(bundle);
+  assert.equal(params.length, 18);
+  assert.deepEqual(params.slice(0, 3), [
     { harness: "claude", lesson: "01-bounded-brief" },
-    { harness: "codex", lesson: "01-bounded-brief" },
-    { harness: "hermes", lesson: "01-bounded-brief" },
+    { harness: "claude", lesson: "02-cited-notes" },
+    { harness: "claude", lesson: "03-useful-artifact" },
   ]);
 });
 
@@ -36,7 +38,7 @@ test("resolves shared Lesson 1 with the selected harness status only", () => {
   assert.equal(claude?.variant.harness, "claude");
   assert.equal(claude?.status, "draft");
   assert.equal(codex?.variant.harness, "codex");
-  assert.equal(codex?.status, "unavailable");
+  assert.equal(codex?.status, "draft");
   assert.deepEqual(claude?.sources, []);
 });
 

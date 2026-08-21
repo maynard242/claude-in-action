@@ -1,0 +1,3 @@
+import type { Metadata } from "next";
+export const metadata: Metadata={title:"Reliability, recovery, and handoff",robots:{index:false,follow:false}};
+export default function Reliability(){return <main className="container-narrow py-12"><h1 className="display text-5xl">Reliability, recovery, and handoff</h1><p className="text-xl text-ink-soft">An output is not complete because it looks polished. It is complete when it meets stated checks, can be corrected after known failure, and comes with a handoff another person can inspect.</p><p>Verification and recovery are distinct. A person still judges clarity, consequences, and appropriateness.</p></main>}

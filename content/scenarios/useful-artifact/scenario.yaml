@@ -1,0 +1,17 @@
+id: useful-artifact
+title: Starter artifact task
+artifactRefs: [starter-artifact]
+sourceRefs: []
+portability:
+  synthetic: true
+  locallyAvailable: true
+  sourceControlled: true
+  optionalIntegrationsOnly: true
+  fixtureIdentity: {manifestPath: scenarios/useful-artifact/fixture-manifest.json, origin: Course-owned synthetic fixture, licenseOrPermission: Course-owned synthetic material, version: "1", contentIdentity: "sha256:c31058d4f0a271b827b3091ae1e737cb3717633b2e7cc9af9c8deff05bcd7fc9", sha256: c31058d4f0a271b827b3091ae1e737cb3717633b2e7cc9af9c8deff05bcd7fc9}
+  artifacts:
+    - id: starter-artifact
+      learnerVisiblePath: scenarios/useful-artifact/starter-artifact.json
+      identity: {manifestPath: scenarios/useful-artifact/fixture-manifest.json, origin: Course-owned synthetic fixture, licenseOrPermission: Course-owned synthetic material, version: "1", contentIdentity: "sha256:7c70bedc9d946617e1666ac4686200b582a0c68aeea2a9fb0c5863a0bbbc33bf", sha256: 7c70bedc9d946617e1666ac4686200b582a0c68aeea2a9fb0c5863a0bbbc33bf}
+  semanticEquivalenceStatement: Every core harness uses the same approved notes and reader task without adding unsupported claims.
+  commonArtifactAcceptance: [claims-supported, recommendations-labeled, notes-linked]
+  connectedOrPaidToolAlternatives: []

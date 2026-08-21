@@ -1,0 +1,1 @@
+{"id":"data-flow-v1","inputs":["local cited notes"],"outputs":["local draft artifact"],"prohibited":["network access","external sends","account connections"],"approval_points":["any external action"]}

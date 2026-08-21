@@ -184,6 +184,23 @@ function checkScenario(scenario: Scenario, root: string, issues: string[]) {
   }
 }
 
+function checkSourceRef(source: unknown, location: string, issues: string[]) {
+  if (!rejectUnknownKeys(source, ["id", "title", "kind", "canonicalUrl", "retrievedAt", "operationalExpiresAt", "note"], location, issues)) return;
+  if (!nonEmptyString(source.id) || !nonEmptyString(source.title)) {
+    add(issues, location, "id and title must be non-empty strings");
+  }
+  if (!["current-operational-doc", "pinned-snapshot", "tutorial-judgement"].includes(String(source.kind))) {
+    add(issues, location, "kind must be a known source kind");
+  }
+  if (source.kind === "current-operational-doc") {
+    if (!nonEmptyString(source.canonicalUrl) || !dateIsValid(source.retrievedAt) || !dateIsValid(source.operationalExpiresAt)) {
+      add(issues, location, "current operational sources require canonicalUrl, retrievedAt, and operationalExpiresAt");
+    } else if (Date.parse(source.operationalExpiresAt) <= Date.parse(source.retrievedAt)) {
+      add(issues, location, "operationalExpiresAt must be later than retrievedAt");
+    }
+  }
+}
+
 function sourcesById(bundle: CourseBundle): Map<string, SourceRef> {
   const result = new Map<string, SourceRef>();
   for (const registry of bundle.sources) {
@@ -504,6 +521,25 @@ function checkLesson(bundle: CourseBundle, lesson: Lesson, sourceMap: Map<string
   }
 }
 
+function checkComparison(comparison: unknown, issues: string[]) {
+  const location = `comparison ${isRecord(comparison) ? String(comparison.id ?? "<unknown>") : "<invalid>"}`;
+  if (!rejectUnknownKeys(comparison, ["id", "status", "role", "notPrimaryHarness", "notLessonVariant", "sources", "summary", "facts"], location, issues)) return;
+  if (!nonEmptyString(comparison.id) || comparison.status !== "draft" || comparison.role !== "comparison-only") {
+    add(issues, location, "must be a draft comparison-only record with a non-empty id");
+  }
+  if (comparison.notPrimaryHarness !== true || comparison.notLessonVariant !== true) {
+    add(issues, location, "must explicitly forbid primary harness and lesson variant use");
+  }
+  if (!nonEmptyString(comparison.summary) || !nonEmptyStrings(comparison.facts)) {
+    add(issues, location, "summary and facts must be non-empty");
+  }
+  if (!Array.isArray(comparison.sources) || comparison.sources.length === 0) {
+    add(issues, location, "must include at least one source");
+  } else {
+    comparison.sources.forEach((source) => checkSourceRef(source, `${location}.source`, issues));
+  }
+}
+
 export function validateCourse(bundle: CourseBundle): void {
   const issues: string[] = [];
   rejectUnknownKeys(bundle.course, ["title", "releaseStatus", "primaryHarnesses", "contentReviewedAt"], "course", issues);
@@ -528,7 +564,8 @@ export function validateCourse(bundle: CourseBundle): void {
     }
     for (const source of registry.sources) {
       const sourceLocation = `source ${isRecord(source) ? String(source.id ?? "<unknown>") : "<invalid>"}`;
-      if (!rejectUnknownKeys(source, ["id", "title", "kind", "canonicalUrl", "retrievedAt", "operationalExpiresAt", "note"], sourceLocation, issues)) continue;
+      checkSourceRef(source, sourceLocation, issues);
+      if (!isRecord(source)) continue;
       if (!nonEmptyString(source.id) || sourceIds.has(source.id)) add(issues, "source registry", "source ids must be unique and non-empty");
       sourceIds.add(source.id);
     }
@@ -539,6 +576,7 @@ export function validateCourse(bundle: CourseBundle): void {
     scenarioIds.add(scenario.id);
     checkScenario(scenario, bundle.root, issues);
   }
+  for (const comparison of bundle.comparisons) checkComparison(comparison, issues);
   const lessonSlugs = new Set<string>();
   const lessonNumbers = new Set<number>();
   for (const lesson of bundle.lessons) {
