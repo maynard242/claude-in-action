@@ -4,6 +4,8 @@ A course on getting work you can trust out of an AI agent. Eighteen lessons in t
 
 The teaching claim is that the judgement transfers even though the flags do not. Each lesson shows one harness worked end to end, then states the equivalent for the other three.
 
+The deployed site is at **harnesses-in-action.vercel.app**.
+
 ## Status
 
 Part 1 is written and its six worked examples have all been run on a real machine, with output, version, and date recorded on the page. Parts 2 and 3 are outlined in `content/parts.yaml` and their lessons are not yet written.
