@@ -1,0 +1,102 @@
+num: 3
+part: 1
+slug: trace-the-claims
+title: Separate what the source says from what the agent knows
+job: >-
+  Get an agent to mark which claims its material actually supports and which
+  ones it filled in from training.
+summary: >-
+  An agent will happily blend the file in front of it with what it half-remembers
+  from the internet, and the seam does not show. This lesson forces the seam
+  open.
+why: >-
+  Lesson 2 kept hostile input from steering the agent. This one deals with a
+  quieter problem: friendly input that the agent silently extends.
+steps:
+  - title: Ask for the verdict per claim, not per document
+    body: >-
+      "Is this accurate" gets you a paragraph. "For each claim, is it supported by
+      this file" gets you a row per claim and nowhere to hide.
+  - title: Forbid outside knowledge explicitly
+    body: >-
+      Say it in the request: do not confirm anything from your own knowledge. The
+      instruction is what makes the missing evidence visible instead of quietly
+      filled.
+  - title: Ask what would settle it
+    body: >-
+      For every unsupported claim, ask which source would confirm it. This turns
+      a vague doubt into a task someone can actually do.
+  - title: Watch for claims that cannot be confirmed at all
+    body: >-
+      Predictions and estimates are not facts awaiting a citation. A good answer
+      separates them instead of demanding evidence that cannot exist yet.
+outcome: >-
+  A list of claims, each marked supported or unsupported, with a named source for
+  the ones that need checking and a note on any that are forecasts.
+boundary: >-
+  Reading a local file with search and fetch tools switched off, so nothing can
+  quietly resolve a gap by going online.
+invariants:
+  - id: per-claim-verdict
+    description: Every claim gets its own supported or unsupported verdict.
+  - id: no-outside-confirmation
+    description: No claim is marked confirmed on the strength of the agent's training data.
+  - id: named-next-source
+    description: Each unsupported claim names what would settle it.
+workedExample:
+  harness: claude
+  why: >-
+    Claude's tool denylist lets you remove web search and fetch by name, so you
+    can prove the verdicts came from the file rather than from a quiet lookup.
+  command: >-
+    claude -p 'Read claims.md. For each claim, say whether the file itself
+    supports it, and mark any claim that would need an outside source to confirm.
+    Do not confirm anything from your own knowledge.' --disallowedTools Bash Write
+    Edit WebFetch WebSearch
+  expected: >-
+    A table with one row per claim, all four marked unsupported, each with the
+    source that would confirm it, plus a note that the migration estimate is a
+    forecast rather than a checkable fact.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 2.1.238
+  realOutput: |-
+    Verdict: none of the four claims are supported by the file. The file states
+    them; it doesn't support them.
+
+    | # | Claim | Supported by file? | Needs outside source? |
+    |---|-------|--------------------|------------------------|
+    | 1 | Checkout conversion rate is 3.2% | No, no analytics data or measurement window | Yes, analytics system |
+    | 2 | Team agreed in June to freeze the schema | No meeting record or participant list; "June" has no year | Yes, decision log |
+    | 3 | Competitor pricing dropped last quarter | No competitor named, no prices, no quarter | Yes, pricing records |
+    | 4 | Migration will take roughly two weeks | No scope or task breakdown. This is a forecast, so it can't be "confirmed" at all | Only the estimate's basis is checkable |
+
+    Claim 4 is a different type. The first three are factual assertions
+    checkable against a record. Claim 4 is a prediction. No outside source can
+    confirm it today.
+
+    I confirmed nothing from my own knowledge, and I ran no searches.
+harnessNotes:
+  - harness: codex
+    equivalent: codex exec -s read-only, which blocks network access along with writes.
+  - harness: hermes
+    equivalent: hermes -z with the web toolset disabled via hermes tools disable web.
+    caution: >-
+      Check hermes tools --summary first. Toolsets are configured per platform, so
+      the CLI may have different tools live than you expect.
+  - harness: pi
+    equivalent: pi -p --exclude-tools to drop fetch and search while keeping file reads.
+failureMode: >-
+  The agent confirms a claim that the file never supported, using a number that
+  sounds right because it is the kind of number that usually appears in that
+  slot. Nothing in the output marks it as an addition.
+recovery: >-
+  Ask it to quote the exact line supporting each claim it marked as supported. A
+  claim with no quotable line was never supported, and the missing quote is
+  easier to spot than the invented fact was.
+humanReview:
+  - Open the file and confirm each supported verdict has a line you can point to.
+  - Check that forecasts were not treated as facts needing citation.
+takeaway: >-
+  An agent that cannot tell you where a claim came from has not given you a
+  claim. It has given you a guess with good posture.

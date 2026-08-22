@@ -1,0 +1,96 @@
+num: 1
+part: 1
+slug: state-the-job
+title: State the job so it cannot be misread
+job: Turn a vague request into one an agent can act on without guessing.
+summary: >-
+  Most bad agent output traces back to a request that had more than one reasonable
+  reading. This lesson is about closing that gap before you run anything.
+why: >-
+  It comes first because every later lesson depends on it. Permissions, sources,
+  verification: none of it helps if the agent is confidently doing the wrong job.
+steps:
+  - title: Write the request as you would say it out loud
+    body: >-
+      Start sloppy. "Summarise this and tell me what to do about it" is a fine
+      first draft. You are going to find the holes in it, not avoid them.
+  - title: Find the second reading
+    body: >-
+      Read your own request as an uncooperative reader would. Which words could
+      mean two things? "Summarise" how long? "What to do" according to whom? If
+      you can find a second reading, so can the agent.
+  - title: Name the output
+    body: >-
+      Say what you want back and how you will know it is done: a list of five
+      items, a one-page brief, a table with three columns. An unnamed output is
+      the most common source of a wrong-shaped answer.
+  - title: Say what is out of scope
+    body: >-
+      One line. "Do not rewrite the code, only describe what it does." Scope
+      exclusions do more work than any amount of added detail.
+outcome: >-
+  A request you could hand to a competent stranger with no context, where the
+  only remaining questions are about the subject rather than about what you meant.
+boundary: >-
+  Nothing runs against real data in this lesson. Use a file you would be happy to
+  post in public.
+invariants:
+  - id: single-reading
+    description: The request has one reasonable reading, not two.
+  - id: named-output
+    description: The wanted output is named, with a shape you can check against.
+  - id: stated-scope
+    description: At least one thing is explicitly out of scope.
+workedExample:
+  harness: pi
+  why: >-
+    Pi with every tool switched off is the cleanest way to see this. The agent
+    cannot read a file or run a command, so the only thing shaping the answer is
+    how well you stated the job.
+  command: pi -p --no-tools 'Summarise the risks in our deployment process and tell me what to do about it.'
+  expected: >-
+    Not an answer. The agent asks you to point it at files or describe the
+    process, because the request named no system, no output shape, and no scope.
+    A good agent stalls here instead of bluffing, and that stall is the lesson.
+  status: verified
+  verifiedOn: "2026-08-21"
+  harnessVersion: 0.83.0
+  realOutput: |-
+    I don't have enough context to answer that. There's no deployment process
+    visible to me in this environment.
+
+    Could you help me get oriented? For example:
+
+    1. Point me at the files: is there a deployment script, CI config,
+       Dockerfile, or doc describing the process in this project?
+    2. Or describe it yourself: a quick rundown of the steps, tools, and
+       environment will let me assess the risks directly.
+    3. Or share logs/output from a recent deployment.
+
+    Once I can see the process, I'll summarise the concrete risks and give you
+    prioritised, actionable mitigations.
+harnessNotes:
+  - harness: claude
+    equivalent: claude -p with --disallowedTools to hold tools back the same way.
+  - harness: codex
+    equivalent: codex exec -s read-only, which keeps the agent from acting while you test the wording.
+  - harness: hermes
+    equivalent: hermes -z with a narrow -t toolset.
+    caution: >-
+      Hermes loads your skills and memory by default, so a vague request may be
+      rescued by context you forgot you had. That is convenient in daily use and
+      unhelpful when you are trying to test the wording itself.
+failureMode: >-
+  The agent returns something plausible and well-formatted that answers a
+  slightly different question than the one you meant. It reads as competent, so
+  you accept it and only notice the mismatch later.
+recovery: >-
+  Do not argue with the output. Go back to the request, find the word that
+  allowed the other reading, and state the output shape. Re-run rather than
+  patching through follow-up messages.
+humanReview:
+  - Read the request cold the next morning and check it still has one meaning.
+  - Confirm the named output is something you can actually check, not a feeling.
+takeaway: >-
+  The request is the part you control completely. Everything downstream inherits
+  its ambiguity.

@@ -1,0 +1,29 @@
+- num: 1
+  slug: working-with-one-agent
+  title: Working with one agent
+  level: beginner
+  premise: An agent you cannot check is an agent you cannot use.
+  summary: >-
+    Six lessons on getting reliable work out of a single agent, with no connected
+    accounts and nothing at stake. You will learn to state a job so it cannot be
+    misread, trace every claim back to something you can open, and recognise a
+    confident wrong answer before it costs you.
+- num: 2
+  slug: giving-an-agent-access
+  title: Giving an agent access
+  level: intermediate
+  premise: Access is the whole risk. Everything else is detail.
+  summary: >-
+    The moment an agent can read your files or reach the network, the question
+    changes from "is this right" to "what can this touch". Six lessons on
+    permission models, data flow, restricting tools, approvals, and recovering
+    when a run goes wrong.
+- num: 3
+  slug: systems-of-agents
+  title: Systems of agents
+  level: advanced
+  premise: One agent is a tool. Several agents are a system, and systems need design.
+  summary: >-
+    Parallel work, composition, verification you can run at scale, unattended
+    schedules, and the boundary between recommending and doing. Six lessons on
+    building something another person can inspect and take over.

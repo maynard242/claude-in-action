@@ -1,0 +1,98 @@
+num: 4
+part: 1
+slug: read-output-critically
+title: Read the output like a reviewer, not a recipient
+job: >-
+  Build the habit of checking agent output against something, rather than
+  checking whether it reads well.
+summary: >-
+  Fluent writing triggers the same trust as correct writing. This lesson is about
+  the checks that catch a confident wrong answer, and doing them in an order that
+  fails fast.
+why: >-
+  Lessons 1 to 3 shaped the input. From here the risk moves to you, because the
+  most common failure is not a bad answer. It is a good-looking answer accepted
+  without a check.
+steps:
+  - title: Check the shape before the content
+    body: >-
+      Did you get what you asked for? Five items when you asked for five, a table
+      with the columns you named. Shape errors are fast to spot and often signal
+      that the request was misread.
+  - title: Pick the load-bearing claim and check that one
+    body: >-
+      You are not going to verify everything. Find the claim the rest depends on
+      and check only that. If it fails, the rest does not matter.
+  - title: Look for the confident specific
+    body: >-
+      Exact numbers, names, dates, and quotes are where fabrication hides. Vague
+      prose is usually honest about being vague. A precise figure with no source
+      is the thing to chase.
+  - title: Ask what is missing
+    body: >-
+      The hardest failure to see is an omission, because nothing on the page
+      points at it. Ask the agent what it left out and why, then judge the answer.
+outcome: >-
+  A short written record of what you checked, what held, and what you decided not
+  to check, so the next reader knows the coverage.
+boundary: >-
+  Still reading local material. The only thing at risk in this lesson is your
+  time.
+invariants:
+  - id: shape-checked
+    description: The output was checked against the requested shape first.
+  - id: key-claim-verified
+    description: At least one load-bearing claim was checked against the source.
+  - id: coverage-stated
+    description: What went unchecked is written down rather than left implicit.
+workedExample:
+  harness: hermes
+  why: >-
+    Hermes cites line numbers and states what a reviewer must open, which is the
+    habit this lesson is teaching. It models the output you want from the others.
+  command: >-
+    hermes -z 'Read claims.md and produce a checkable summary: for each claim
+    state what a reviewer would have to open to confirm it. Do not use the web.'
+  expected: >-
+    A table naming, per claim, the document a reviewer must open and the specific
+    fields that must be visible in it, plus a note on which claims are forecasts.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.20.4
+  realOutput: |-
+    The file gives no citations, dates, owners, calculations, or source links.
+    None of its four claims can be confirmed from the supplied material alone.
+
+    | Claim | What a reviewer must open | What must be visible |
+    |---|---|---|
+    | "Our checkout conversion rate is 3.2 percent." (line 5) | The analytics dashboard or exported conversion report | Reporting period; definition of "checkout conversion"; eligible population; numerator; denominator; filters. The figures should calculate to 3.2%. |
+    | "The team agreed in June to freeze the schema." (line 6) | June minutes, decision log, or dated team thread | The year and date; an explicit decision to freeze; its scope; who approved it. |
+    | "Competitor pricing dropped last quarter." (line 7) | A dated competitor-pricing comparison | Named competitor and product; currency and market; quarter dates; comparable before-and-after prices. |
+    | "Migration will take roughly two weeks." (line 8) | The migration plan or issue-tracker milestone | Start and finish assumptions; task breakdown; effort basis; dependencies. This confirms the estimate was made, not that it will hold. |
+
+    Review finding: all four are unsupported draft assertions. Claim 4 is a
+    forecast whose assumptions are unstated. No web sources were used.
+harnessNotes:
+  - harness: claude
+    equivalent: claude -p with the same request; ask for file and line references in the output.
+  - harness: codex
+    equivalent: codex exec -s read-only, adding "cite file and line" to the request.
+  - harness: pi
+    equivalent: pi -p with file reads allowed and search excluded.
+    caution: >-
+      Pi is terser by default than the others. If you want line references you
+      have to ask for them, or you will get conclusions without locations.
+failureMode: >-
+  You read a well-structured answer, recognise the format as the one you asked
+  for, and accept the content because the container was right. Format compliance
+  is not accuracy.
+recovery: >-
+  Pick one specific claim and try to find its source. When you cannot, ask the
+  agent to quote the supporting line. Do this once and the habit tends to stick,
+  because the first fabricated citation you catch is memorable.
+humanReview:
+  - Confirm you checked at least one claim yourself rather than asking the agent to self-assess.
+  - Write down what you did not check.
+takeaway: >-
+  Fluency is a property of the writing. Accuracy is a property of the world. They
+  are unrelated, and only one of them is visible on the page.

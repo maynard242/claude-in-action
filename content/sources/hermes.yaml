@@ -1,9 +1,0 @@
-provider: hermes
-sources:
-  - id: hermes-docs-home-2026-08-21
-    title: Hermes Agent documentation
-    kind: current-operational-doc
-    canonicalUrl: https://hermes-agent.nousresearch.com/docs/
-    retrievedAt: "2026-08-21"
-    operationalExpiresAt: "2026-09-20"
-    note: Editorial operational review expiry selected by the course team; not provider-supplied.

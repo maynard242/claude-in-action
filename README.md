@@ -1,102 +1,57 @@
-# Claude in Action
+# Practical AI Agents
 
-Companion site for *Claude in Action* — a two-part tutorial that takes a working professional from novice to advanced. **Part one:** six general use cases, for anyone. **Part two (The Desk):** six use cases for an investment portfolio manager. Same capability arc, money on the line.
+A course on getting work you can trust out of an AI agent. Eighteen lessons in three parts, beginner to advanced, written to work on any of four harnesses: Claude Code, Codex CLI, Hermes Agent, and Pi.
 
-The deployed site is at **claude-in-action.vercel.app**. This repository contains everything: the Next.js site **and** the presenter run sheet for the part-one walkthrough.
+The teaching claim is that the judgement transfers even though the flags do not. Each lesson shows one harness worked end to end, then states the equivalent for the other three.
 
-## What's in this repo
+## Status
+
+Part 1 is written and its six worked examples have all been run on a real machine, with output, version, and date recorded on the page. Parts 2 and 3 are outlined in `content/parts.yaml` and their lessons are not yet written.
+
+## Structure
 
 ```
 ai_tutorial_site/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx            # Homepage — both parts (six acts + six desk workflows)
-│   ├── acts/[act]/         # Part one: one page per act (dynamic route, 1–6)
-│   ├── desk/               # Part two: The Desk index
-│   ├── desk/[workflow]/    # Part two: one page per investment workflow (1–6)
-│   ├── cheatsheet/         # Common Q&A + concept glossary
-│   ├── notes/              # Long-form companion
-│   ├── next/               # 30/60/90-day plan + starter agents
-│   └── glossary/           # Plain-English AI term definitions
-├── components/             # Shared React components (Nav, Footer, PromptBlock, …)
-├── lib/
-│   └── content.ts          # Loads acts + workflows from content/*.md, exports typed data
-├── content/                # ★ Canonical source: six acts, six workflows, run sheet ★
-│   ├── acts/01.md … 06.md       # Part one — one markdown file per act
-│   ├── workflows/01.md … 06.md  # Part two — one markdown file per investment workflow
-│   └── runsheet.md              # Presenter-only script for the part-one walkthrough
-├── public/                 # Static assets
-├── AGENTS.md               # Detailed architecture guide for AI agents (read this first)
-└── CLAUDE.md               # Imports AGENTS.md
+├── app/
+│   ├── page.tsx              # Homepage
+│   ├── learn/                # Course index, part pages, lesson pages
+│   ├── install/              # Setup pages, one per harness
+│   └── glossary/
+├── components/course/        # WorkedExample, HarnessNotes, LessonNav
+├── lib/course/
+│   ├── types.ts              # Lesson, Part, HarnessMeta, WorkedExample
+│   ├── load.ts               # Loads and validates content at build time
+│   └── view.ts               # Ordering, lookup, paths
+└── content/
+    ├── parts.yaml            # The three parts
+    ├── harnesses.yaml        # The four harnesses, with verified versions
+    ├── lessons/*.yaml        # One file per lesson
+    └── fixtures/             # Synthetic teaching material
 ```
 
-## How to update content
+## Verified means verified
 
-### To edit one of the six acts (audience-facing)
+A worked example is marked `verified` only when the command was run on a real machine and its output pasted in. That requires `verifiedOn`, `harnessVersion`, and `realOutput`, and the build fails without them. Everything else is `draft` and renders a notice saying so.
 
-Edit the matching file in `content/acts/`. Each act lives in its own markdown file with YAML frontmatter:
+Harness versions confirmed on 2026-08-22: Claude Code 2.1.238, Codex CLI 0.149.0, Hermes Agent 0.20.4, Pi 0.83.0.
 
-```yaml
----
-num: 1
-slug: "1"
-title: "The Email You've Been Avoiding"
-oneLiner: >-
-  Claude reads a confusing thread and tells you what's actually being asked …
-prompts:
-  - label: "Untangle a confusing email thread"
-    surface: claude
-    text: >-
-      This thread has been sitting in my inbox for three days …
-…
----
-```
+## Adding a lesson
 
-Save the file. The site re-reads on the next build (or on the next dev server reload). No code changes needed.
-
-**Field reference** — see `AGENTS.md` for the full schema, or look at any existing act file as a template.
-
-### To edit a Part-two investment workflow
-
-Edit the matching file in `content/workflows/` (`01.md … 06.md`). Same frontmatter pattern as acts, with a `Workflow` schema (wiring rows, the hard constraint it teaches, etc.). See `AGENTS.md` → "Add a Desk workflow."
-
-### To update the presenter run sheet
-
-Edit `content/runsheet.md` directly. This is the master script with timings, on-screen cues, what-to-say blocks, and stagecraft notes. It is **not rendered on the site** — it lives in the repo as a single source of truth for whoever delivers the walkthrough. Open it on GitHub to read it formatted, or in any markdown editor.
-
-### To edit the cheatsheet, notes, next, or glossary pages
-
-These live as React components in `app/cheatsheet/page.tsx`, `app/notes/page.tsx`, etc. The structured content (Q&A list, weekly plan, glossary terms) is at the top of each file as a plain TypeScript array. Edit the array, save, redeploy. They have not been migrated to markdown because they only have a single source of truth and the JSX layout is intentionally bespoke per page.
-
-If you find yourself editing these often, ask Claude to migrate them to `content/` using the same pattern as `acts/`.
+Create `content/lessons/NN-slug.yaml` with the fields in the `Lesson` type. The loader validates on build and will tell you what is missing, including whether every harness other than the worked example has its equivalent stated. Routes generate automatically.
 
 ## Local development
 
 ```bash
 npm install
-npm run dev    # Open http://localhost:3000
+npm run dev      # http://localhost:3000
+npm run build    # Type check plus content validation
+npm run lint
 ```
-
-Editing a `content/acts/*.md` file in dev mode hot-reloads the page.
-
-## Deployment
-
-The site auto-deploys to Vercel on push to the `main` branch. To deploy manually:
-
-```bash
-npm run build      # Verifies build locally first
-vercel deploy      # Or: vercel --prod
-```
-
-The `content/` directory is bundled into the build at compile time — no runtime filesystem reads in production.
 
 ## Stack
 
-- **Next.js 16** (App Router, Turbopack) — note: this is *not* the Next.js you remember; APIs and conventions have changed. See `AGENTS.md` if you're an AI agent editing code here.
-- **React 19**
-- **Tailwind CSS 4** (PostCSS pipeline)
-- **js-yaml** — parses YAML frontmatter in `content/acts/*.md`
-- **TypeScript** — strict mode
+Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS 4, js-yaml, TypeScript strict.
 
 ## License
 
-Content © Leslie Teo. Code released under permissive terms — copy, fork, run your own.
+Content © Leslie Teo. Code released under permissive terms.

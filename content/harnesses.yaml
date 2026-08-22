@@ -1,0 +1,80 @@
+- id: claude
+  name: Claude Code
+  vendor: Anthropic
+  oneShot: claude -p
+  installCommand: npm install -g @anthropic-ai/claude-code
+  docsUrl: https://docs.claude.com/en/docs/claude-code/overview
+  videoSearch: Claude Code install and setup
+  verifyCommand: "claude -p 'Reply with exactly the word: READY'"
+  verifyOutput: READY
+  verifiedVersion: 2.1.238
+  blurb: >-
+    A terminal agent from Anthropic with fine-grained permission modes. Its tool
+    allowlists are the clearest way to see what an agent may and may not touch.
+  prerequisites: Node.js 18 or newer, and an Anthropic account.
+  videos:
+    - title: Claude Code in 10 minutes
+      url: https://www.youtube.com/results?search_query=claude+code+getting+started
+    - title: Claude Code setup walkthrough
+      url: https://www.youtube.com/results?search_query=claude+code+install+setup+tutorial
+- id: codex
+  name: Codex CLI
+  vendor: OpenAI
+  oneShot: codex exec
+  installCommand: npm install -g @openai/codex
+  docsUrl: https://developers.openai.com/codex/cli
+  videoSearch: OpenAI Codex CLI install and setup
+  verifyCommand: "codex exec -s read-only --skip-git-repo-check 'Reply with exactly the word: READY'"
+  verifyOutput: |-
+    sandbox: read-only
+    READY
+  verifiedVersion: 0.149.0
+  blurb: >-
+    OpenAI's terminal agent. It prints its sandbox mode in the run header, so the
+    permission boundary is visible in the output rather than buried in config.
+  prerequisites: Node.js 18 or newer, and a ChatGPT account or OpenAI API key.
+  videos:
+    - title: Codex CLI quickstart
+      url: https://www.youtube.com/results?search_query=openai+codex+cli+quickstart
+    - title: Codex CLI sandbox modes
+      url: https://www.youtube.com/results?search_query=openai+codex+cli+sandbox+approvals
+- id: hermes
+  name: Hermes Agent
+  vendor: Nous Research
+  oneShot: hermes -z
+  installCommand: See the Hermes install guide; it ships as a git install with its own Node runtime.
+  docsUrl: https://github.com/NousResearch/hermes-agent
+  videoSearch: Hermes Agent install and setup
+  verifyCommand: "hermes -z 'Reply with exactly the word: READY'"
+  verifyOutput: READY
+  verifiedVersion: 0.20.4
+  blurb: >-
+    The widest surface of the four, with cron, gateways, and per-platform tool
+    control. It is also the only one that can tell you whether a command would be
+    approved without running it.
+  prerequisites: git, Python, and a provider key or Nous Portal login. Hermes manages its own Node runtime.
+  videos:
+    - title: Hermes Agent overview
+      url: https://www.youtube.com/results?search_query=nous+research+hermes+agent+setup
+    - title: Hermes Agent tools and skills
+      url: https://www.youtube.com/results?search_query=hermes+agent+skills+tools+tutorial
+- id: pi
+  name: Pi
+  vendor: Earendil Works
+  oneShot: pi -p
+  installCommand: npm install -g @earendil-works/pi-coding-agent
+  docsUrl: https://www.npmjs.com/package/@earendil-works/pi-coding-agent
+  videoSearch: Pi coding agent install and setup
+  verifyCommand: "pi -p 'Reply with exactly the word: READY'"
+  verifyOutput: READY
+  verifiedVersion: 0.83.0
+  blurb: >-
+    A compact agent with the bluntest tool controls of the four. A single flag
+    turns every tool off, which makes it a good place to learn what tools do by
+    removing them.
+  prerequisites: Node.js 18 or newer, and an API key for whichever provider you point it at.
+  videos:
+    - title: Pi coding agent walkthrough
+      url: https://www.youtube.com/results?search_query=pi+coding+agent+earendil+walkthrough
+    - title: Pi tool control basics
+      url: https://www.youtube.com/results?search_query=pi+coding+agent+tools+setup

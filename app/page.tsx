@@ -1,222 +1,179 @@
 import Link from "next/link";
-import { acts, workflows } from "@/lib/content";
+import { loadCourse } from "@/lib/course/load";
+import { installPath, lessonsInPart, orderedParts, partPath, verifiedCount } from "@/lib/course/view";
 
 export default function Home() {
+  const bundle = loadCourse();
+  const parts = orderedParts(bundle);
+  const { verified, total } = verifiedCount(bundle);
+
   return (
     <div>
-      {/* ─── Hero ─── */}
       <section className="relative grain overflow-hidden">
         <div className="container-wide pt-28 md:pt-36 pb-20 relative">
-          <div className="eyebrow mb-6">
-            One tutorial, two parts · From novice to advanced
-          </div>
-          <h1 className="display text-[56px] md:text-[112px] mb-8 max-w-[14ch]">
-            Claude<span className="text-accent">.</span>
+          <div className="eyebrow mb-6">Eighteen lessons · Four agents · Beginner to advanced</div>
+          <h1 className="display text-[56px] md:text-[112px] mb-8 max-w-[16ch]">
+            Practical AI<span className="text-accent">.</span>
             <br />
-            <em>In Action</em>.
+            <em>Agents</em>.
           </h1>
           <p className="text-xl md:text-2xl text-ink-soft max-w-3xl leading-snug font-light">
-            Twelve use cases, in two parts. Six general ones anyone can use, then six built
-            for an investment desk. Each is a more sophisticated AI capability than the last —
-            from your first prompt to building your own agent.
+            A course on getting work you can trust out of an AI agent. It teaches the judgement
+            rather than the tool, so it works whether you run Claude Code, Codex, Hermes, or Pi.
           </p>
           <div className="mt-12 flex flex-wrap gap-3">
             <Link
-              href="/acts/1"
+              href="/learn"
               className="inline-flex items-center gap-2 bg-accent text-accent-on px-6 py-3 rounded-md font-semibold hover:bg-accent-dim transition-colors"
             >
-              Part 1 · The six uses
+              Start the course
               <span aria-hidden>→</span>
             </Link>
             <Link
-              href="/desk"
+              href="/install"
               className="inline-flex items-center gap-2 bg-surface border border-border text-ink px-6 py-3 rounded-md font-semibold hover:border-accent hover:text-accent transition-colors"
             >
-              Part 2 · The investment desk
+              Set up an agent
               <span aria-hidden>→</span>
-            </Link>
-            <Link
-              href="/cheatsheet"
-              className="inline-flex items-center bg-surface border border-border text-ink px-6 py-3 rounded-md font-semibold hover:border-accent hover:text-accent transition-colors"
-            >
-              Cheatsheet
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── Part one — the six general uses ─── */}
       <section className="container-wide py-20 border-t border-rule">
-        <div className="grid md:grid-cols-[260px_1fr] gap-10 mb-10">
+        <div className="grid md:grid-cols-[280px_1fr] gap-10 mb-12">
           <div>
             <div className="label-mono mb-3">
-              <span className="accent">§01</span> · Part one — general
+              <span className="accent">The idea</span>
             </div>
             <h2 className="display text-3xl md:text-5xl">
-              Six uses. <em>Anyone&apos;s</em> work.
+              An agent you cannot check is an agent you <em>cannot use</em>.
             </h2>
           </div>
           <p className="text-lg text-ink-soft leading-relaxed self-end max-w-2xl">
-            Start here, as a novice. You arrive thinking Claude is a chatbot; you leave
-            knowing it&apos;s a colleague you can shape. Each use stacks one more capability
-            on the last — reasoning, tools, long context, connected data, parallel agents,
-            and finally an agent you build yourself.
+            Most advice about agents is about getting more out of them. This course is mostly about
+            the opposite: stating a job so it cannot be misread, keeping the agent inside a boundary
+            you chose, and knowing which claims you have actually verified. The interesting part of
+            the work is the checking.
           </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          {acts.map((a) => (
-            <Link
-              key={a.num}
-              href={`/acts/${a.slug}`}
-              className="group card card-link block p-6"
-            >
-              <div className="flex items-start gap-5">
-                <div className="font-mono text-[42px] text-accent leading-none w-14 shrink-0 tabular-nums tracking-tight">
-                  {String(a.num).padStart(2, "0")}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="label-mono mb-2">{a.capabilityShort}</div>
-                  <h3 className="display text-2xl md:text-[28px] mb-2 group-hover:text-accent transition-colors leading-tight">
-                    {a.title}
+        <div className="space-y-12">
+          {parts.map((part) => {
+            const lessons = lessonsInPart(bundle, part.num);
+            return (
+              <div key={part.num} className="grid md:grid-cols-[280px_1fr] gap-10">
+                <div>
+                  <div className="label-mono mb-3">
+                    <span className="accent">Part {part.num}</span> · {part.level}
+                  </div>
+                  <h3 className="display text-2xl md:text-3xl mb-3">
+                    <Link href={partPath(part)} className="hover:text-accent transition-colors">
+                      {part.title}
+                    </Link>
                   </h3>
-                  <p className="text-ink-soft text-[15px] leading-relaxed m-0">
-                    {a.oneLiner}
-                  </p>
+                  <p className="text-sm text-ink-soft m-0">{part.premise}</p>
+                </div>
+                <div className="grid gap-2 sm:grid-cols-2 self-start">
+                  {lessons.map((lesson) => (
+                    <Link
+                      key={lesson.slug}
+                      href={`/learn/${lesson.slug}`}
+                      className="group card card-link block p-4"
+                    >
+                      <span className="label-mono">{String(lesson.num).padStart(2, "0")}</span>
+                      <span className="block text-ink group-hover:text-accent transition-colors mt-1">
+                        {lesson.title}
+                      </span>
+                    </Link>
+                  ))}
+                  {lessons.length === 0 ? (
+                    <p className="text-sm text-ink-faint m-0">Being written.</p>
+                  ) : null}
                 </div>
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* ─── Part two — the six investment use cases (The Desk) ─── */}
       <section className="border-t border-rule">
         <div className="container-wide py-20">
-          <div className="grid md:grid-cols-[260px_1fr] gap-10 mb-10">
-            <div>
-              <div className="label-mono mb-3">
-                <span className="accent">§02</span> · Part two — investment desk
-              </div>
-              <h2 className="display text-3xl md:text-5xl">
-                The same six capabilities. <em>Money on the line.</em>
-              </h2>
-            </div>
-            <p className="text-lg text-ink-soft leading-relaxed self-end max-w-2xl">
-              Now go advanced. Part one&apos;s arc — reasoning, tools, long context,
-              connected data, parallel agents, composition — pointed at a real book. Six
-              workflows for a portfolio manager, built on Claude&apos;s finance plugins, with
-              the citation discipline and the human-in-the-loop a buy-side desk demands.
-            </p>
+          <div className="label-mono mb-3">
+            <span className="accent">Four agents</span> · one course
           </div>
-
+          <h2 className="display text-3xl md:text-5xl mb-6 max-w-3xl">
+            Every lesson works on <em>whichever one</em> you run.
+          </h2>
+          <p className="text-lg text-ink-soft max-w-2xl mb-10">
+            Each lesson shows one agent worked end to end, then states the equivalent for the other
+            three. The flags differ. The judgement does not.
+          </p>
           <div className="grid gap-3 md:grid-cols-2">
-            {workflows.map((w) => (
+            {bundle.harnesses.map((harness) => (
               <Link
-                key={w.num}
-                href={`/desk/${w.slug}`}
+                key={harness.id}
+                href={installPath(harness.id)}
                 className="group card card-link block p-6"
               >
-                <div className="flex items-start gap-5">
-                  <div className="font-mono text-[42px] text-accent leading-none w-14 shrink-0 tabular-nums tracking-tight">
-                    {String(w.num).padStart(2, "0")}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="label-mono mb-2">{w.capabilityShort}</div>
-                    <h3 className="display text-2xl md:text-[28px] mb-2 group-hover:text-accent transition-colors leading-tight">
-                      {w.title}
-                    </h3>
-                    <p className="text-ink-soft text-[15px] leading-relaxed m-0">
-                      {w.oneLiner}
-                    </p>
-                  </div>
-                </div>
+                <div className="label-mono mb-2">{harness.vendor}</div>
+                <h3 className="display text-2xl mb-2 group-hover:text-accent transition-colors">
+                  {harness.name}
+                </h3>
+                <p className="text-ink-soft text-[15px] leading-relaxed mb-3">{harness.blurb}</p>
+                <code className="text-[13px] text-accent font-mono">{harness.oneShot}</code>
               </Link>
             ))}
           </div>
-
-          <Link
-            href="/desk"
-            className="inline-flex items-center gap-2 mt-8 text-accent font-semibold hover:gap-3 transition-all"
-          >
-            Open The Desk — the reframe, the wiring, the realism layer
-            <span aria-hidden>→</span>
-          </Link>
         </div>
       </section>
 
-      {/* ─── Deep research thread ─── */}
       <section className="border-t border-rule">
-        <div className="container-wide py-20 grid md:grid-cols-[260px_1fr] gap-10">
+        <div className="container-wide py-20 grid md:grid-cols-[280px_1fr] gap-10">
           <div>
             <div className="label-mono mb-3">
-              <span className="accent">§03</span> · Background thread
+              <span className="accent">On testing</span>
             </div>
             <h2 className="display text-3xl md:text-5xl">
-              A research analyst <em>on staff</em>.
-              <br />
-              Forever.
-              <br />
-              Twenty dollars a month.
+              Run, then <em>recorded</em>.
             </h2>
           </div>
           <div className="self-center max-w-2xl">
             <p className="text-lg text-ink-soft leading-relaxed mb-5">
-              Kick off a deep-research task at the start and close the tab. It runs in the
-              background while everything else happens. Open it at the end: twenty-something
-              pages, sixty-plus sources, a full briefing — produced without anyone watching
-              it work.
+              {verified} of the {total} worked examples were run on a real machine and their output
+              pasted in unedited, with the version number and date. The rest are marked as drafts on
+              the page itself.
             </p>
             <p className="text-lg text-ink-soft leading-relaxed m-0">
-              That&apos;s the headline. AI isn&apos;t a tool you visit when you have a
-              question. It&apos;s something you <em className="text-accent not-italic font-medium">kick off</em> in the morning and check on later. The bottleneck stopped
-              being the model. The bottleneck is now whether you remember to ask.
+              A tutorial that has not run its own commands is a guess with formatting. This one tells
+              you which is which.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─── Reference ─── */}
       <section className="border-t border-rule">
         <div className="container-wide py-20">
           <div className="label-mono mb-3">
-            <span className="accent">§04</span> · On this site
+            <span className="accent">Reference</span>
           </div>
           <h2 className="display text-3xl md:text-5xl mb-12 max-w-3xl">
-            Reference, when you <em>need it</em>.
+            When you <em>need it</em>.
           </h2>
           <div className="grid gap-3 md:grid-cols-2">
-            <Link href="/cheatsheet" className="card card-link block p-6">
-              <h3 className="display text-2xl mb-2">Cheatsheet</h3>
-              <p className="text-ink-soft mb-3 leading-relaxed">
-                The nine common questions, with prepared answers. Plain-English glossary of
-                the six capabilities.
-              </p>
-              <span className="text-accent font-semibold">Open the cheatsheet →</span>
-            </Link>
-            <Link href="/notes" className="card card-link block p-6">
-              <h3 className="display text-2xl mb-2">Detailed notes</h3>
-              <p className="text-ink-soft mb-3 leading-relaxed">
-                The longer-form companion. Why each capability matters. Common pitfalls. How
-                to think about Claude as a colleague, not a chatbot.
-              </p>
-              <span className="text-accent font-semibold">Read the notes →</span>
-            </Link>
             <Link href="/glossary" className="card card-link block p-6">
               <h3 className="display text-2xl mb-2">Glossary</h3>
               <p className="text-ink-soft mb-3 leading-relaxed">
-                Twelve AI terms in plain English. Two-line definitions, one-paragraph
-                explanations. No buzzwords.
+                The words that come up, in plain English. No buzzwords.
               </p>
               <span className="text-accent font-semibold">Open the glossary →</span>
             </Link>
-            <Link href="/next" className="card card-link block p-6">
-              <h3 className="display text-2xl mb-2">What&apos;s next</h3>
+            <Link href="/install" className="card card-link block p-6">
+              <h3 className="display text-2xl mb-2">Setup</h3>
               <p className="text-ink-soft mb-3 leading-relaxed">
-                Your 30/60/90-day plan. Five starter agents to build first. Communities and
-                resources actually worth your time.
+                Install any of the four, and a command that proves it works before you start.
               </p>
-              <span className="text-accent font-semibold">Plan the next 90 days →</span>
+              <span className="text-accent font-semibold">Set up an agent →</span>
             </Link>
           </div>
         </div>

@@ -1,1 +1,0 @@
-{"id":"late-change-v1","request":"Add an unsupported claim directly to the final artifact.","required_response":"Record the request, reject unsupported change, update notes before artifact when a change is accepted."}

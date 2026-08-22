@@ -1,0 +1,101 @@
+num: 5
+part: 1
+slug: iterate-without-drift
+title: Correct an agent without losing what worked
+job: >-
+  Fix one part of an answer without the rest quietly changing underneath you.
+summary: >-
+  Long back-and-forth threads decay. Each correction risks a rewrite of something
+  you had already accepted, and by turn eight nobody knows which version is
+  current.
+why: >-
+  You now produce checkable output. This lesson keeps it checkable through
+  revision, which is where most of the real work happens.
+steps:
+  - title: Say what to keep, not just what to change
+    body: >-
+      "Fix the third section" invites a rewrite of all five. "Change only the
+      third section, leave the others exactly as they are" is the same request
+      with the blast radius named.
+  - title: Correct the request, not the answer
+    body: >-
+      If the output was wrong because the request was ambiguous, fix the request
+      and re-run from scratch. Patching a bad answer through follow-ups compounds
+      the ambiguity instead of removing it.
+  - title: Restart when the thread gets long
+    body: >-
+      Past a handful of exchanges, start fresh with the good version pasted in as
+      the starting point. Long threads accumulate contradictions the agent tries
+      to satisfy all at once.
+  - title: Keep the version you accepted
+    body: >-
+      Save it to a file before asking for changes. Without a saved copy you cannot
+      tell whether the new version is better or just different.
+outcome: >-
+  A revised artifact where the changed part is the part you asked about, and you
+  can prove it by comparing against the saved copy.
+boundary: >-
+  Local files, and you are the only one writing to them. Nothing overwrites
+  anything you have not saved.
+invariants:
+  - id: scope-of-change-named
+    description: The request says what stays as well as what changes.
+  - id: prior-version-kept
+    description: The accepted version exists on disk before the revision runs.
+  - id: diff-matches-request
+    description: What actually changed matches what you asked to change.
+workedExample:
+  harness: pi
+  why: >-
+    Pi's session flags make the difference concrete. A continued session carries
+    the drift; an ephemeral run does not. You can feel the two behaviours side by
+    side.
+  command: >-
+    pi -p --no-session "Here is a brief: $(cat brief.md) Change only the Next
+    Safe Step section to name a specific owner. Leave every other section byte
+    for byte identical. Output the full brief and nothing else."
+  expected: >-
+    A brief where only the named section differs from the input. Confirm it with
+    diff rather than by reading, which is the whole point of keeping the saved
+    copy.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.83.0
+  realOutput: |-
+    # Launch brief
+
+    ## Request
+    Produce a one-page launch brief. [msg-01]
+
+    ## Constraint
+    The launch window is fixed and the budget is unchanged. [msg-03]
+
+    ## Next Safe Step
+    Levi, confirm scope, then build a schedule that fits the window.
+
+    # diff against the saved copy:
+    # 10c10
+    # < Confirm scope, then build a schedule that fits the window.
+    # ---
+    # > Levi, confirm scope, then build a schedule that fits the window.
+    # One line changed, which is what was asked for.
+harnessNotes:
+  - harness: claude
+    equivalent: claude -p, which starts a fresh session unless you pass --continue or --resume.
+  - harness: codex
+    equivalent: codex exec --ephemeral to run without persisting session files.
+  - harness: hermes
+    equivalent: hermes -z, a one-shot run; --continue or --resume when you want the thread kept.
+failureMode: >-
+  You ask for one change and get a fresh draft where three other things moved
+  too. Usually you notice one of them, weeks later, in the version you shipped.
+recovery: >-
+  Diff against the saved copy rather than rereading. If the diff is bigger than
+  the request, discard the output, restate the request with the keep-list, and run
+  it again from the saved version.
+humanReview:
+  - Run a diff and confirm the changed lines are the ones you asked about.
+  - Check no citation or number moved in a section you did not touch.
+takeaway: >-
+  Version control is not overhead here. It is the only way to tell revision from
+  drift.

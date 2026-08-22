@@ -20,7 +20,7 @@
   /* text */
   --ink: #E8EAED;
   --ink-soft: #B0B7C0;
-  --ink-faint: #6B7280;
+  --ink-faint: #808895;
 
   /* accent */
   --accent: #5EEAD4;
@@ -64,10 +64,10 @@
 
   --ink: #131418;
   --ink-soft: #4A4D55;
-  --ink-faint: #7A7E87;
+  --ink-faint: #63666E;
 
-  --accent: #0D9488;
-  --accent-dim: #0F766E;
+  --accent: #0B6E68;
+  --accent-dim: #0A5C57;
   --accent-on: #FFFFFF;
   --accent-glow: rgba(13, 148, 136, 0.10);
 

@@ -1,3 +1,0 @@
-import type { Metadata } from "next";
-export const metadata: Metadata={title:"Sources and evidence",robots:{index:false,follow:false}};
-export default function Sources(){return <main className="container-narrow py-12"><h1 className="display text-5xl">Sources and evidence</h1><p className="text-xl text-ink-soft">This course separates what a source says, what the course has tested, and what the course recommends.</p><p>A source record tells you where a claim came from. An execution record shows what happened on the stated fixture. A tutorial judgment is course advice. Read all three.</p></main>}

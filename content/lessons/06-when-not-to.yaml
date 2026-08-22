@@ -1,0 +1,111 @@
+num: 6
+part: 1
+slug: when-not-to
+title: Know which jobs to keep for yourself
+job: >-
+  Decide, before starting, whether a job should go to an agent at all.
+summary: >-
+  The skill that separates competent users from enthusiastic ones is declining.
+  Some jobs cost more to check than to do, and some should not be delegated at
+  any price.
+why: >-
+  It closes Part 1 because it needs the previous five lessons. You cannot judge
+  whether checking will be cheap until you know what checking involves.
+steps:
+  - title: Ask what a wrong answer costs
+    body: >-
+      A wrong draft costs a rewrite. A wrong number in a board paper costs your
+      credibility. Same effort to produce, wildly different exposure, and only the
+      second one needs a verification plan before you start.
+  - title: Ask whether you could tell
+    body: >-
+      If the output were subtly wrong, would you notice? On a topic you know well,
+      probably. On one you do not, you are trusting the agent to grade its own
+      work, which is the situation to avoid.
+  - title: Compare checking cost against doing cost
+    body: >-
+      When verifying takes longer than writing it yourself, delegating is a loss
+      even when the output is perfect. Long lists of specific facts often fall
+      here.
+  - title: Keep the jobs that are the point
+    body: >-
+      Some work exists so that you understand something. Reading the paper,
+      sitting through the argument, forming the judgement. Delegating those buys
+      time and costs the thing you were doing it for.
+outcome: >-
+  A short personal rule for what you route to an agent and what you keep, written
+  down so you are not deciding it fresh under time pressure.
+boundary: >-
+  No tools required. This lesson is a decision, and the decision happens before
+  anything runs.
+invariants:
+  - id: cost-of-error-named
+    description: The cost of a wrong answer is stated before the work starts.
+  - id: detectability-assessed
+    description: You have decided whether you could spot a subtle error.
+  - id: keep-list-exists
+    description: You can name at least one job you will not delegate, and why.
+workedExample:
+  harness: claude
+  why: >-
+    Any of the four does this equally well, since the work is judgement rather
+    than tooling. Claude is used here because Part 1 opened on it.
+  command: >-
+    claude -p 'I am considering delegating this task to an agent: writing the
+    risk section of a board paper using our internal incident data. Ask me the
+    questions that would tell me whether that is a bad idea, then give me your
+    assessment. Do not assume the answer is yes.'
+  expected: >-
+    Questions about the data, the output, and what only you know, followed by an
+    assessment willing to recommend against delegating. Note that it splits the
+    job rather than answering yes or no.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 2.1.238
+  realOutput: |-
+    On what only you know
+
+    9. What's the political content? Every real risk section has a line someone
+       doesn't want written. An agent will write the defensible version, not the
+       true one, and the true one is the reason the section exists.
+    10. What's the causal story? Incident counts are the easy part. "Three of
+        these trace to the same unfixed dependency and we've deferred the fix
+        twice" is the part that matters, and it's not in the data.
+
+    My assessment
+
+    Delegating the whole section: probably a bad idea. Not because of drafting
+    quality, but because the value lives in the parts that aren't in the data:
+    causal linkage, what's contested, what you're choosing to escalate. Handing
+    that over produces something fluent, complete-looking, and hollow. That's a
+    worse failure than a rough draft, because hollowness in a polished document
+    is hard to spot.
+
+    Delegating the analysis: likely a good idea. Counts, trends, clustering by
+    root cause, a list of anomalies worth explaining. That's genuine work, it's
+    verifiable against the source, and it's the tedious part.
+
+    The split I'd recommend: agent produces the evidence base and a structured
+    findings memo. You write the section. The judgment calls stay with the person
+    whose name is on it.
+harnessNotes:
+  - harness: codex
+    equivalent: codex exec with the same request.
+  - harness: hermes
+    equivalent: hermes -z with the same request.
+  - harness: pi
+    equivalent: pi -p --no-tools, since no tools are needed for a judgement call.
+failureMode: >-
+  Everything gets delegated because delegating is fast and satisfying. The
+  verification debt accrues silently and comes due on the one document that
+  mattered.
+recovery: >-
+  Take back the jobs where you could not have detected an error. That is the
+  category that hurts, and it is smaller than the full list, which makes the
+  correction cheap.
+humanReview:
+  - Confirm your rule names a real job you have stopped delegating.
+  - Check the rule survives a busy week, since that is when it gets tested.
+takeaway: >-
+  Knowing what not to hand over is the part that takes judgement. Everything else
+  is flags.

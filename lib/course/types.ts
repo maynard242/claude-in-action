@@ -1,239 +1,113 @@
-export const PRIMARY_HARNESSES = ["claude", "codex", "hermes"] as const;
+export const HARNESSES = ["claude", "codex", "hermes", "pi"] as const;
+export type Harness = (typeof HARNESSES)[number];
 
-export type Harness = (typeof PRIMARY_HARNESSES)[number];
-export type VariantStatus = "available" | "draft" | "unavailable";
-export type LessonReleaseStatus =
-  | "planned"
-  | "internal_slice"
-  | "public_preview"
-  | "released_three_harness";
-export type CourseReleaseStatus =
-  | "foundation"
-  | "internal_slice"
-  | "public_preview"
-  | "released_three_harness";
-export type SourceKind =
-  | "current-operational-doc"
-  | "pinned-snapshot"
-  | "tutorial-judgement";
+export const PARTS = [1, 2, 3] as const;
+export type PartNum = (typeof PARTS)[number];
 
-export type SourceRef = {
-  id: string;
+/** A variant is verified only when the command was run on a real machine and
+ *  its output recorded. Everything else is a draft, and says so. */
+export type VariantStatus = "verified" | "draft";
+
+export type HarnessMeta = {
+  id: Harness;
+  name: string;
+  vendor: string;
+  /** Non-interactive invocation, e.g. `claude -p`. */
+  oneShot: string;
+  installCommand: string;
+  docsUrl: string;
+  /** Search term for finding install walkthroughs. */
+  videoSearch: string;
+  verifyCommand: string;
+  /** Real recorded output of verifyCommand, or null when unverified. */
+  verifyOutput: string | null;
+  verifiedVersion: string | null;
+  blurb: string;
+  prerequisites: string;
+  videos: VideoLink[];
+};
+
+export type VideoLink = {
   title: string;
-  kind: SourceKind;
-  canonicalUrl?: string;
-  retrievedAt?: string;
-  operationalExpiresAt?: string;
+  url: string;
+};
+
+/** One row of the cross-harness equivalence table. */
+export type EquivalenceRow = {
+  concept: string;
+  claude: string;
+  codex: string;
+  hermes: string;
+  pi: string;
   note?: string;
 };
 
-export type SourceRegistry = {
-  provider: Harness;
-  sources: SourceRef[];
-};
-
-export type ImmutableIdentity = {
-  manifestPath: string;
-  origin: string;
-  licenseOrPermission: string;
-  version: string;
-  contentIdentity: string;
-  sha256: string;
-};
-
-export type ScenarioArtifact = {
-  id: string;
-  learnerVisiblePath: string;
-  identity: ImmutableIdentity;
-};
-
-export type ScenarioPortability = {
-  synthetic: true;
-  locallyAvailable: true;
-  sourceControlled: true;
-  optionalIntegrationsOnly: true;
-  fixtureIdentity: ImmutableIdentity;
-  artifacts: ScenarioArtifact[];
-  semanticEquivalenceStatement: string;
-  commonArtifactAcceptance: string[];
-  connectedOrPaidToolAlternatives: string[];
-};
-
-export type Scenario = {
-  id: string;
+export type Part = {
+  num: PartNum;
+  slug: string;
   title: string;
-  artifactRefs: string[];
-  sourceRefs: string[];
-  portability: ScenarioPortability;
+  level: "beginner" | "intermediate" | "advanced";
+  premise: string;
+  summary: string;
 };
 
-export type SharedFailureScenario = {
+export type Step = {
+  title: string;
+  body: string;
+};
+
+export type Invariant = {
   id: string;
-  trigger: string;
-  observableSymptom: string;
-  affectedInvariant: string;
-};
-
-export type SharedRecoveryOutcome = {
   description: string;
-  requiredArtifactState: string[];
-  acceptanceInvariantIds: string[];
-  handoffEvidence: string[];
 };
 
-export type DataFlowStep = {
-  stage: "input" | "processing" | "tool-call" | "output" | "persistence" | "handoff";
-  data: string[];
-  location: "local" | "provider" | "connected-service" | "learner-controlled-export";
-  trustBoundary: string;
-  optional: boolean;
-};
-
-export type FailureMode = {
-  id: string;
-  condition: string;
-  observableSymptom: string;
-  affectedInvariantIds: string[];
-};
-
-export type RecoveryStep = {
-  order: number;
-  action: string;
-  expectedEvidence: string;
-};
-
-export type RecoveryVerification = {
-  method: string;
-  evidenceProduced: string[];
-  verifiesInvariantIds: string[];
-  humanReviewStillRequired: string[];
-};
-
-export type EvidenceType =
-  | "fixture-manifest"
-  | "execution-log"
-  | "artifact"
-  | "verification-report"
-  | "recovery-report"
-  | "review-record"
-  | "non-proxy-attestation";
-
-export type EvidenceActor = {
-  id: string;
-  role: "executor" | "verifier" | "reviewer" | "attestor";
-  recordedAt: string;
-};
-
-export type EvidenceRef = {
-  id: string;
-  type: EvidenceType;
-  path: string;
-  byteLength: number;
-  sha256: string;
-  contentIdentity: string;
-  fixtureId: string;
-  fixtureIdentity: string;
-  execution?: {
-    id: string;
-    harness: Harness;
-    executor: EvidenceActor;
-    executedAt: string;
-  };
-  review?: {
-    reviewer: EvidenceActor;
-    reviewedAt: string;
-    verdict: "fit" | "not-fit";
-  };
-};
-
-export type InvariantEvidenceLink = {
-  invariantId: string;
-  evidenceIds: string[];
-};
-
-export type AvailabilityEvidence = {
-  fixtureManifest: EvidenceRef;
-  executionLog: EvidenceRef;
-  artifact: EvidenceRef;
-  verificationReport: EvidenceRef;
-  recoveryReport: EvidenceRef;
-  reviewRecord: EvidenceRef;
-  invariantEvidence: InvariantEvidenceLink[];
-  nonProxyAttestation?: EvidenceRef;
-};
-
-export type HarnessVariant = {
+/** The worked example: one harness shown end to end. */
+export type WorkedExample = {
   harness: Harness;
+  why: string;
+  command: string;
+  expected: string;
   status: VariantStatus;
-  statusReason?: string;
-  supportedSurface?: string;
-  sourceRefs: string[];
-  sourceReviewDate?: string;
-  prerequisites: string[];
-  permissionBoundary?: string;
-  dataFlow?: DataFlowStep[];
-  steps?: { title: string; body: string; prompt?: string; command?: string }[];
-  expectedArtifact?: string;
-  verification?: string[];
-  failureModes?: FailureMode[];
-  recoverySteps?: RecoveryStep[];
-  recoveryVerification?: RecoveryVerification;
-  limitations?: string[];
-  availabilityEvidence?: AvailabilityEvidence;
+  verifiedOn?: string;
+  harnessVersion?: string;
+  realOutput?: string;
 };
 
-export type ArtifactInvariant = {
-  id: string;
-  description: string;
+/** How the same job is expressed on a harness that isn't the worked example. */
+export type HarnessNote = {
+  harness: Harness;
+  equivalent: string;
+  caution?: string;
 };
 
 export type Lesson = {
   num: number;
+  part: PartNum;
   slug: string;
   title: string;
+  /** The job, in the reader's words. */
+  job: string;
   summary: string;
-  learnerGoal: string;
-  scenario: string;
-  sharedSteps: { title: string; body: string }[];
-  sharedOutcome: string;
-  reliabilityGoal: string;
-  privacyGoal: string;
-  sharedSafetyBoundary: string;
-  sharedFailureScenario: SharedFailureScenario;
-  sharedRecoveryOutcome: SharedRecoveryOutcome;
-  assessment: {
-    artifactInvariants: ArtifactInvariant[];
-    automated: string[];
-    humanReview: string[];
-  };
-  sourceRefs: string[];
-  releaseStatus: LessonReleaseStatus;
-  variants: HarnessVariant[];
-};
-
-export type Course = {
-  title: string;
-  releaseStatus: CourseReleaseStatus;
-  primaryHarnesses: Harness[];
-  contentReviewedAt?: string;
-};
-
-export type Comparison = {
-  id: string;
-  status: "draft";
-  role: "comparison-only";
-  notPrimaryHarness: true;
-  notLessonVariant: true;
-  sources: SourceRef[];
-  summary: string;
-  facts: string[];
+  /** Why this lesson exists where it does in the sequence. */
+  why: string;
+  steps: Step[];
+  outcome: string;
+  boundary: string;
+  invariants: Invariant[];
+  workedExample: WorkedExample;
+  harnessNotes: HarnessNote[];
+  equivalence?: EquivalenceRow[];
+  failureMode: string;
+  recovery: string;
+  humanReview: string[];
+  /** Optional closing insight. */
+  takeaway?: string;
 };
 
 export type CourseBundle = {
   root: string;
-  course: Course;
-  sources: SourceRegistry[];
-  scenarios: Scenario[];
+  title: string;
+  parts: Part[];
   lessons: Lesson[];
-  comparisons: Comparison[];
+  harnesses: HarnessMeta[];
 };

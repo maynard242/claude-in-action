@@ -1,105 +1,105 @@
-export const metadata = {
-  title: "Glossary — Claude in Action",
-  description: "Plain-English definitions of the AI terms used in the tutorial.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Glossary · Practical AI Agents",
+  description: "Plain-English definitions of the terms used in the course.",
 };
 
 const terms = [
   {
-    term: "Reasoning over context",
-    short: "What every LLM does as a baseline.",
-    long: "The model reads text — and looks at images — it's never seen before, figures out what's actually being asked, and gives an answer that reflects judgment, not retrieval. It's not pattern-matching against a database. It's interpreting.",
-  },
-  {
-    term: "Tool use",
-    short: "When the model can call other things, not just generate text.",
-    long: "A web search. A calendar lookup. A file write. Code execution. The model decides when to call each tool, what arguments to pass, and how to use the result. Tool use is what turns 'answering questions' into 'doing work.'",
-  },
-  {
-    term: "Long-context reasoning",
-    short: "The model holds a lot in mind at once.",
-    long: "Modern Claude models can hold the equivalent of hundreds of pages of text in active context. That lets them reason across documents simultaneously — finding contradictions, themes, and patterns that a human reading sequentially would miss.",
-  },
-  {
-    term: "Multimodal",
-    short: "The model can see, not just read.",
-    long: "Drag in a photo, a screenshot, a chart, a slide. Claude parses layout, labels, content. It can critique a slide deck, explain a confusing graph, or summarize a whiteboard photo. Multimodal isn't a separate product — it's reasoning with images as another input.",
-  },
-  {
-    term: "MCP — Model Context Protocol",
-    short: "How Claude talks to your real tools, securely and with permission.",
-    long: "Open standard. Permission-based. Claude only sees what you connect. You can revoke at any time. MCP is what makes Cowork mode possible — Claude pulls from your calendar, Slack, Drive, Notion (or whatever you connect) and synthesizes across them.",
-  },
-  {
-    term: "Cowork mode",
-    short: "Claude with its hands untied.",
-    long: "Anthropic's name for Claude's connected mode. Cowork is where MCP lives, where async execution happens, where live artifacts get built. If you've only used the basic chat at claude.ai, you haven't seen most of what Claude can do.",
-  },
-  {
-    term: "Asynchronous execution",
-    short: "Claude works while you don't.",
-    long: "You assign a task. You close the tab. You walk into a meeting. Claude keeps working. When you come back, the result is waiting. Deep research is the most visible example — a single research task can run for 30+ minutes producing a 20-page sourced briefing.",
-  },
-  {
-    term: "Parallel sub-agents",
-    short: "Many Claudes, one job.",
-    long: "Tell Claude to spawn multiple sub-agents, each working on a slice of the problem in parallel, then synthesize across them at the end. Five competitor profiles in the time of one. The architectural shift from chatbot to workforce.",
-  },
-  {
-    term: "Persistent / scheduled execution",
-    short: "Claude shows up without being asked.",
-    long: "A standing weekly task — every Friday at 4pm, summarize the week. A live dashboard that pulls fresh data every time you open it. The model doesn't just respond to requests; it maintains state and runs on its own time.",
-  },
-  {
     term: "Agent",
-    short: "A reusable, named, tool-equipped Claude.",
-    long: "An agent is essentially a saved prompt with a name and a set of permissioned tools. You describe a workflow once; Claude packages it as something you can invoke by name (e.g. 'run meeting prep'). No code. The compounding move: build one, then another, then another.",
+    short: "A model that can act, not just answer.",
+    long: "The difference between a chatbot and an agent is that an agent can do things: read a file, run a command, call an API. That is also the entire source of the risk, which is why the middle third of this course is about access rather than prompting.",
   },
   {
-    term: "Composable agents",
-    short: "Agents that call other agents.",
-    long: "Once you have a few agents, you can wire them together. A meeting-prep agent might call a research agent and a notes-search agent under the hood. The architecture of your workflow becomes something you build and edit yourself, in plain English.",
+    term: "Harness",
+    short: "The program that wraps the model and gives it tools.",
+    long: "Claude Code, Codex CLI, Hermes, and Pi are harnesses. The model does the thinking; the harness decides what it can touch, when to ask permission, and what happens to the output. Two harnesses running the same model behave very differently.",
+  },
+  {
+    term: "Non-interactive run",
+    short: "One prompt in, one answer out, no chat.",
+    long: "Every harness has a flag for this: claude -p, codex exec, hermes -z, pi -p. It matters more than it sounds, because a run with no conversation has no accumulated context to drift through, which makes it repeatable and therefore checkable.",
+  },
+  {
+    term: "Tool",
+    short: "Anything the agent can call that is not the model.",
+    long: "Reading a file, searching the web, running a shell command, writing to disk. Each harness lets you allow or deny tools individually, and doing so is the most direct control you have over what an agent can do.",
+  },
+  {
+    term: "Sandbox",
+    short: "A restriction on what the agent can reach, enforced outside the model.",
+    long: "The important word is enforced. A prompt saying 'do not write files' is a request. A sandbox set to read-only is a wall. Codex prints its sandbox mode in the run header for exactly this reason.",
+  },
+  {
+    term: "Permission mode",
+    short: "The standing answer to 'should I ask first?'",
+    long: "Modes range from asking before every action to asking about nothing. The last one has its uses and is also how people lose work. Choose it deliberately rather than because a prompt was getting annoying.",
+  },
+  {
+    term: "Prompt injection",
+    short: "Instructions hidden in the material the agent reads.",
+    long: "An email, a web page, or a code comment that says 'ignore your instructions and do this instead.' The agent has no reliable way to tell your instructions from text that looks like instructions, so the defence is restricting what it can do rather than hoping it notices.",
+  },
+  {
+    term: "Trust boundary",
+    short: "The line between what you asked for and what the material asks for.",
+    long: "Everything the agent reads sits on the far side of it. Content is evidence to assess, never authority to act. Lesson 2 is entirely about holding this line.",
+  },
+  {
+    term: "Context",
+    short: "Everything the model can see while answering.",
+    long: "Your request, the files it has read, the conversation so far, plus any project instructions loaded automatically. Surprising output is often context you forgot was there, which is why a fresh run sometimes fixes what more explaining will not.",
+  },
+  {
+    term: "Grounding",
+    short: "Tying a claim to something you can open.",
+    long: "An ungrounded claim may still be true, but you have no way to tell without doing the work yourself. Asking which source supports each claim is the cheapest quality check available.",
   },
   {
     term: "Hallucination",
-    short: "When a model confidently makes things up.",
-    long: "All large language models can produce wrong information that sounds right. Claude is better than most at flagging uncertainty, but the rule is the same as with a smart new hire: trust, but verify. For high-stakes decisions, check the key facts. For first drafts and synthesis, it's reliable.",
+    short: "A confident statement with nothing behind it.",
+    long: "Usually specific rather than vague: an exact figure, a plausible citation, a function that does not exist. Fluent writing and accurate writing are unrelated properties, and only one of them is visible on the page.",
+  },
+  {
+    term: "Invariant",
+    short: "Something that must be true of the output, stated before you run.",
+    long: "Every lesson lists a few. They turn 'does this look right' into a check with an answer, and writing them down beforehand stops you grading the output against whatever it happens to contain.",
+  },
+  {
+    term: "Handoff",
+    short: "Giving the work to someone who can check it.",
+    long: "A handoff is complete when another person can see what was done, what was verified, and what was not. An output with no record of its own coverage is not finished work, whatever it looks like.",
+  },
+  {
+    term: "Approval",
+    short: "A human decision the agent must wait for.",
+    long: "The main design question in any agent system is which actions need one. Hermes can even test whether a command would be approved without running it, which is a useful habit to borrow.",
   },
 ];
 
 export default function GlossaryPage() {
   return (
-    <article className="container-narrow pt-12 pb-24">
-      <header className="mb-12 pb-10 border-b border-rule">
-        <div className="label-mono mb-4">
-          <span className="accent">§</span> Plain-English definitions
-        </div>
-        <h1 className="display text-5xl md:text-7xl mb-4 leading-[1.02]">
-          Glossary<span className="text-accent">.</span>
-        </h1>
-        <p className="text-xl text-ink-soft leading-snug">
-          Twelve terms. Two-line definitions and one-paragraph explanations. No buzzwords.
+    <div className="container-narrow py-12">
+      <header className="pb-10 border-b border-rule">
+        <p className="eyebrow">Reference</p>
+        <h1 className="display text-4xl md:text-6xl mt-4 mb-5">Glossary</h1>
+        <p className="text-xl text-ink-soft">
+          The words that come up in the course, defined without the marketing.
         </p>
       </header>
 
-      <div className="space-y-10">
-        {terms.map((t, i) => (
-          <div
-            key={t.term}
-            className="border-b border-rule pb-10 last:border-b-0 grid md:grid-cols-[80px_1fr] gap-x-6 gap-y-2"
-          >
-            <div className="label-mono text-accent pt-2">
-              {String(i + 1).padStart(2, "0")}
-            </div>
-            <div>
-              <h2 className="display text-2xl md:text-3xl mb-1">{t.term}</h2>
-              <p className="text-accent text-sm font-mono mb-3 tracking-wide">
-                {t.short}
-              </p>
-              <p className="text-ink-soft leading-relaxed m-0">{t.long}</p>
-            </div>
+      <dl className="mt-10 space-y-8">
+        {terms.map((entry) => (
+          <div key={entry.term} className="card p-6">
+            <dt>
+              <h2 className="display text-2xl mb-1">{entry.term}</h2>
+              <p className="text-accent text-sm font-mono mb-3 tracking-wide">{entry.short}</p>
+            </dt>
+            <dd className="m-0 text-ink-soft leading-relaxed">{entry.long}</dd>
           </div>
         ))}
-      </div>
-    </article>
+      </dl>
+    </div>
   );
 }

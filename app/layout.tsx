@@ -22,13 +22,13 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Claude in Action — From Novice to Advanced",
+  title: "Practical AI Agents",
   description:
-    "A two-part tutorial for working professionals. Twelve use cases — six general, six for an investment desk — each a more sophisticated AI capability than the last, from your first prompt to building your own agent.",
+    "Eighteen lessons on getting work you can trust out of an AI agent, written for Claude Code, Codex CLI, Hermes, or Pi.",
   openGraph: {
-    title: "Claude in Action — From Novice to Advanced",
+    title: "Practical AI Agents",
     description:
-      "A two-part tutorial: six general use cases, then six for an investment desk. From novice to advanced.",
+      "Eighteen lessons on getting work you can trust out of an AI agent. Four harnesses, one pedagogy.",
     type: "website",
   },
 };
