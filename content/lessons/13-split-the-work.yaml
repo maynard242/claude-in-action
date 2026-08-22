@@ -1,0 +1,101 @@
+num: 13
+part: 3
+slug: split-the-work
+title: Split work so the pieces cannot corrupt each other
+job: >-
+  Run several agents at once on parts of a job, and get results you can trust
+  without untangling who did what.
+summary: >-
+  Parallel agents are fast and easy to get wrong. The rule that makes it work is
+  boring: give each one its own input, its own output, and no reason to touch
+  anything else.
+why: >-
+  Part 2 got one agent under control. Adding a second changes the problem,
+  because now two things can write to the same place and neither knows the other
+  exists.
+steps:
+  - title: Split by input, not by phase
+    body: >-
+      One agent per document beats a pipeline of agents passing drafts along. If
+      the pieces do not share state, a failure in one cannot poison the others.
+  - title: Give each one a narrow read scope
+    body: >-
+      Name the single file each agent may read. An agent that can read all the
+      inputs will start comparing them, which is a different job and belongs to
+      whatever combines the results.
+  - title: Write to separate outputs
+    body: >-
+      Distinct files per agent. Two agents appending to one file produces
+      interleaved output at best, and silently lost work when the timing goes
+      badly.
+  - title: Combine in a separate step you control
+    body: >-
+      Collect the pieces yourself once they are all done. The combining step is
+      where errors become visible, so keep it out of the parallel section.
+outcome: >-
+  One output file per agent, each derived from one input, ready to be combined by
+  a step that can see all of them at once.
+boundary: >-
+  Read-only agents in a throwaway directory. Nothing writes, which is the
+  cheapest way to make parallelism safe while you are learning the shape.
+invariants:
+  - id: one-input-each
+    description: Each agent read exactly one input file.
+  - id: separate-outputs
+    description: Each agent wrote to its own output path.
+  - id: no-shared-writes
+    description: No two agents could write to the same location.
+workedExample:
+  harness: codex
+  why: >-
+    Read-only mode means three concurrent agents cannot interfere with each other
+    even if the scoping is wrong, so you can watch the pattern work before
+    trusting it with write access.
+  command: >-
+    for n in alpha beta gamma; do (codex exec -s read-only --skip-git-repo-check
+    "Read vendor-$n.md only. Output one line: vendor name, annual spend, renewal
+    date. Nothing else." > /tmp/p3/out-$n.txt 2>&1) & done; wait
+  expected: >-
+    Three output files, each holding one correct line about one vendor. Total wall
+    clock close to a single run rather than three times as long.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    --- alpha ---
+    Vendor alpha, 48,000, 2027-01-15
+
+    --- beta ---
+    Vendor beta, 31,000, 2027-03-01
+
+    --- gamma ---
+    Vendor gamma, 55,000, 2027-06-30
+
+    Each agent read one file and wrote one output. All three ran concurrently.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      claude -p backgrounded the same way, with --add-dir left unset so each run
+      stays in its own working directory.
+  - harness: hermes
+    equivalent: >-
+      hermes -z backgrounded, or hermes --worktree to give each agent its own git
+      worktree when they genuinely need to write.
+  - harness: pi
+    equivalent: pi -p --no-session, so concurrent runs cannot contend over one session file.
+    caution: >-
+      Without --no-session, parallel Pi runs may write to the same session store.
+      Make each run ephemeral or give it its own session directory.
+failureMode: >-
+  Two agents write to the same output path. One result overwrites the other, the
+  file looks complete, and nothing in it indicates that half the work is missing.
+recovery: >-
+  Re-run with distinct output paths, then count the outputs before reading them.
+  Three inputs should produce three files, and checking the count catches this
+  faster than reading the contents.
+humanReview:
+  - Count the outputs against the inputs before trusting any of them.
+  - Confirm each output refers only to its own input, with no cross-contamination.
+takeaway: >-
+  Parallel agents are safe when they share nothing. Every shared resource is a
+  race you have to reason about.

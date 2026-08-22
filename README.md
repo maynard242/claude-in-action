@@ -8,7 +8,7 @@ The deployed site is at **harnesses-in-action.vercel.app**.
 
 ## Status
 
-Parts 1 and 2 are written. All twelve worked examples have been run on a real machine, with output, version, and date recorded on the page. Part 3 is outlined in `content/parts.yaml` and its lessons are not yet written.
+All three parts are written. Every one of the eighteen worked examples has been run on a real machine, with output, version, and date recorded on the page.
 
 ## Structure
 

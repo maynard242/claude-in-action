@@ -1,0 +1,111 @@
+num: 14
+part: 3
+slug: compose-the-pieces
+title: Make the combining step do the checking
+job: >-
+  Assemble parallel results into one answer, and use the assembly to catch errors
+  the individual pieces could not see.
+summary: >-
+  Combining is not clerical. It is the only step that sees everything at once,
+  which makes it the only step that can catch a total that does not add up or a
+  claim contradicted by one input out of three.
+why: >-
+  Lesson 13 produced isolated pieces. Isolation is what made them trustworthy and
+  also what made them blind, since no single agent could check a claim spanning
+  all three.
+steps:
+  - title: Collect before you interpret
+    body: >-
+      Gather the pieces into one place and look at them. Count them against the
+      inputs. This is where a duplicated or missing result becomes obvious.
+  - title: Feed the pieces, not the sources
+    body: >-
+      Give the combining agent the collected results and forbid re-reading the
+      originals. If it can go back to source it will, and then you are not testing
+      the pieces you actually produced.
+  - title: Ask for the arithmetic
+    body: >-
+      Any claim involving a total, count, or "all" is checkable. Demand the working
+      rather than the verdict, because the working is what you can audit.
+  - title: Accept "cannot be assessed"
+    body: >-
+      A claim the pieces cannot speak to should come back unevaluable, not guessed.
+      Treat that answer as a correct one and go find the missing evidence.
+outcome: >-
+  A verdict per claim with arithmetic shown, separating what the evidence
+  supports, contradicts, and cannot address.
+boundary: >-
+  Reading collected results plus one draft file, with search and fetch disabled so
+  no gap gets quietly filled from outside.
+invariants:
+  - id: pieces-counted
+    description: The number of collected pieces was checked against the number of inputs.
+  - id: arithmetic-shown
+    description: Numeric claims come with visible working, not just a verdict.
+  - id: unevaluable-marked
+    description: Claims the evidence cannot address are marked as such rather than guessed.
+workedExample:
+  harness: claude
+  why: >-
+    The combining step needs an agent willing to say a claim is wrong and another
+    is unanswerable. Claude does both here, and flags a defect in the input it was
+    given rather than working around it.
+  command: >-
+    claude -p "Here are three verified per-vendor lines: [collected results] Now
+    read claims.md. For each claim, say whether these lines support it. Show your
+    arithmetic. Do not read the vendor files." --disallowedTools WebSearch WebFetch
+  expected: >-
+    The total corrected from 150,000 to 134,000 with working shown, the "all Q1"
+    claim contradicted by one vendor, and the ticket claim marked unevaluable
+    because the collected lines carry no ticket data.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 2.1.238
+  realOutput: |-
+    Claim 1: "Total spend across all three vendors is 150,000 per year."
+    Not supported.
+
+    48,000 + 31,000 = 79,000
+    79,000 + 55,000 = 134,000
+
+    Off by 16,000. Also, the lines carry no time unit, so even a correct sum
+    wouldn't establish "per year."
+
+    Claim 2: "All contracts renew in Q1 2027." Not supported.
+
+    | Vendor | Date | Quarter |
+    |---|---|---|
+    | alpha | 2027-01-15 | Q1 |
+    | beta | 2027-03-01 | Q1 |
+    | gamma | 2027-06-30 | Q2 |
+
+    Two of three. Separately, nothing in the lines says the third field is a
+    renewal date rather than a start, expiry, or review date.
+
+    Claim 3: "Vendor beta has the most open tickets." Cannot be assessed.
+
+    No ticket counts in the lines. Not contradicted, not supported.
+
+    Bottom line: one claim wrong on arithmetic, one wrong on the gamma date, one
+    unevaluable.
+harnessNotes:
+  - harness: codex
+    equivalent: codex exec -s read-only with the collected results in the prompt.
+  - harness: hermes
+    equivalent: hermes -z with the web toolset disabled, so gaps cannot be filled online.
+  - harness: pi
+    equivalent: pi -p --exclude-tools read to force it to work from the pieces you supplied.
+failureMode: >-
+  The combining agent smooths over a contradiction. Given three pieces where one
+  disagrees, it produces a summary that reads consistently by quietly dropping the
+  outlier, and the outlier was the finding.
+recovery: >-
+  Ask which pieces disagree with each other, as a separate question. Disagreement
+  is easier to surface when you ask for it directly than when it has to survive
+  being summarised.
+humanReview:
+  - Redo one piece of the arithmetic yourself. It takes seconds and it is the whole claim.
+  - Confirm no input was silently dropped from the combination.
+takeaway: >-
+  The pieces cannot check each other. Only the step that holds all of them can, so
+  that is where the checking belongs.

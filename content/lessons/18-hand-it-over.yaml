@@ -1,0 +1,115 @@
+num: 18
+part: 3
+slug: hand-it-over
+title: Hand the work to someone who can check it
+job: >-
+  Produce the record that lets another person take the work over without
+  repeating it or trusting you.
+summary: >-
+  Work is finished when someone else can see what was checked, what was not, and
+  how to run the checks again. Anything short of that is a document plus your
+  memory, and your memory does not transfer.
+why: >-
+  It closes the course because it is what all the checking was for. Verified work
+  nobody else can inspect only moved the trust from the agent to you.
+steps:
+  - title: State coverage, not just conclusions
+    body: >-
+      What was checked, by what method, and what the method cannot see. The
+      limits are the most useful part, since a reader can only calibrate against
+      what you tell them you missed.
+  - title: Leave the failures visible
+    body: >-
+      A handoff listing what is still wrong is worth more than one implying
+      everything is fine. Known problems are cheap; discovered ones are not.
+  - title: Give the exact rerun command
+    body: >-
+      Not a description of how to check, the literal command and its expected
+      result. The next person should be able to reproduce your finding before
+      they trust it.
+  - title: Have the agent read its own verifier
+    body: >-
+      Ask what the check does not cover. An agent reading a script will find gaps
+      the author did not think about, and those gaps belong in the handoff.
+outcome: >-
+  A note stating method, results, known failures, coverage limits, and a
+  reproducible command, which together let a reader start from your position
+  rather than from scratch.
+boundary: >-
+  Read-only. Producing a handoff should never change the work being handed over.
+invariants:
+  - id: coverage-limits-stated
+    description: The note says what was not checked and what the method cannot detect.
+  - id: known-failures-listed
+    description: Claims still wrong are named rather than smoothed over.
+  - id: rerun-command-exact
+    description: The note gives a literal command and its expected result.
+workedExample:
+  harness: codex
+  why: >-
+    A good handoff needs the agent to read the verifier and report its blind
+    spots. Codex does that here and finds a failure mode the script's own author
+    would have missed.
+  command: >-
+    codex exec -s read-only --skip-git-repo-check 'Read the vendor files,
+    claims.md, and check.sh in this directory. Produce a handoff note for whoever
+    takes this over: what was checked and how, what was NOT checked, which claims
+    are still wrong, and the exact command to re-run the verification. Be specific
+    about coverage limits.'
+  expected: >-
+    Method, current claim status with the two failures named, an account of what
+    the script actually inspects, an explicit coverage-limits list, and a literal
+    rerun command with its expected exit status.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    - Ran `bash -n ./check.sh`: passed syntax validation.
+    - Ran `./check.sh`: exited 1 with two failed claims.
+
+    Current claim status:
+    - Wrong: total annual spend claimed as 150,000; actual is
+      48,000 + 31,000 + 55,000 = 134,000.
+    - Wrong: all renewals claimed in Q1 2027. Gamma renews 2027-06-30, Q2.
+    - Correct: beta uniquely has the most open tickets: beta 4, alpha 2, gamma 1.
+
+    Coverage limits:
+    - It does not corroborate vendor data against contracts or external sources;
+      the files identify themselves as synthetic.
+    - It checks only bullet claims matching its three hard-coded sentence formats.
+    - It does not enforce that exactly three vendor files exist, despite the
+      wording "all three vendors".
+    - Non-bullet text in claims.md is ignored. If no supported claim bullets
+      existed, the script could report success without proving anything.
+    - Vendor identity comes from filenames, not document headings.
+
+    Exact rerun command:
+    cd /private/tmp/p3/work && ./check.sh
+
+    Expected current result: two failures and exit status 1. No files were changed.
+harnessNotes:
+  - harness: claude
+    equivalent: claude -p with the same request and --permission-mode plan.
+  - harness: hermes
+    equivalent: hermes -z with the same request, run from inside its configured workspace.
+    caution: >-
+      Hermes may ignore your shell's working directory and use its own configured
+      workspace instead. Ask it to print the directory it is working in before you
+      trust a report about "this directory", because it will otherwise analyse
+      files you did not mean.
+  - harness: pi
+    equivalent: pi -p --exclude-tools write,edit, which permits reading the script without changing it.
+failureMode: >-
+  The handoff describes what was produced rather than what was verified. It reads
+  as complete, the next person assumes the checking was done, and nobody ever
+  establishes which claims were actually tested.
+recovery: >-
+  Ask directly: what in this work has not been checked. Asked as its own question
+  it gets a real answer, where the same question folded into a summary request
+  gets absorbed into the conclusion.
+humanReview:
+  - Run the rerun command yourself and confirm you get the stated result.
+  - Confirm the coverage limits describe the actual method rather than restating the conclusions.
+takeaway: >-
+  Finished means another person can pick it up and see exactly how far the ground
+  has been tested. Everything before this lesson was for the sake of this one.

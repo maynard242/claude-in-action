@@ -1,0 +1,116 @@
+num: 15
+part: 3
+slug: verification-you-can-rerun
+title: Turn the check into something that exits nonzero
+job: >-
+  Convert a review you did by reading into a check a machine can run every time
+  the inputs change.
+summary: >-
+  Reading the output once tells you about that output. A check that exits nonzero
+  tells you about every future version, including the ones produced when nobody is
+  paying attention.
+why: >-
+  Part 1 taught checking by hand, which does not survive contact with volume. This
+  lesson converts the judgement you have already formed into something repeatable.
+steps:
+  - title: Check only what has a definite answer
+    body: >-
+      Totals, counts, dates, and presence or absence. Leave tone, clarity, and
+      judgement to a person. A check that tries to assess quality produces
+      confident nonsense.
+  - title: Require a nonzero exit
+    body: >-
+      Printing "looks wrong" is not a check. An exit code is what lets this run
+      unattended, block a commit, or fail a build. Insist on it in the request.
+  - title: Test the check by breaking something
+    body: >-
+      Correct one of the failing claims and confirm the check notices. A check
+      that always fails, or always passes, is indistinguishable from no check
+      until you try both directions.
+  - title: Find out what it does not cover
+    body: >-
+      Rephrase a claim and see whether the check still evaluates it. Every
+      verifier covers the patterns it was written for and silently ignores the
+      rest, which you need to know before trusting a pass.
+outcome: >-
+  A script that exits nonzero on a failing claim, names which one failed, and that
+  you have tested in both directions.
+boundary: >-
+  Write access inside a throwaway git repository, with the baseline committed.
+  The agent writes a script and runs it; it does not edit the material under test.
+invariants:
+  - id: nonzero-on-failure
+    description: The check exits nonzero when a claim fails and zero when all pass.
+  - id: failure-named
+    description: The output says which claim failed and why, not just that something did.
+  - id: tested-both-ways
+    description: The check was tested against a passing case as well as a failing one.
+workedExample:
+  harness: codex
+  why: >-
+    This lesson needs an agent that will write a file and then run it. Codex in
+    workspace-write does both, and prints its diff so you can read the script
+    before you trust the exit code.
+  command: >-
+    codex exec -s workspace-write --skip-git-repo-check 'Write a shell script
+    check.sh that verifies the claims in claims.md against the vendor-*.md files.
+    It must exit 0 if every claim holds and nonzero if any fails, printing which
+    claim failed. Do not edit claims.md. Then run it and show the output.'
+  expected: >-
+    A script that finds the two false claims and exits 1. Then correct the total in
+    claims.md and re-run: that claim should flip to PASS, which proves the script
+    reads the files rather than hardcoding a verdict.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    # First run, against the original draft claims:
+    FAIL: Total spend across all three vendors is 150,000 per year.
+          Expected 150000; vendor files total 134000.
+    FAIL: All contracts renew in Q1 2027.
+          Expected Q1 2027; gamma renews 2027-06-30.
+    PASS: Vendor beta has the most open tickets.
+    2 claim(s) failed.
+    exit status: 1
+
+    # Then I corrected the total in claims.md to 134,000 and re-ran:
+    PASS: Total spend across all three vendors is 134,000 per year.
+    FAIL: Two of three contracts renew in Q1 2027.
+          Unsupported claim format.
+    PASS: Vendor beta has the most open tickets.
+    1 claim(s) failed.
+    exit: 1
+
+    # The corrected total flipped to PASS, so the script genuinely parses the
+    # vendor files. But rewording the second claim produced "Unsupported claim
+    # format" rather than a real check: the verifier only handles the phrasings it
+    # was built for. That gap is the thing to know about before trusting a pass.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      claude -p with the same request. Bash access is needed for the agent to run
+      what it wrote, so keep it in a throwaway directory.
+  - harness: hermes
+    equivalent: >-
+      hermes -z with the same request, or hermes verify, which detects a project's
+      run recipe and smoke-tests it.
+  - harness: pi
+    equivalent: pi -p with write and bash tools enabled.
+    caution: >-
+      This lesson needs write and shell access, which is exactly what lesson 9
+      told you to remove. That is the trade: automated verification costs the
+      permissions you were withholding, so pay it in a directory you can discard.
+failureMode: >-
+  A check that passes because it does not actually test anything. It reads
+  plausibly, exits zero, and gets trusted for months before someone notices it
+  never looked at the inputs.
+recovery: >-
+  Break the input on purpose and confirm the check fails. If it still passes, the
+  check is decoration. This takes one command and should be done the day the check
+  is written.
+humanReview:
+  - Read the script rather than only its output. A check you have not read is a claim.
+  - Confirm what the check ignores, since a pass only covers what it looks at.
+takeaway: >-
+  A check nobody runs is a comment. A check with an exit code is a control, and
+  the difference is whether it can fail while you are asleep.

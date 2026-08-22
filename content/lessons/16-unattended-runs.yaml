@@ -1,0 +1,115 @@
+num: 16
+part: 3
+slug: unattended-runs
+title: Let something run when you are not watching
+job: >-
+  Schedule work to happen without you, and arrange it so a silent failure cannot
+  hide.
+summary: >-
+  A scheduled agent is the first one that acts with nobody in the room. That
+  changes what it should be allowed to do, and it means the interesting design
+  question is not the schedule but what happens when a run goes wrong at 3am.
+why: >-
+  It comes near the end because it combines everything before it. An unattended
+  run needs a tight boundary, a check with an exit code, and a recovery path,
+  since none of them can be supplied live.
+steps:
+  - title: Schedule the check, not the judgement
+    body: >-
+      Good unattended work is narrow and has a definite answer. Run the verifier
+      from lesson 15 and report the exit code. Do not schedule anything whose
+      output needs interpreting before anyone can act on it.
+  - title: Create it paused and read it back
+    body: >-
+      Create the job, pause it, then list it and check the schedule, working
+      directory, and delivery target are what you meant. The next-run time is the
+      field worth reading twice.
+  - title: Decide what silence means
+    body: >-
+      A job that reports only on failure is quiet when healthy and quiet when
+      broken. Either send a heartbeat on success or monitor the job itself, so
+      absence of news is not mistaken for good news.
+  - title: Remove it when the reason is gone
+    body: >-
+      Scheduled jobs outlive the problem they were created for. A job nobody reads
+      is worse than no job, because it produces the feeling of coverage without
+      the fact of it.
+outcome: >-
+  A job you have created, inspected, and then either kept deliberately or removed,
+  with a stated answer to what its silence means.
+boundary: >-
+  This lesson creates a real scheduled job on your machine, which is the heaviest
+  action in the course. Create it paused, and remove it when you are done unless
+  you actually want it running.
+invariants:
+  - id: inspected-before-active
+    description: The job's schedule, working directory, and delivery target were read back after creation.
+  - id: silence-defined
+    description: You have decided what a quiet run means and how you would notice a broken job.
+  - id: removed-or-kept-deliberately
+    description: The job was removed, or kept as a conscious decision rather than by forgetting.
+workedExample:
+  harness: hermes
+  why: >-
+    Hermes has the most complete scheduling surface of the four: cron with
+    pausing, durable run history, a persistent notepad across runs, and a
+    script-only mode that skips the model entirely.
+  command: >-
+    hermes cron create '0 9 * * 1' 'Run check.sh in the vendor directory and
+    report only whether it exited nonzero.' --name p3-lesson16-demo --deliver
+    local --repeat 1 --workdir /tmp/p3/work, then hermes cron pause <id>, then
+    hermes cron remove <id>
+  expected: >-
+    A job id and a concrete next-run time, a confirmation that it paused, and a
+    clean removal. Check the working directory in the output matches what you
+    intended.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.20.4
+  realOutput: |-
+    $ hermes cron create '0 9 * * 1' '...' --name p3-lesson16-demo \
+        --deliver local --repeat 1 --workdir /tmp/p3/work
+    Created job: fce8ac3b93bc
+      Name: p3-lesson16-demo
+      Schedule: 0 9 * * 1
+      Workdir: /private/tmp/p3/work
+      Next run: 2026-08-24T09:00:00+08:00
+
+    $ hermes cron pause fce8ac3b93bc
+    Paused job: p3-lesson16-demo (fce8ac3b93bc)
+
+    $ hermes cron remove fce8ac3b93bc
+    Removed job: p3-lesson16-demo (fce8ac3b93bc)
+
+    Note that the workdir came back as /private/tmp/p3/work rather than the
+    /tmp/p3/work that was passed. Reading the record back is how you catch that
+    kind of difference before it matters.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      No built-in scheduler. Use the operating system: cron or launchd calling
+      claude -p, with output redirected to a file you actually read.
+  - harness: codex
+    equivalent: >-
+      No built-in scheduler either. Same approach, cron or launchd calling codex
+      exec with a fixed sandbox mode.
+    caution: >-
+      Under a scheduler there is nobody to answer an approval prompt. Set the
+      sandbox explicitly rather than relying on a default, or the job will hang
+      or silently do nothing.
+  - harness: pi
+    equivalent: pi -p from an operating system scheduler, with --no-session so runs do not accumulate state.
+failureMode: >-
+  The job fails quietly. It reports only on problems, so a broken job and a
+  healthy one look identical, and you find out weeks later that it stopped running
+  the day after you set it up.
+recovery: >-
+  Check the run history rather than waiting for a report. hermes cron runs shows
+  durable execution attempts, which tells you whether the job fired at all, as
+  distinct from whether it found anything.
+humanReview:
+  - Confirm the working directory and delivery target in the record match your intent.
+  - Decide today how you would notice this job dying, not after it has.
+takeaway: >-
+  An unattended agent inherits whatever permissions you left it and none of your
+  attention. Give it the narrowest job you can describe in one sentence.

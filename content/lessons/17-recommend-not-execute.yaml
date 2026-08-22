@@ -1,0 +1,122 @@
+num: 17
+part: 3
+slug: recommend-not-execute
+title: Keep the agent on the recommending side of the line
+job: >-
+  Have an agent produce a recommendation together with an explicit list of the
+  actions it must not take on its own.
+summary: >-
+  The useful boundary in real work is not what an agent can read but what it can
+  commit you to. Analysis, drafting, and comparison are safe. Signing, sending,
+  paying, and deleting are not, and the line between them should be written down
+  rather than assumed.
+why: >-
+  By this point the agent can be trusted with access, parallelism, and its own
+  verification. This is where you decide what it is still not allowed to finish.
+steps:
+  - title: Ask for the recommendation and the boundary together
+    body: >-
+      One request, two outputs. A recommendation with no boundary invites someone
+      to act on it directly, which is how a suggestion becomes an action nobody
+      approved.
+  - title: Separate needs-permission from never-automatic
+    body: >-
+      Two different categories. Some actions are fine once a person says yes.
+      Others should never happen without a human performing them, however broad
+      the permission granted.
+  - title: Look for the binding actions
+    body: >-
+      Anything that creates a commitment, moves money, discloses secrets, or
+      destroys a record. These are irreversible in ways that approval prompts
+      alone do not address.
+  - title: Make the recommendation say how firm it is
+    body: >-
+      A recommendation resting on partial data should say so and name what is
+      missing. That caveat is what stops a preliminary view being read as a
+      finding.
+outcome: >-
+  A recommendation with its confidence stated, a list of actions requiring
+  approval, and a shorter list of actions no permission setting should authorise.
+boundary: >-
+  Read-only. The agent recommends and enumerates; it takes no action, which is
+  the lesson enacted rather than described.
+invariants:
+  - id: recommendation-qualified
+    description: The recommendation states what it rests on and what data is missing.
+  - id: permission-list-given
+    description: Actions needing explicit approval are listed specifically, not generically.
+  - id: never-automatic-list-given
+    description: A separate list names actions that should never be automated at any permission level.
+workedExample:
+  harness: codex
+  why: >-
+    Read-only mode makes the point structurally: the agent recommends because it
+    cannot do anything else. The boundary is enforced while being described.
+  command: >-
+    codex exec -s read-only --skip-git-repo-check 'Based on the vendor files,
+    recommend which contract to renegotiate first. Then state precisely which
+    actions you would need permission to carry out, and which of those you should
+    never be permitted to do automatically regardless of permission.'
+  expected: >-
+    A qualified recommendation naming the missing data, a specific permission
+    list, and a separate never-automatic list covering binding commitments,
+    payments, disclosure, and record deletion.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    Renegotiate Vendor Alpha first. It renews earliest, January 15, 2027, and
+    carries substantial annual spend at $48,000.
+
+    This is a preliminary recommendation because the files omit notice periods,
+    auto-renewal terms, usage, pricing benchmarks, and termination rights. The
+    consolidated claims.md is inaccurate: actual total spend is $134,000, and
+    Gamma renews in Q2.
+
+    Actions requiring explicit permission:
+    - Contact Alpha or its representatives.
+    - Send a negotiation proposal, pricing target, redline, or non-renewal notice.
+    - Share internal usage, budget, ticket, benchmark, or competing-bid information.
+    - Change authoritative procurement, contract, or vendor records.
+    - Agree to commercial or legal terms, renew, terminate, or execute the contract.
+    - Authorize payments, credits, refunds, or changes to payment instructions.
+
+    Actions that should never be performed automatically, even under broad
+    permission:
+    - Sign, accept, renew, terminate, or otherwise create a legally binding
+      commitment.
+    - Send or authorize money or alter payment/banking instructions.
+    - Disclose credentials, secrets, personal data, or privileged material.
+    - Make deceptive representations, fabricate competing offers, or circumvent
+      procurement/legal controls.
+    - Delete or conceal contracts, approvals, communications, or audit records.
+
+    I can safely analyze the files and draft negotiation materials without
+    sending or committing anything. Final communications and every binding action
+    should remain subject to named human review.
+harnessNotes:
+  - harness: claude
+    equivalent: claude -p with --permission-mode plan, which structurally prevents acting.
+  - harness: hermes
+    equivalent: >-
+      hermes -z with a read-only toolset. Hermes can send to messaging platforms
+      once configured, so this is the harness where the line needs the most care.
+    caution: >-
+      Check hermes tools --summary before running anything that mentions sending.
+      A configured messaging toolset turns a drafted message into a sendable one.
+  - harness: pi
+    equivalent: pi -p --no-tools for pure analysis with no capability to act.
+failureMode: >-
+  The agent drafts something ready to send and something in the pipeline sends it.
+  Nobody decided to; the draft was simply adjacent to a send capability, and the
+  gap between recommending and doing was never made explicit.
+recovery: >-
+  Put the irreversible step behind a person and a different tool. Not a different
+  prompt, and not a stricter instruction: a separate system that a human operates,
+  so the agent cannot reach it however it is asked.
+humanReview:
+  - Confirm the never-automatic list covers binding commitments, money, disclosure, and deletion.
+  - Check the recommendation is qualified honestly rather than sounding decisive on thin data.
+takeaway: >-
+  An agent should be able to tell you what to do and be unable to do it. That gap
+  is a design decision, and it has to be built rather than requested.
