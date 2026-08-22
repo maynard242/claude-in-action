@@ -1,0 +1,111 @@
+num: 10
+part: 2
+slug: decide-what-needs-approval
+title: Decide in advance what needs your approval
+job: >-
+  Work out which actions should stop and wait for you, and test that decision
+  before an agent depends on it.
+summary: >-
+  Approval prompts are only useful if they fire on the actions that matter. Too
+  many and you click through everything; too few and the one that mattered went
+  past unseen. This lesson tests the policy instead of discovering it live.
+why: >-
+  Lessons 7 to 9 were static boundaries, set before the run. Approvals are
+  dynamic: the agent proposes and you decide. That only works if you know in
+  advance what will interrupt you.
+steps:
+  - title: Sort actions by reversibility
+    body: >-
+      Reading is free. Writing a new file is cheap to undo. Overwriting, deleting,
+      pushing, sending, and paying are not. Reversibility, not risk in the
+      abstract, is the useful axis.
+  - title: Put the prompt at the irreversible step
+    body: >-
+      Approve the send, not the draft. Approve the delete, not the read. If a
+      prompt fires on something you always say yes to, it is training you to stop
+      reading prompts.
+  - title: Test the verdict without running the command
+    body: >-
+      Ask what would happen before it happens. You want to know that rm triggers
+      a prompt while ls does not, and you want to know it without deleting
+      anything.
+  - title: Widen the allowlist from evidence, not annoyance
+    body: >-
+      When a prompt fires repeatedly on something genuinely safe, add it to the
+      allowlist deliberately. That is different from disabling approvals because
+      they got irritating.
+outcome: >-
+  A tested list of which commands run silently and which stop for you, with the
+  rule that produced each verdict.
+boundary: >-
+  Nothing executes in this lesson. You are asking the approval system for a
+  verdict, which is why it is safe to test with a destructive command.
+invariants:
+  - id: verdict-tested
+    description: At least one safe and one destructive command were tested for their verdict.
+  - id: rule-identified
+    description: The verdict names the rule that matched, not just the outcome.
+  - id: nothing-executed
+    description: No command was actually run to obtain the verdict.
+workedExample:
+  harness: hermes
+  why: >-
+    Hermes is the only one of the four that can answer "would this be approved"
+    without running the command. That makes the policy inspectable rather than
+    something you learn by tripping it.
+  command: >-
+    hermes approvals test 'ls -la' and then hermes approvals test 'rm -rf
+    /tmp/p2/work'
+  expected: >-
+    The first returns allow with no guard matched. The second returns
+    ask-approval, names the matching pattern, and exits with a different code so
+    you can use it in a script.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.20.4
+  realOutput: |-
+    $ hermes approvals test 'ls -la'
+    command : ls -la
+    env-type: local
+    verdict : allow  (exit 0)
+    detail  : no guard matched; would run without a prompt
+
+    $ hermes approvals test 'rm -rf /tmp/p2/work'
+    command : rm -rf /tmp/p2/work
+    env-type: local
+    verdict : ask-approval  (exit 2)
+    rule    : delete in root path
+    detail  : matches a dangerous-command pattern; the runtime would raise an
+              interactive approval prompt (pattern key: 'delete in root path')
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      Permission modes set the standing policy: manual asks, acceptEdits stops
+      asking about edits, dontAsk stops asking. There is no dry-run, so test with
+      a harmless command in a throwaway directory.
+    caution: >-
+      bypassPermissions turns off the prompts entirely. It has legitimate uses in
+      an already-sandboxed environment and no place on a machine holding work you
+      care about.
+  - harness: codex
+    equivalent: >-
+      Approval behaviour is tied to the sandbox mode, shown in the run header.
+      --approve-for-me routes approvals through automatic review instead of you.
+  - harness: pi
+    equivalent: >-
+      --approve trusts project-local files for a run; --no-approve refuses them.
+      Neither offers a dry-run verdict.
+failureMode: >-
+  Approval fatigue. The prompts fire so often on trivial actions that approving
+  becomes reflex, and the one prompt that deserved a pause gets the same reflexive
+  yes as the ninety before it.
+recovery: >-
+  Do not respond by disabling approvals. Narrow them: allowlist the safe commands
+  that keep firing so the remaining prompts are rare enough to actually read.
+  Rare prompts get read; frequent ones get clicked.
+humanReview:
+  - Confirm the prompts fire on irreversible actions rather than on reading.
+  - Check any allowlist entry you added is genuinely safe, not merely frequent.
+takeaway: >-
+  An approval prompt you always say yes to is not a control. It is a delay you
+  have taught yourself to ignore.

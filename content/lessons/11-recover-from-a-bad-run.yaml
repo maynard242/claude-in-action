@@ -1,0 +1,114 @@
+num: 11
+part: 2
+slug: recover-from-a-bad-run
+title: Make a bad run recoverable
+job: >-
+  Set up the conditions where an agent's mistake costs you one command instead of
+  an afternoon.
+summary: >-
+  An agent given write access and a vague instruction will eventually delete
+  something you wanted. This lesson induces that on purpose, in a throwaway
+  directory, then recovers from it precisely.
+why: >-
+  Lessons 7 to 10 reduce how often this happens. None of them reduce it to zero,
+  so the remaining skill is making the failure cheap.
+steps:
+  - title: Commit before you grant write access
+    body: >-
+      One commit, any message. This is the entire safety net, and it takes three
+      seconds. Skipping it is what turns a recoverable mistake into lost work.
+  - title: Notice that vague plus write is the dangerous combination
+    body: >-
+      "Remove anything redundant" is a licence to delete, and redundant is the
+      agent's judgement, not yours. Either narrow the instruction or narrow the
+      permission.
+  - title: Diff before you react
+    body: >-
+      Find out what actually changed before deciding what to do. The agent's own
+      summary of its changes is a claim, and the diff is the evidence.
+  - title: Recover selectively
+    body: >-
+      A bad run is rarely all bad. Restore the file that should not have changed
+      and keep the work that was genuinely an improvement, rather than reverting
+      everything reflexively.
+outcome: >-
+  A deleted file restored, a good change kept, and a diff proving which is which.
+boundary: >-
+  Throwaway directory under version control. You are deliberately causing a
+  destructive change, which is only reasonable because the baseline is committed
+  and the files are synthetic.
+invariants:
+  - id: baseline-committed
+    description: A known-good state was committed before write access was granted.
+  - id: damage-identified-by-diff
+    description: What changed was established from the diff, not from the agent's summary.
+  - id: selective-recovery
+    description: The wrongly deleted file was restored while the good change was kept.
+workedExample:
+  harness: codex
+  why: >-
+    Codex in workspace-write does real work and, given a vague instruction, makes
+    a real mistake. It also prints its diff, which is what lets you see the
+    deletion at the moment it happens.
+  command: >-
+    codex exec -s workspace-write --skip-git-repo-check 'Clean up this directory.
+    Consolidate the notes into out/summary.md and remove anything that looks
+    redundant.'
+  expected: >-
+    A better summary and a deleted source file. Then git status shows the
+    deletion, and git checkout restores only that file while the improved summary
+    stays.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    # The agent's own account of what it did:
+    Directory cleaned up:
+    - Consolidated all notes into out/summary.md
+    - Removed redundant notes.md
+    - Left secrets.env untouched and excluded from the summary
+
+    # What the diff actually showed:
+    $ git status --short
+     D notes.md
+     M out/summary.md
+
+    $ git diff --stat
+     notes.md       |  8 --------
+     out/summary.md | 10 ++++++++--
+     2 files changed, 8 insertions(+), 10 deletions(-)
+
+    # Targeted recovery: restore the deletion, keep the better summary.
+    $ git checkout -- notes.md
+    $ git status --short
+     M out/summary.md
+
+    notes.md is back with its original contents. The improved summary survived.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      Same pattern. Commit first, then run without a restricting permission mode,
+      then diff. Claude also keeps a session transcript you can re-read.
+  - harness: hermes
+    equivalent: >-
+      hermes --worktree runs the work in a separate git worktree, so the mistake
+      lands somewhere you can discard wholesale. hermes checkpoints holds
+      recoverable state.
+  - harness: pi
+    equivalent: >-
+      pi -p with write tools enabled, recovered the same way through git. Pi has
+      no built-in checkpoint, so the commit is doing all the work.
+failureMode: >-
+  The agent reports what it intended rather than what it did. Here it called
+  notes.md redundant, which was its judgement and not true, and the report reads
+  as a tidy success.
+recovery: >-
+  git status then git checkout on the specific path. Outside version control there
+  is no recovery, which is the real argument for committing first: not tidiness,
+  but the existence of an undo.
+humanReview:
+  - Confirm the restored file matches what you expected, by opening it.
+  - Check whether the change you kept is genuinely an improvement or just newer.
+takeaway: >-
+  You cannot prevent every bad run. You can make sure the worst one costs a
+  single command, and that is a decision you make before the run, not after.

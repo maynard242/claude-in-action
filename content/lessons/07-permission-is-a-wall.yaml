@@ -1,0 +1,124 @@
+num: 7
+part: 2
+slug: permission-is-a-wall
+title: A permission is a wall, an instruction is a request
+job: >-
+  See the difference between telling an agent not to do something and making it
+  unable to.
+summary: >-
+  Asking an agent to stay read-only is a preference it can misread. Setting the
+  sandbox to read-only is a wall it cannot cross. This lesson runs the same
+  request twice with one flag changed, so you can watch the difference.
+why: >-
+  It opens Part 2 because everything else here depends on it. Once an agent can
+  act, wording stops being your protection and configuration starts.
+steps:
+  - title: Decide what the agent must not touch
+    body: >-
+      Before choosing a flag, name the thing you are protecting. Files outside
+      the project, credentials, anything that sends. If you cannot name it, you
+      are not ready to grant access.
+  - title: Run it read-only first
+    body: >-
+      Every task starts here. You learn what the agent intends to do while it
+      still cannot do it, which is the cheapest possible time to find out.
+  - title: Read the refusal
+    body: >-
+      A blocked action produces an error naming the boundary. That error is the
+      most useful output in this lesson, because it proves the wall exists rather
+      than asking you to trust that it does.
+  - title: Widen by one step, not to the maximum
+    body: >-
+      If the agent needs to write, allow writing in the working directory. Not
+      the home directory, not full access. Grant the smallest thing that unblocks
+      the job.
+outcome: >-
+  Two runs of one request: a refusal that names the boundary, then a completed
+  write. You have seen the wall hold and then seen it moved deliberately.
+boundary: >-
+  Throwaway directory with synthetic files, including a fake credentials file
+  that exists only to confirm nothing reads it. Never run this lesson in a real
+  project.
+invariants:
+  - id: refusal-observed
+    description: The read-only run refused and named the sandbox as the reason.
+  - id: file-unchanged-after-refusal
+    description: The target file still had its original contents after the refusal.
+  - id: widened-deliberately
+    description: The second run granted the narrowest permission that unblocked the job.
+workedExample:
+  harness: codex
+  why: >-
+    Codex makes this visible in a way the others do not. It prints the sandbox
+    mode in the run header and names it again in the refusal, so the boundary
+    appears in the output twice.
+  command: >-
+    codex exec -s read-only --skip-git-repo-check 'Read notes.md, then write a
+    two-line summary to out/summary.md. If you cannot write, say exactly what
+    stopped you.'
+  expected: >-
+    The agent reads the file, tries to write, and is refused with a message
+    naming the read-only sandbox. Check that out/summary.md is unchanged, then
+    re-run with -s workspace-write and watch the same request succeed.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.149.0
+  realOutput: |-
+    # First run, -s read-only
+
+    codex
+    The notes identify a synthetic vendor review with renewal/spend details and
+    two low-severity open tickets. I'm now writing exactly two lines to the
+    requested path.
+
+    ERROR codex_core::tools::router: error=patch rejected: writing is blocked by
+    read-only sandbox; rejected by user approval settings
+
+    codex
+    The read-only filesystem sandbox blocked writing to `out/summary.md`, and
+    approval settings prohibit overriding it.
+
+    # out/summary.md afterwards, unchanged:
+    placeholder
+
+    # Second run, -s workspace-write
+
+    --- a/out/summary.md
+    +++ b/out/summary.md
+    @@ -1 +1,2 @@
+    -placeholder
+    +This synthetic vendor review covers a contract renewing November 30, 2026, with annual spend of $48,000.
+    +Procurement owns the account, which has two open support tickets, both severity 3.
+
+    Created the two-line summary at out/summary.md.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      claude -p 'your request' --permission-mode plan to look without acting,
+      then drop the flag once you are satisfied.
+    caution: >-
+      --disallowedTools takes a list, so it will swallow your prompt if the
+      prompt comes after it. Put the prompt first.
+  - harness: hermes
+    equivalent: hermes -z with a narrow -t toolset, so write tools are never loaded.
+    caution: >-
+      Do not reach for --safe-mode here. It disables your config, memory, and
+      plugins for troubleshooting; it is not a permission sandbox and will not
+      stop a write.
+  - harness: pi
+    equivalent: >-
+      pi -p --no-tools to block everything, or --exclude-tools write,edit to
+      allow reading while blocking changes.
+failureMode: >-
+  You write "do not modify any files" in the prompt, the agent modifies a file
+  anyway, and you find out later. The instruction was advice. Nothing enforced it.
+recovery: >-
+  Check what changed before assuming nothing did. In a git repository, git status
+  answers this in a second. Outside one, you are relying on memory, which is the
+  argument for running unfamiliar tasks inside a repository or a copy.
+humanReview:
+  - Confirm the target file was genuinely unchanged after the refusal, by opening it.
+  - Check the second run granted the narrowest permission that worked, not the widest available.
+takeaway: >-
+  If you would not be comfortable with the agent doing the worst thing its
+  permissions allow, the permissions are wrong. The prompt is not a control.

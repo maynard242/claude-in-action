@@ -1,0 +1,104 @@
+num: 12
+part: 2
+slug: handle-a-late-change
+title: Handle a change that arrives after the work
+job: >-
+  Trace every place a late correction has to land, including the copies you
+  forgot existed.
+summary: >-
+  Facts change after you have written them down. The danger is not the change
+  itself, it is that agent work spawns derived copies, and updating the visible
+  one leaves the others quietly wrong.
+why: >-
+  It closes Part 2 because it needs everything before it. You can only trace a
+  change through derived files if you knew what the agent read and wrote in the
+  first place.
+steps:
+  - title: Find every copy before editing any
+    body: >-
+      A fact that appears in a source file, a summary, and a slide is three
+      facts now. Enumerate first; edit second. The enumeration is the part people
+      skip.
+  - title: Separate the record from the copies
+    body: >-
+      A change request naming the old value is correct and must not be updated. A
+      summary repeating the old value is wrong and must be. Knowing which is which
+      is the actual skill.
+  - title: Ask what stays wrong if you only fix the obvious one
+    body: >-
+      This question is worth more than any checklist. It surfaces the derived
+      copy that nobody would think to open.
+  - title: Fix the source, then regenerate
+    body: >-
+      Where a file was derived from another, correct the source and regenerate
+      rather than editing both. Two hand-edits drift; a regeneration cannot.
+outcome: >-
+  A list of every location holding the changed fact, split into what needs
+  updating and what correctly records the old value.
+boundary: >-
+  Read-only analysis. Nothing is edited in this lesson, because the point is to
+  know the full blast radius before touching anything.
+invariants:
+  - id: all-occurrences-found
+    description: Every file containing the changed fact is listed, with locations.
+  - id: record-vs-copy-distinguished
+    description: Files that correctly cite the old value are excluded from the update list.
+  - id: silent-failure-named
+    description: The consequence of updating only the obvious file is stated.
+workedExample:
+  harness: hermes
+  why: >-
+    Hermes reports file paths with line numbers and reasons about which
+    occurrences should stay untouched, which is exactly the distinction this
+    lesson turns on.
+  command: >-
+    hermes -z 'Read notes.md, out/summary.md, and change-request.md. The change
+    request arrived after the summary was written. List every place the old
+    renewal date appears and would need updating, and say what would silently
+    stay wrong if someone only edited the summary. Do not edit anything.'
+  expected: >-
+    Three occurrences found, two needing updates and one correctly recording the
+    change, plus a statement of what breaks if only the summary is fixed.
+  status: verified
+  verifiedOn: "2026-08-22"
+  harnessVersion: 0.20.4
+  realOutput: |-
+    The old date, 2026-11-30, appears in three places:
+
+    Needs updating:
+    - notes.md:5, "Contract renews 2026-11-30."
+    - out/summary.md:5, "Contract renewal: November 30, 2026"
+
+    Does not need updating:
+    - change-request.md:3, "It is now 2027-01-15, not 2026-11-30."
+      This correctly records the change from the old date to the new one.
+
+    If someone edited only the summary, notes.md would silently remain wrong. Any
+    later summary regeneration, source review, audit, or downstream process using
+    the notes could restore or propagate the obsolete November 30, 2026 date
+    instead of January 15, 2027.
+
+    No files were edited.
+harnessNotes:
+  - harness: claude
+    equivalent: >-
+      claude -p with the same request and --permission-mode plan, so the analysis
+      cannot turn into an edit partway through.
+  - harness: codex
+    equivalent: codex exec -s read-only, which permits the search while preventing any change.
+  - harness: pi
+    equivalent: pi -p --exclude-tools write,edit to allow the search but not the fix.
+failureMode: >-
+  You update the document you were looking at. The source file it came from keeps
+  the old value, and the next regeneration reintroduces the error, which now looks
+  freshly produced and therefore trustworthy.
+recovery: >-
+  Search for the old value across the whole working directory rather than fixing
+  from memory. Then correct the source and regenerate anything derived from it, so
+  the two cannot disagree.
+humanReview:
+  - Confirm the search covered derived files, not only the one you were editing.
+  - Check no file that correctly cites the old value was updated by mistake.
+takeaway: >-
+  Every copy an agent produces is a place a fact can go stale. Know where they are
+  before you need to change one.
