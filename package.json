@@ -1,14 +1,12 @@
 {
-  "name": "ai_tutorial_site",
+  "name": "harnesses-in-action",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "validate:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/validate-content.mjs",
-    "test:course": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/course/**/*.test.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "js-yaml": "5.2.3",

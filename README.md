@@ -13,7 +13,7 @@ All three parts are written. Every one of the eighteen worked examples has been 
 ## Structure
 
 ```
-ai_tutorial_site/
+harnesses-in-action/
 ├── app/
 │   ├── page.tsx              # Homepage
 │   ├── learn/                # Course index, part pages, lesson pages
