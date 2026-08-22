@@ -14,7 +14,7 @@ The pedagogy: each lesson teaches a job, shows one harness worked end to end, th
 
 Part 1 is written and verified. Parts 2 and 3 are declared in `content/parts.yaml` with no lessons yet.
 
-Deploys to the Vercel project `harnesses-in-action` on push to `main`. The GitHub repo is still named `claude-in-action`; that mismatch is expected.
+Lives at `maynard242/harnesses-in-action` and deploys to the Vercel project of the same name on push to `main`.
 
 ## File roles
 
@@ -88,7 +88,6 @@ Every word goes through the `humanizer` skill. In practice:
 - Do not mark a worked example verified without running it.
 - Do not hardcode the harness list. Import `HARNESSES` from `lib/course/types.ts`.
 - Do not put `content/` in `.vercelignore`; the build needs it.
-- Do not render `content/runsheet.md`. It is a leftover presenter script from the previous version of this site, kept for reference only.
 - Do not introduce a CMS, MDX, or react-markdown. Frontmatter-style YAML plus plain TSX is deliberate.
 - Do not reintroduce the SHA-256 evidence chain. It gated every lesson into an unrunnable state and blocked the build.
 
